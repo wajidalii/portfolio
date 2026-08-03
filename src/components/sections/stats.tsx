@@ -11,7 +11,7 @@ export function Stats() {
           <div key={s.label}>
             <div className="font-display text-[32px] sm:text-4xl lg:text-[44px] font-bold tracking-[-0.04em] leading-none">
               {s.value}
-              <span className="text-accent">{s.suffix}</span>
+              <span className="text-accent-fg">{s.suffix}</span>
             </div>
             <div className="mt-2.5 text-muted text-[14.5px] max-w-[24ch] text-pretty">
               {s.label}

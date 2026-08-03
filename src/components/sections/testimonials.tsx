@@ -4,7 +4,7 @@ export function Testimonials() {
   return (
     <section aria-labelledby="tst-h" className="border-b border-border">
       <div className="max-w-[1180px] mx-auto px-6 py-14 sm:py-16 lg:py-22">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
           05 — Recommendations
         </div>
         <h2
@@ -58,7 +58,7 @@ export function Testimonials() {
               >
                 <span
                   aria-hidden
-                  className="grid place-items-center w-[34px] h-[34px] shrink-0 rounded-full bg-surface-2 border border-border font-mono text-[11.5px] text-accent"
+                  className="grid place-items-center w-[34px] h-[34px] shrink-0 rounded-full bg-surface-2 border border-border font-mono text-[11.5px] text-accent-fg"
                 >
                   {e.initials}
                 </span>

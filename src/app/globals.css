@@ -15,6 +15,10 @@
   --accent: #5c9cf5;
   --accent2: #2fb58c;
   --glow: rgba(92, 156, 245, 0.14);
+  /* --accent/--accent2 as *text* color: 6.98:1 / 7.52:1 on this bg, so
+     the foreground tokens just alias them in dark mode. */
+  --accent-fg: var(--accent);
+  --accent2-fg: var(--accent2);
 }
 
 :root[data-theme="light"] {
@@ -25,6 +29,14 @@
   --text: #12171b;
   --muted: #5b666f;
   --glow: rgba(92, 156, 245, 0.1);
+  /* --accent/--accent2 only reach ~2.6:1 as *text* on this bg — well
+     under WCAG AA's 4.5:1 (or 3:1 even at large sizes). Darkened,
+     same-hue variants for anywhere accent color is used as foreground
+     text/icon color rather than a button/badge background, where the
+     original brighter values still apply and already have good contrast
+     against the dark button-label color. */
+  --accent-fg: #0d62d9;
+  --accent2-fg: #1f785d;
 }
 
 @theme inline {
@@ -36,6 +48,8 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-2: var(--accent2);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-2-fg: var(--accent2-fg);
 
   --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-ibm-plex-sans);
@@ -60,6 +74,17 @@ body {
 ::selection {
   background: var(--accent);
   color: #08090a;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-fg);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 @keyframes pulse-dot {

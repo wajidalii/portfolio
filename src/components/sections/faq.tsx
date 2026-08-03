@@ -4,7 +4,7 @@ export function Faq() {
   return (
     <section aria-labelledby="faq-h" className="border-b border-border">
       <div className="max-w-[860px] mx-auto px-6 py-14 sm:py-16 lg:py-22">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
           07 — FAQ
         </div>
         <h2
@@ -24,7 +24,7 @@ export function Faq() {
             >
               <summary className="cursor-pointer font-semibold text-base tracking-[-0.01em] list-none flex justify-between gap-4 items-center">
                 {f.q}
-                <span aria-hidden className="text-accent font-mono">
+                <span aria-hidden className="text-accent-fg font-mono">
                   +
                 </span>
               </summary>

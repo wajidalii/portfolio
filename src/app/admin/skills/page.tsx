@@ -71,7 +71,7 @@ export default async function AdminSkillsPage() {
             </div>
             <Link
               href={`/admin/skills/${g.id}`}
-              className="font-mono text-xs text-accent"
+              className="font-mono text-xs text-accent-fg"
             >
               Edit
             </Link>

@@ -67,7 +67,7 @@ export default async function AdminExperiencePage() {
               </div>
               <div className="text-muted text-sm">{r.period}</div>
             </div>
-            <Link href={`/admin/experience/${r.id}`} className="font-mono text-xs text-accent">
+            <Link href={`/admin/experience/${r.id}`} className="font-mono text-xs text-accent-fg">
               Edit
             </Link>
             <form action={deleteRole.bind(null, r.id)}>

@@ -4,7 +4,7 @@ export function About() {
   return (
     <section id="about" aria-labelledby="about-h" className="border-b border-border">
       <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-26">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
           01 — About
         </div>
         <div className="grid grid-cols-1 min-[880px]:grid-cols-[1fr_0.78fr] gap-8 min-[880px]:gap-18 items-start">

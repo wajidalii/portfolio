@@ -101,7 +101,7 @@ export function ContactForm() {
         </button>
         <span role="status" className="font-mono text-[12.5px]">
           {state.status === "success" && (
-            <span className="text-accent-2">
+            <span className="text-accent-2-fg">
               ✓ Thanks — I&apos;ll reply within one business day.
             </span>
           )}

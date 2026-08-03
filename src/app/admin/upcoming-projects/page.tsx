@@ -70,7 +70,7 @@ export default async function AdminUpcomingProjectsPage() {
             </div>
             <Link
               href={`/admin/upcoming-projects/${p.id}`}
-              className="font-mono text-xs text-accent"
+              className="font-mono text-xs text-accent-fg"
             >
               Edit
             </Link>

@@ -22,7 +22,7 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="grid gap-2 place-items-center p-4 text-center">
           <span
             aria-hidden
-            className="grid place-items-center w-11 h-11 rounded-[11px] border border-border bg-bg font-mono text-[13px] text-accent"
+            className="grid place-items-center w-11 h-11 rounded-[11px] border border-border bg-bg font-mono text-[13px] text-accent-fg"
           >
             {project.glyph}
           </span>
@@ -48,7 +48,7 @@ function ProjectCard({ project }: { project: Project }) {
             <h3 className="m-0 font-display text-[19px] font-semibold tracking-[-0.02em]">
               {project.name}
             </h3>
-            <span className="font-mono text-[11px] text-accent-2 border border-border rounded-full px-2 py-0.5">
+            <span className="font-mono text-[11px] text-accent-2-fg border border-border rounded-full px-2 py-0.5">
               {project.kind}
             </span>
           </div>
@@ -101,7 +101,7 @@ export function Projects() {
   return (
     <section id="projects" aria-labelledby="proj-h" className="border-b border-border bg-surface">
       <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-26">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
           04 — Selected work
         </div>
         <div className="flex flex-wrap gap-5 items-end justify-between mb-11">
