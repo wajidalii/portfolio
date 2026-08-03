@@ -4,6 +4,7 @@ import { db } from "@/db/client";
 import { contactSubmissions } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
+import { ActionForm } from "@/components/ui/action-form";
 import { deleteContactSubmission } from "./actions";
 
 export const metadata: Metadata = {
@@ -39,11 +40,16 @@ export default async function AdminMessagesPage() {
                   {m.topic} · {m.createdAt.toLocaleString()}
                 </div>
               </div>
-              <form action={deleteContactSubmission.bind(null, m.id)}>
-                <Button type="submit" variant="danger" size="sm" className="shrink-0">
-                  Delete
-                </Button>
-              </form>
+              <ActionForm
+                action={deleteContactSubmission.bind(null, m.id)}
+                successMessage="Message deleted."
+              >
+                {(pending) => (
+                  <Button type="submit" variant="danger" size="sm" disabled={pending} className="shrink-0">
+                    {pending ? "Deleting…" : "Delete"}
+                  </Button>
+                )}
+              </ActionForm>
             </div>
             <p className="text-text text-sm mt-3 whitespace-pre-wrap">{m.message}</p>
           </div>

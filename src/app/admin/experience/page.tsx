@@ -4,6 +4,7 @@ import { db } from "@/db/client";
 import { roles } from "@/db/schema";
 import { asc } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
+import { ActionForm } from "@/components/ui/action-form";
 import { deleteRole, moveRole } from "./actions";
 
 export const metadata: Metadata = {
@@ -38,28 +39,32 @@ export default async function AdminExperiencePage() {
             className="border border-border rounded-xl bg-surface p-4 flex items-center gap-4"
           >
             <div className="flex flex-col gap-1">
-              <form action={moveRole.bind(null, r.id, "up")}>
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  size="icon"
-                  disabled={i === 0}
-                  aria-label="Move up"
-                >
-                  ↑
-                </Button>
-              </form>
-              <form action={moveRole.bind(null, r.id, "down")}>
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  size="icon"
-                  disabled={i === items.length - 1}
-                  aria-label="Move down"
-                >
-                  ↓
-                </Button>
-              </form>
+              <ActionForm action={moveRole.bind(null, r.id, "up")}>
+                {(pending) => (
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    size="icon"
+                    disabled={pending || i === 0}
+                    aria-label="Move up"
+                  >
+                    ↑
+                  </Button>
+                )}
+              </ActionForm>
+              <ActionForm action={moveRole.bind(null, r.id, "down")}>
+                {(pending) => (
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    size="icon"
+                    disabled={pending || i === items.length - 1}
+                    aria-label="Move down"
+                  >
+                    ↓
+                  </Button>
+                )}
+              </ActionForm>
             </div>
             <div className="flex-1">
               <div className="font-semibold">
@@ -70,11 +75,13 @@ export default async function AdminExperiencePage() {
             <Button href={`/admin/experience/${r.id}`} variant="secondary" size="sm">
               Edit
             </Button>
-            <form action={deleteRole.bind(null, r.id)}>
-              <Button type="submit" variant="danger" size="sm">
-                Delete
-              </Button>
-            </form>
+            <ActionForm action={deleteRole.bind(null, r.id)} successMessage="Role deleted.">
+              {(pending) => (
+                <Button type="submit" variant="danger" size="sm" disabled={pending}>
+                  {pending ? "Deleting…" : "Delete"}
+                </Button>
+              )}
+            </ActionForm>
           </div>
         ))}
         {items.length === 0 && <p className="text-muted text-sm">No roles yet.</p>}

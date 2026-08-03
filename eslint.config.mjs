@@ -21,6 +21,17 @@ const eslintConfig = [
       "docs/**",
     ],
   },
+  {
+    rules: {
+      // Server actions bound via useActionState must accept (prevState, formData)
+      // even when an action doesn't need one or both — underscore-prefixed
+      // params signal that intentionally.
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;

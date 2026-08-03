@@ -1,10 +1,16 @@
+"use client";
+
+import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
+import type { FormActionState } from "@/app/admin/experience/actions";
+
+const INITIAL_STATE: FormActionState = { ok: true };
 
 export function RoleForm({
   action,
   initial,
 }: {
-  action: (formData: FormData) => void;
+  action: (state: FormActionState, formData: FormData) => Promise<FormActionState>;
   initial?: {
     period: string;
     location: string;
@@ -15,8 +21,10 @@ export function RoleForm({
     stack: string[];
   };
 }) {
+  const [state, formAction, pending] = useActionState(action, INITIAL_STATE);
+
   return (
-    <form action={action} className="grid gap-5">
+    <form action={formAction} className="grid gap-5">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label htmlFor="title" className="block font-mono text-xs uppercase tracking-wider text-muted mb-1.5">
@@ -110,9 +118,16 @@ export function RoleForm({
         />
       </div>
 
-      <Button type="submit" size="md" className="justify-self-start">
-        Save
-      </Button>
+      <div className="flex items-center gap-3">
+        <Button type="submit" size="md" disabled={pending} className="justify-self-start">
+          {pending ? "Saving…" : "Save"}
+        </Button>
+        {!state.ok && (
+          <span role="alert" className="font-mono text-xs text-red-400">
+            {state.error}
+          </span>
+        )}
+      </div>
     </form>
   );
 }
