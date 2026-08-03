@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 export function UpcomingProjectForm({
   action,
   initial,
@@ -94,12 +96,9 @@ export function UpcomingProjectForm({
         />
       </div>
 
-      <button
-        type="submit"
-        className="justify-self-start rounded-lg bg-accent px-5 py-2.5 font-semibold text-[#08090a]"
-      >
+      <Button type="submit" size="md" className="justify-self-start">
         Save
-      </button>
+      </Button>
     </form>
   );
 }

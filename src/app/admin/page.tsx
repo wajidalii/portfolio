@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -34,12 +35,9 @@ export default function AdminHomePage() {
       <div className="flex items-center justify-between mb-10">
         <h1 className="font-display text-2xl font-bold">Admin</h1>
         <form action="/api/admin/logout" method="POST">
-          <button
-            type="submit"
-            className="font-mono text-xs text-muted border border-border rounded-lg px-3 py-1.5"
-          >
+          <Button type="submit" variant="ghost" size="sm">
             Sign out
-          </button>
+          </Button>
         </form>
       </div>
       <div className="grid gap-3">

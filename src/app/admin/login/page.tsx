@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 export default async function AdminLoginPage({
   searchParams,
 }: {
@@ -33,12 +35,9 @@ export default async function AdminLoginPage({
           required
           className="w-full mb-6 rounded-lg border border-border bg-bg px-3 py-2.5 text-text"
         />
-        <button
-          type="submit"
-          className="w-full rounded-lg bg-accent px-4 py-2.5 font-semibold text-[#08090a]"
-        >
+        <Button type="submit" size="md" className="w-full justify-center">
           Sign in
-        </button>
+        </Button>
       </form>
     </main>
   );

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { db } from "@/db/client";
 import { skillGroups } from "@/db/schema";
 import { asc } from "drizzle-orm";
+import { Button } from "@/components/ui/button";
 import { deleteSkillGroup, moveSkillGroup } from "./actions";
 
 export const metadata: Metadata = {
@@ -25,12 +26,9 @@ export default async function AdminSkillsPage() {
           </Link>
           <h1 className="font-display text-2xl font-bold mt-2">Skill Groups</h1>
         </div>
-        <Link
-          href="/admin/skills/new"
-          className="rounded-lg bg-accent px-4 py-2 font-semibold text-[#08090a] text-sm"
-        >
+        <Button href="/admin/skills/new" size="md">
           Add group
-        </Link>
+        </Button>
       </div>
 
       <div className="grid gap-3">
@@ -41,24 +39,26 @@ export default async function AdminSkillsPage() {
           >
             <div className="flex flex-col gap-1">
               <form action={moveSkillGroup.bind(null, g.id, "up")}>
-                <button
+                <Button
                   type="submit"
+                  variant="secondary"
+                  size="icon"
                   disabled={i === 0}
-                  className="w-6 h-6 grid place-items-center rounded border border-border text-xs disabled:opacity-30"
                   aria-label="Move up"
                 >
                   ↑
-                </button>
+                </Button>
               </form>
               <form action={moveSkillGroup.bind(null, g.id, "down")}>
-                <button
+                <Button
                   type="submit"
+                  variant="secondary"
+                  size="icon"
                   disabled={i === groups.length - 1}
-                  className="w-6 h-6 grid place-items-center rounded border border-border text-xs disabled:opacity-30"
                   aria-label="Move down"
                 >
                   ↓
-                </button>
+                </Button>
               </form>
             </div>
             <div className="flex-1">
@@ -69,16 +69,13 @@ export default async function AdminSkillsPage() {
                 {g.items.length} items · depth: {g.depth}
               </div>
             </div>
-            <Link
-              href={`/admin/skills/${g.id}`}
-              className="font-mono text-xs text-accent-fg"
-            >
+            <Button href={`/admin/skills/${g.id}`} variant="secondary" size="sm">
               Edit
-            </Link>
+            </Button>
             <form action={deleteSkillGroup.bind(null, g.id)}>
-              <button type="submit" className="font-mono text-xs text-red-400">
+              <Button type="submit" variant="danger" size="sm">
                 Delete
-              </button>
+              </Button>
             </form>
           </div>
         ))}

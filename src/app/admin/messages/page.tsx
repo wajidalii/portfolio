@@ -3,6 +3,7 @@ import Link from "next/link";
 import { db } from "@/db/client";
 import { contactSubmissions } from "@/db/schema";
 import { desc } from "drizzle-orm";
+import { Button } from "@/components/ui/button";
 import { deleteContactSubmission } from "./actions";
 
 export const metadata: Metadata = {
@@ -39,9 +40,9 @@ export default async function AdminMessagesPage() {
                 </div>
               </div>
               <form action={deleteContactSubmission.bind(null, m.id)}>
-                <button type="submit" className="font-mono text-xs text-red-400 shrink-0">
+                <Button type="submit" variant="danger" size="sm" className="shrink-0">
                   Delete
-                </button>
+                </Button>
               </form>
             </div>
             <p className="text-text text-sm mt-3 whitespace-pre-wrap">{m.message}</p>
