@@ -95,7 +95,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[11px] bg-accent text-[#08090a] font-semibold text-[15.5px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[11px] bg-accent text-[#08090a] font-semibold text-[15.5px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 hover:bg-accent-2"
         >
           {pending ? "Sending…" : "Send message"} <span aria-hidden>→</span>
         </button>
