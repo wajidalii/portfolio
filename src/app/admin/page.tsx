@@ -7,6 +7,11 @@ export const metadata: Metadata = {
 
 const sections = [
   {
+    href: "/admin/messages",
+    title: "Contact Messages",
+    description: "Read submissions from the Contact form.",
+  },
+  {
     href: "/admin/skills",
     title: "Skills & Expertise",
     description: "Edit skill groups shown in the Skills section.",
