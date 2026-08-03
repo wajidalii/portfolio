@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #0B0D0F; }
+  :root {
+    --bg:#0B0D0F; --surface:#14181C; --surface2:#191E23; --border:#252C33;
+    --text:#E8ECEF; --muted:#94A2AD; --accent:#5C9CF5; --accent2:#2FB58C;
+    --glow: rgba(92,156,245,0.14);
+  }
+  [data-theme="light"] {
+    --bg:#F6F7F8; --surface:#FFFFFF; --surface2:#F0F2F4; --border:#DFE3E7;
+    --text:#12171B; --muted:#5B666F; --glow: rgba(92,156,245,0.10);
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent2); }
+  ::selection { background: var(--accent); color: #08090A; }
+
+  input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px;
+  }
+  @keyframes pulseDot { 0%,100% { opacity:1; transform:scale(1);} 50% { opacity:.35; transform:scale(.8);} }
+  @media (max-width: 880px) {
+    .navlinks { display: none !important; }
+    .burger { display: inline-flex !important; }
+    .split { grid-template-columns: 1fr !important; }
+    .tl-item { grid-template-columns: 1fr !important; }
+    .tl-rail { display: none !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  }
+</style>
+</helmet>
+
+<div data-theme="{{ themeAttr }}" style="--accent:{{ accentColor }}; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; transition: background .35s ease, color .35s ease;">
+
+  <a href="#main" style="position:absolute; left:-9999px; top:0; padding:10px 16px; background:var(--accent); color:#08090A; z-index:99;" style-focus="left:12px; top:12px;">Skip to content</a>
+
+  <header style="position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px); background: color-mix(in oklab, var(--bg) 82%, transparent); border-bottom: 1px solid var(--border);">
+    <nav aria-label="Primary" style="max-width: 1180px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 24px;">
+      <a href="#main" style="display:flex; align-items:center; gap:10px; color:var(--text); font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.02em; font-size:17px;">
+        <span style="display:grid; place-items:center; width:30px; height:30px; border-radius:8px; background:linear-gradient(150deg, var(--accent), var(--accent2)); color:#08090A; font-size:13px; font-weight:700;">WA</span>
+        <span>Wajid Ali<span style="color:var(--muted); font-weight:400;">.dev</span></span>
+      </a>
+      <div class="navlinks" style="display:flex; align-items:center; gap:4px; margin-left:auto; font-size:14.5px;">
+        <a href="#about" style="padding:8px 12px; color:var(--muted); border-radius:8px;" style-hover="color:var(--text); background:var(--surface2);">About</a>
+        <a href="#skills" style="padding:8px 12px; color:var(--muted); border-radius:8px;" style-hover="color:var(--text); background:var(--surface2);">Skills</a>
+        <a href="#experience" style="padding:8px 12px; color:var(--muted); border-radius:8px;" style-hover="color:var(--text); background:var(--surface2);">Experience</a>
+        <a href="#projects" style="padding:8px 12px; color:var(--muted); border-radius:8px;" style-hover="color:var(--text); background:var(--surface2);">Projects</a>
+        <a href="#resume" style="padding:8px 12px; color:var(--muted); border-radius:8px;" style-hover="color:var(--text); background:var(--surface2);">Résumé</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; margin-left:auto;">
+        <button type="button" onClick="{{ toggleTheme }}" aria-label="Toggle colour theme" title="Toggle light / dark" style="width:36px; height:36px; display:grid; place-items:center; border-radius:9px; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:13px;" style-hover="color:var(--text); border-color:var(--accent);">{{ themeIcon }}</button>
+        <a href="#contact" style="display:inline-flex; align-items:center; padding:9px 16px; border-radius:9px; background:var(--accent); color:#08090A; font-weight:600; font-size:14.5px; white-space:nowrap;" style-hover="background:var(--accent2);" class="navlinks">Get in touch</a>
+        <button type="button" class="burger" onClick="{{ toggleMenu }}" aria-label="Open menu" aria-expanded="{{ menuOpen }}" style="display:none; width:36px; height:36px; align-items:center; justify-content:center; border-radius:9px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer;">
+          <span style="display:grid; gap:4px;">
+            <span style="display:block; width:16px; height:1.5px; background:currentColor;"></span>
+            <span style="display:block; width:16px; height:1.5px; background:currentColor;"></span>
+            <span style="display:block; width:16px; height:1.5px; background:currentColor;"></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid var(--border); background:var(--surface); padding:10px 20px 18px; display:grid; gap:2px;">
+        <a href="#about" onClick="{{ closeMenu }}" style="padding:12px 6px; color:var(--text); border-bottom:1px solid var(--border);">About</a>
+        <a href="#skills" onClick="{{ closeMenu }}" style="padding:12px 6px; color:var(--text); border-bottom:1px solid var(--border);">Skills</a>
+        <a href="#experience" onClick="{{ closeMenu }}" style="padding:12px 6px; color:var(--text); border-bottom:1px solid var(--border);">Experience</a>
+        <a href="#projects" onClick="{{ closeMenu }}" style="padding:12px 6px; color:var(--text); border-bottom:1px solid var(--border);">Projects</a>
+        <a href="#resume" onClick="{{ closeMenu }}" style="padding:12px 6px; color:var(--text); border-bottom:1px solid var(--border);">Résumé</a>
+        <a href="#contact" onClick="{{ closeMenu }}" style="margin-top:12px; text-align:center; padding:12px; border-radius:9px; background:var(--accent); color:#08090A; font-weight:600;">Get in touch</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section aria-labelledby="hero-h" style="position:relative; overflow:hidden; border-bottom:1px solid var(--border);">
+      <div aria-hidden="true" style="position:absolute; inset:0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 64px 64px; opacity:.35; mask-image: radial-gradient(120% 80% at 70% 0%, #000 20%, transparent 75%);"></div>
+      <div aria-hidden="true" style="position:absolute; top:-220px; right:-120px; width:620px; height:620px; border-radius:50%; background:radial-gradient(circle, var(--glow), transparent 65%);"></div>
+      <div style="position:relative; max-width:1180px; margin:0 auto; padding:clamp(56px,9vw,116px) 24px clamp(48px,6vw,80px);">
+        <div class="split" style="display:grid; grid-template-columns: 1.15fr .85fr; gap:clamp(32px,5vw,64px); align-items:start;">
+          <div>
+            <div style="display:inline-flex; align-items:center; gap:9px; padding:6px 12px 6px 10px; border:1px solid var(--border); border-radius:999px; background:var(--surface); font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.02em; color:var(--muted); margin-bottom:26px;">
+              <span aria-hidden="true" style="width:7px; height:7px; border-radius:50%; background:var(--accent2); animation:pulseDot 2.4s ease-in-out infinite;"></span>
+              Open to senior / staff roles — remote &amp; relocation
+            </div>
+            <h1 id="hero-h" style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(38px,5.6vw,68px); line-height:1.02; letter-spacing:-0.035em; margin:0 0 22px; text-wrap:balance;">
+              Senior software engineer building <span style="color:var(--accent);">scalable systems</span> and <span style="color:var(--accent2);">AI-first products</span>.
+            </h1>
+            <p style="font-size:clamp(17px,1.5vw,19.5px); color:var(--muted); max-width:60ch; margin:0 0 34px; text-wrap:pretty;">
+              4.5+ years shipping SaaS platforms end to end — distributed backends, multi-tenant architecture, and LLM systems that hold up in production. I own problems from schema to SLO, and I write the runbook after.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:38px;">
+              <a href="#contact" style="display:inline-flex; align-items:center; gap:9px; padding:14px 24px; border-radius:11px; background:var(--accent); color:#08090A; font-weight:600; font-size:15.5px; box-shadow:0 8px 26px -12px var(--accent); transition:transform .18s ease, background .2s ease;" style-hover="background:var(--accent2); transform:translateY(-2px);">Book a 20-min call <span aria-hidden="true">→</span></a>
+              <a href="/resume.pdf" download="" style="display:inline-flex; align-items:center; gap:9px; padding:14px 22px; border-radius:11px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-weight:500; font-size:15.5px; transition:border-color .2s ease, transform .18s ease;" style-hover="border-color:var(--accent); transform:translateY(-2px); color:var(--text);">Download résumé <span aria-hidden="true" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">PDF</span></a>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <sc-for list="{{ heroStack }}" as="tech" hint-placeholder-count="8">
+                <span style="padding:6px 11px; border-radius:7px; border:1px solid var(--border); background:var(--surface2); font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted);">{{ tech }}</span>
+              </sc-for>
+            </div>
+          </div>
+
+          <aside data-reveal="" aria-label="Proof points" style="border:1px solid var(--border); border-radius:16px; background:var(--surface); padding:26px 24px; box-shadow:0 24px 60px -40px rgba(0,0,0,.6);">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:20px;">// proof points</div>
+            <ul style="list-style:none; margin:0; padding:0; display:grid; gap:18px;">
+              <sc-for list="{{ proofPoints }}" as="p" hint-placeholder-count="4">
+                <li style="display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start;">
+                  <span aria-hidden="true" style="margin-top:7px; width:6px; height:6px; border-radius:2px; background:var(--accent);"></span>
+                  <div>
+                    <div style="font-weight:600; font-size:15.5px; letter-spacing:-0.01em;">{{ p.title }}</div>
+                    <div style="color:var(--muted); font-size:14.5px;">{{ p.body }}</div>
+                  </div>
+                </li>
+              </sc-for>
+            </ul>
+            <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:6px 14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">
+              <span>Dubai · Karachi · Remote (UTC+4 ±5)</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section aria-label="Impact by the numbers" style="border-bottom:1px solid var(--border); background:var(--surface);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(36px,4vw,56px) 24px; display:grid; gap:28px; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div data-reveal="">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:clamp(32px,3.6vw,44px); font-weight:700; letter-spacing:-0.04em; line-height:1;">
+              <span data-count="{{ s.value }}">0</span><span style="color:var(--accent);">{{ s.suffix }}</span>
+            </div>
+            <div style="margin-top:10px; color:var(--muted); font-size:14.5px; max-width:24ch; text-wrap:pretty;">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-h" style="border-bottom:1px solid var(--border);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,8vw,104px) 24px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">01 — About</div>
+        <div class="split" style="display:grid; grid-template-columns: 1fr .78fr; gap:clamp(32px,5vw,72px); align-items:start;">
+          <div data-reveal="">
+            <h2 id="about-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,42px); font-weight:700; letter-spacing:-0.03em; line-height:1.1; margin:0 0 24px; text-wrap:balance;">I build the boring parts well, so the ambitious parts can ship.</h2>
+            <div style="display:grid; gap:18px; color:var(--muted); font-size:16.5px; max-width:66ch;">
+              <p style="margin:0;">I started in web engineering and moved quickly toward the parts of the stack where correctness compounds: data models, service boundaries, queues, caches, and the observability that tells you the truth at 3am. Over 4.5+ years I've taken three SaaS products from prototype to paying, multi-tenant production.</p>
+              <p style="margin:0;"><strong style="color:var(--text); font-weight:600;">“Scalable systems”</strong> in my work means capacity that is a config change rather than a rewrite: stateless services, idempotent workers, explicit backpressure, and load-tested assumptions written down as SLOs.</p>
+              <p style="margin:0;"><strong style="color:var(--text); font-weight:600;">“AI-first”</strong> means the LLM is a component with a contract, not a magic layer — retrieval you can inspect, evals in CI, structured outputs, cost and latency budgets per request, and graceful degradation when the model is wrong.</p>
+              <p style="margin:0;">I work best with product-minded teams across time zones: written-first, small PRs, decisions in ADRs. Outside work I mentor junior engineers and rebuild my homelab more often than I should.</p>
+            </div>
+          </div>
+          <div data-reveal="" style="display:grid; gap:14px;">
+            <div style="border:1px solid var(--border); border-radius:14px; background:var(--surface); padding:22px 22px 18px;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">// quick facts</div>
+              <dl style="margin:0; display:grid; gap:0;">
+                <sc-for list="{{ facts }}" as="f" hint-placeholder-count="6">
+                  <div style="display:grid; grid-template-columns:auto 1fr; gap:16px; padding:10px 0; border-bottom:1px solid var(--border); font-size:14.5px;">
+                    <dt style="color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:12.5px; padding-top:2px;">{{ f.k }}</dt>
+                    <dd style="margin:0; text-align:right; font-weight:500;">{{ f.v }}</dd>
+                  </div>
+                </sc-for>
+              </dl>
+            </div>
+            <p style="margin:0; font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.7; color:var(--muted);">Design note: this facts block + the FAQ below are the machine-readable surface — a build should mirror them as JSON-LD (Person, JobTitle, knowsAbout, FAQPage) so answer engines can quote them verbatim.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" aria-labelledby="skills-h" style="border-bottom:1px solid var(--border); background:var(--surface);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,8vw,104px) 24px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">02 — Skills &amp; expertise</div>
+        <h2 id="skills-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,42px); font-weight:700; letter-spacing:-0.03em; margin:0 0 12px;">Depth where it matters, range where it helps.</h2>
+        <p style="color:var(--muted); max-width:62ch; margin:0 0 44px; font-size:16.5px;">Each entity below is a discrete, labelled skill — grouped by domain and marked by depth so a reviewer (or a model) can match a role spec in seconds.</p>
+        <div style="display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(290px,1fr));">
+          <sc-for list="{{ skillGroups }}" as="g" hint-placeholder-count="6">
+            <div data-reveal="" style="border:1px solid var(--border); border-radius:14px; background:var(--bg); padding:22px; transition:border-color .22s ease, transform .22s ease;" style-hover="border-color:var(--accent); transform:translateY(-3px);">
+              <div style="display:flex; align-items:center; gap:11px; margin-bottom:18px;">
+                <span aria-hidden="true" style="display:grid; place-items:center; width:28px; height:28px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent);">{{ g.glyph }}</span>
+                <h3 style="margin:0; font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; letter-spacing:-0.015em;">{{ g.name }}</h3>
+              </div>
+              <ul style="list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px;">
+                <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="6">
+                  <li style="padding:5px 10px; border-radius:7px; border:1px solid var(--border); background:var(--surface2); font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--text);">{{ it }}</li>
+                </sc-for>
+              </ul>
+              <div style="margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);">depth: {{ g.depth }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" aria-labelledby="exp-h" style="border-bottom:1px solid var(--border);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,8vw,104px) 24px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">03 — Experience</div>
+        <h2 id="exp-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,42px); font-weight:700; letter-spacing:-0.03em; margin:0 0 12px;">Career timeline</h2>
+        <p style="color:var(--muted); max-width:60ch; margin:0 0 48px; font-size:16.5px;">Roles, scope, and the outcome each one is accountable for. <em style="color:var(--text); font-style:normal; border-bottom:1px dashed var(--accent);">Sample content — replace with résumé facts.</em></p>
+        <ol style="list-style:none; margin:0; padding:0; display:grid; gap:0;">
+          <sc-for list="{{ roles }}" as="r" hint-placeholder-count="4">
+            <li class="tl-item" data-reveal="" style="display:grid; grid-template-columns:150px 1fr; gap:28px; padding:0 0 40px;">
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <span style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--text);">{{ r.period }}</span>
+                <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);">{{ r.location }}</span>
+              </div>
+              <div style="position:relative; padding-left:30px; border-left:1px solid var(--border);">
+                <span class="tl-rail" aria-hidden="true" style="position:absolute; left:-5.5px; top:7px; width:10px; height:10px; border-radius:50%; background:var(--bg); border:2px solid var(--accent);"></span>
+                <h3 style="margin:0 0 4px; font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; letter-spacing:-0.02em;">{{ r.title }}</h3>
+                <div style="color:var(--muted); font-size:15px; margin-bottom:16px;">{{ r.company }} · {{ r.scope }}</div>
+                <ul style="margin:0 0 16px; padding:0; list-style:none; display:grid; gap:9px;">
+                  <sc-for list="{{ r.wins }}" as="w" hint-placeholder-count="3">
+                    <li style="display:grid; grid-template-columns:auto 1fr; gap:11px; color:var(--muted); font-size:15.5px;">
+                      <span aria-hidden="true" style="color:var(--accent2); font-family:'JetBrains Mono',monospace;">▸</span>
+                      <span>{{ w }}</span>
+                    </li>
+                  </sc-for>
+                </ul>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                  <sc-for list="{{ r.stack }}" as="t" hint-placeholder-count="5">
+                    <span style="padding:4px 9px; border-radius:6px; border:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);">{{ t }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" aria-labelledby="proj-h" style="border-bottom:1px solid var(--border); background:var(--surface);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,8vw,104px) 24px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">04 — Selected work</div>
+        <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:end; justify-content:space-between; margin-bottom:44px;">
+          <div>
+            <h2 id="proj-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,42px); font-weight:700; letter-spacing:-0.03em; margin:0 0 12px;">Projects &amp; case studies</h2>
+            <p style="color:var(--muted); max-width:58ch; margin:0; font-size:16.5px;">Every card is problem → role → stack → outcome, with links to the live product and a deeper write-up where one exists.</p>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <sc-for list="{{ projectFilters }}" as="f" hint-placeholder-count="4">
+              <button type="button" onClick="{{ f.onClick }}" aria-pressed="{{ f.active }}" style="padding:8px 14px; border-radius:8px; border:1px solid {{ f.borderColor }}; background:{{ f.bg }}; color:{{ f.fg }}; font-family:'JetBrains Mono',monospace; font-size:12.5px; cursor:pointer; transition:all .2s ease;" style-hover="border-color:var(--accent);">{{ f.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(330px,1fr));">
+          <sc-for list="{{ visibleProjects }}" as="p" hint-placeholder-count="3">
+            <article data-reveal="" style="border:1px solid var(--border); border-radius:16px; background:var(--bg); overflow:hidden; display:flex; flex-direction:column; transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease;" style-hover="border-color:var(--accent); transform:translateY(-4px); box-shadow:0 26px 50px -34px rgba(0,0,0,.7);">
+              <div role="img" aria-label="{{ p.figureAlt }}" style="position:relative; aspect-ratio:16/9; background:var(--surface2); border-bottom:1px solid var(--border); background-image:repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 9px); display:grid; place-items:center;">
+                <div style="display:grid; gap:8px; place-items:center; padding:16px; text-align:center;">
+                  <span aria-hidden="true" style="display:grid; place-items:center; width:44px; height:44px; border-radius:11px; border:1px solid var(--border); background:var(--bg); font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--accent);">{{ p.glyph }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); letter-spacing:.04em;">{{ p.figureLabel }}</span>
+                </div>
+                <sc-if value="{{ p.hasShot }}" hint-placeholder-val="{{ true }}">
+                  <img src="{{ p.shot }}" alt="{{ p.figureAlt }}" loading="lazy" onError="{{ hideShot }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center;" />
+                </sc-if>
+
+              </div>
+              <div style="padding:22px; display:flex; flex-direction:column; gap:16px; flex:1;">
+                <div>
+                  <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                    <h3 style="margin:0; font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; letter-spacing:-0.02em;">{{ p.name }}</h3>
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent2); border:1px solid var(--border); border-radius:999px; padding:2px 8px;">{{ p.kind }}</span>
+                  </div>
+                  <p style="margin:0; color:var(--muted); font-size:15px; text-wrap:pretty;">{{ p.problem }}</p>
+                </div>
+                <dl style="margin:0; display:grid; gap:8px; font-size:14.5px;">
+                  <div style="display:grid; grid-template-columns:64px 1fr; gap:12px;">
+                    <dt style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); padding-top:3px;">role</dt>
+                    <dd style="margin:0;">{{ p.role }}</dd>
+                  </div>
+                  <div style="display:grid; grid-template-columns:64px 1fr; gap:12px;">
+                    <dt style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); padding-top:3px;">outcome</dt>
+                    <dd style="margin:0; color:var(--text);"><strong style="font-weight:600;">{{ p.outcome }}</strong></dd>
+                  </div>
+                </dl>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                  <sc-for list="{{ p.stack }}" as="t" hint-placeholder-count="5">
+                    <span style="padding:4px 9px; border-radius:6px; border:1px solid var(--border); background:var(--surface2); font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);">{{ t }}</span>
+                  </sc-for>
+                </div>
+                <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:16px; font-family:'JetBrains Mono',monospace; font-size:12.5px;">
+                  <a href="{{ p.href }}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px;">{{ p.hrefLabel }} <span aria-hidden="true">↗</span></a>
+                  <a href="#contact" style="display:inline-flex; align-items:center; gap:6px; color:var(--muted);">case study <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <sc-if value="{{ showTestimonials }}" hint-placeholder-val="{{ true }}">
+      <section aria-labelledby="tst-h" style="border-bottom:1px solid var(--border);">
+        <div style="max-width:1180px; margin:0 auto; padding:clamp(56px,7vw,88px) 24px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">05 — Recommendations</div>
+          <h2 id="tst-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(26px,3vw,36px); font-weight:700; letter-spacing:-0.03em; margin:0 0 36px;">What employers and colleagues say</h2>
+          <div style="display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(330px,1fr));">
+            <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="2">
+              <figure data-reveal="" style="margin:0; border:1px solid var(--border); border-radius:16px; background:var(--surface); padding:26px;">
+                <blockquote style="margin:0 0 20px; font-size:17px; line-height:1.6; letter-spacing:-0.01em; text-wrap:pretty;">“{{ q.text }}”</blockquote>
+                <figcaption style="display:flex; align-items:center; gap:12px;">
+                  <span aria-hidden="true" style="display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:var(--surface2); border:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted);">{{ q.initials }}</span>
+                  <span>
+                    <span style="display:block; font-weight:600; font-size:14.5px;">{{ q.name }}</span>
+                    <span style="display:block; color:var(--muted); font-size:13.5px;">{{ q.role }}</span>
+                  </span>
+                  <a href="{{ q.href }}" target="_blank" rel="noopener" style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:12px; white-space:nowrap;">{{ q.hrefLabel }} ↗</a>
+                </figcaption>
+              </figure>
+            </sc-for>
+          </div>
+          <div style="margin-top:32px; border-top:1px solid var(--border); padding-top:28px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:18px;">// peer endorsements</div>
+            <div style="display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));">
+              <sc-for list="{{ endorsers }}" as="e" hint-placeholder-count="3">
+                <div style="display:flex; align-items:flex-start; gap:13px; border:1px solid var(--border); border-radius:12px; background:var(--surface); padding:16px 18px;">
+                  <span aria-hidden="true" style="display:grid; place-items:center; width:34px; height:34px; flex:none; border-radius:50%; background:var(--surface2); border:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--accent);">{{ e.initials }}</span>
+                  <span>
+                    <span style="display:block; font-weight:600; font-size:14.5px;">{{ e.name }}</span>
+                    <span style="display:block; color:var(--muted); font-size:13px;">{{ e.role }}</span>
+                    <span style="display:block; margin-top:6px; color:var(--muted); font-size:13.5px;">{{ e.note }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- RESUME -->
+    <section id="resume" aria-labelledby="res-h" style="border-bottom:1px solid var(--border); background:var(--surface);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,8vw,96px) 24px;">
+        <div class="split" style="display:grid; grid-template-columns:1fr .9fr; gap:clamp(28px,4vw,56px); align-items:center;">
+          <div data-reveal="">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">06 — Résumé</div>
+            <h2 id="res-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,40px); font-weight:700; letter-spacing:-0.03em; margin:0 0 18px;">The one-page version</h2>
+            <ul style="list-style:none; margin:0 0 28px; padding:0; display:grid; gap:11px;">
+              <sc-for list="{{ resumeHighlights }}" as="h" hint-placeholder-count="4">
+                <li style="display:grid; grid-template-columns:auto 1fr; gap:12px; color:var(--muted); font-size:16px;">
+                  <span aria-hidden="true" style="color:var(--accent); font-family:'JetBrains Mono',monospace;">—</span><span>{{ h }}</span>
+                </li>
+              </sc-for>
+            </ul>
+            <div style="display:flex; flex-wrap:wrap; gap:12px;">
+              <a href="/resume.pdf" download="" style="display:inline-flex; align-items:center; gap:10px; padding:14px 22px; border-radius:11px; background:var(--accent); color:#08090A; font-weight:600; font-size:15.5px; transition:background .2s ease, transform .18s ease;" style-hover="background:var(--accent2); transform:translateY(-2px);">
+                <span aria-hidden="true">↓</span> Download résumé
+                <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; opacity:.7;">PDF · 240 KB</span>
+              </a>
+              <a href="#contact" style="display:inline-flex; align-items:center; gap:8px; padding:14px 20px; border-radius:11px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-weight:500; font-size:15.5px;" style-hover="border-color:var(--accent); color:var(--text);">Request references</a>
+            </div>
+          </div>
+          <div data-reveal="" aria-hidden="true" style="border:1px solid var(--border); border-radius:14px; background:var(--bg); padding:26px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); line-height:2; box-shadow:0 24px 60px -44px rgba(0,0,0,.7);">
+            <div style="display:flex; gap:6px; margin-bottom:16px;">
+              <span style="width:9px; height:9px; border-radius:50%; background:var(--border);"></span>
+              <span style="width:9px; height:9px; border-radius:50%; background:var(--border);"></span>
+              <span style="width:9px; height:9px; border-radius:50%; background:var(--border);"></span>
+              <span style="margin-left:8px; font-size:11px;">resume.pdf — preview</span>
+            </div>
+            <div style="display:grid; gap:9px;">
+              <span style="height:11px; width:52%; background:var(--surface2); border-radius:3px;"></span>
+              <span style="height:8px; width:34%; background:var(--surface2); border-radius:3px;"></span>
+              <span style="height:1px; background:var(--border); margin:8px 0;"></span>
+              <span style="height:8px; width:88%; background:var(--surface2); border-radius:3px;"></span>
+              <span style="height:8px; width:74%; background:var(--surface2); border-radius:3px;"></span>
+              <span style="height:8px; width:81%; background:var(--surface2); border-radius:3px;"></span>
+              <span style="height:1px; background:var(--border); margin:8px 0;"></span>
+              <span style="height:8px; width:63%; background:var(--surface2); border-radius:3px;"></span>
+              <span style="height:8px; width:70%; background:var(--surface2); border-radius:3px;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section aria-labelledby="faq-h" style="border-bottom:1px solid var(--border);">
+      <div style="max-width:860px; margin:0 auto; padding:clamp(56px,7vw,88px) 24px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">07 — FAQ</div>
+        <h2 id="faq-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(26px,3vw,36px); font-weight:700; letter-spacing:-0.03em; margin:0 0 10px;">Straight answers for recruiters</h2>
+        <p style="color:var(--muted); margin:0 0 32px; font-size:16px;">Written to be quotable — short, factual, self-contained. Mirror as FAQPage structured data in the build.</p>
+        <div style="display:grid; gap:10px;">
+          <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+            <details data-reveal="" style="border:1px solid var(--border); border-radius:12px; background:var(--surface); padding:16px 20px;">
+              <summary style="cursor:pointer; font-weight:600; font-size:16px; letter-spacing:-0.01em; list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:center;">
+                {{ f.q }}<span aria-hidden="true" style="color:var(--accent); font-family:'JetBrains Mono',monospace;">+</span>
+              </summary>
+              <p style="margin:14px 0 4px; color:var(--muted); font-size:15.5px; max-width:70ch; text-wrap:pretty;">{{ f.a }}</p>
+            </details>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="con-h" style="border-bottom:1px solid var(--border); background:var(--surface);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,8vw,104px) 24px;">
+        <div class="split" style="display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(32px,5vw,64px); align-items:start;">
+          <div data-reveal="">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;">08 — Contact</div>
+            <h2 id="con-h" style="font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,42px); font-weight:700; letter-spacing:-0.03em; margin:0 0 18px; text-wrap:balance;">Let's talk about the system you're trying to scale.</h2>
+            <p style="color:var(--muted); font-size:16.5px; max-width:48ch; margin:0 0 28px;">Currently open to senior and staff engineering roles — full-time remote, or relocation with sponsorship. I reply to every serious message within one business day.</p>
+            <div style="display:grid; gap:12px; margin-bottom:28px;">
+              <sc-for list="{{ contactLinks }}" as="c" hint-placeholder-count="4">
+                <a href="{{ c.href }}" style="display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid var(--border); border-radius:11px; background:var(--bg); color:var(--text); transition:border-color .2s ease, transform .18s ease;" style-hover="border-color:var(--accent); transform:translateX(3px); color:var(--text);">
+                  <span aria-hidden="true" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); width:64px;">{{ c.label }}</span>
+                  <span style="font-size:15px; font-weight:500;">{{ c.value }}</span>
+                  <span aria-hidden="true" style="margin-left:auto; color:var(--muted);">↗</span>
+                </a>
+              </sc-for>
+            </div>
+            <div style="border:1px solid var(--border); border-radius:11px; background:var(--bg); padding:18px;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">// open to work in</div>
+              <div style="display:flex; flex-wrap:wrap; gap:7px;">
+                <sc-for list="{{ regions }}" as="r" hint-placeholder-count="5">
+                  <span style="padding:5px 10px; border-radius:999px; border:1px solid var(--border); background:var(--surface2); font-size:13px; color:var(--muted);">{{ r }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <form data-reveal="" novalidate="" onSubmit="{{ onSubmit }}" style="border:1px solid var(--border); border-radius:16px; background:var(--bg); padding:clamp(22px,3vw,32px); display:grid; gap:18px;">
+            <div style="display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+              <div style="display:grid; gap:7px;">
+                <label for="f-name" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Your name *</label>
+                <input id="f-name" name="name" type="text" autoComplete="name" aria-describedby="e-name" placeholder="Sara Al-Mansoori" style="padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-family:inherit; font-size:15px;" />
+                <span id="e-name" role="alert" style="min-height:16px; font-size:12.5px; color:#F87171; font-family:'JetBrains Mono',monospace;">{{ errors.name }}</span>
+              </div>
+              <div style="display:grid; gap:7px;">
+                <label for="f-email" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Work email *</label>
+                <input id="f-email" name="email" type="email" autoComplete="email" aria-describedby="e-email" placeholder="you@company.com" style="padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-family:inherit; font-size:15px;" />
+                <span id="e-email" role="alert" style="min-height:16px; font-size:12.5px; color:#F87171; font-family:'JetBrains Mono',monospace;">{{ errors.email }}</span>
+              </div>
+            </div>
+            <div style="display:grid; gap:7px;">
+              <label for="f-topic" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">What's this about?</label>
+              <select id="f-topic" name="topic" style="padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-family:inherit; font-size:15px;">
+                <option>Full-time role</option>
+                <option>Contract / consulting</option>
+                <option>Technical advisory</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div style="display:grid; gap:7px;">
+              <label for="f-msg" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);">Message *</label>
+              <textarea id="f-msg" name="message" rows="5" aria-describedby="e-msg" placeholder="Role, team size, stack, and what's currently breaking." style="padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-family:inherit; font-size:15px; resize:vertical;"></textarea>
+              <span id="e-msg" role="alert" style="min-height:16px; font-size:12.5px; color:#F87171; font-family:'JetBrains Mono',monospace;">{{ errors.message }}</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center;">
+              <button type="submit" style="display:inline-flex; align-items:center; gap:9px; padding:14px 24px; border-radius:11px; border:none; background:var(--accent); color:#08090A; font-family:inherit; font-weight:600; font-size:15.5px; cursor:pointer; transition:background .2s ease, transform .18s ease;" style-hover="background:var(--accent2); transform:translateY(-2px);">Send message <span aria-hidden="true">→</span></button>
+              <span role="status" style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--accent2);">{{ sentMessage }}</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section aria-label="Call to action" style="border-bottom:1px solid var(--border);">
+      <div style="max-width:1180px; margin:0 auto; padding:clamp(48px,6vw,80px) 24px;">
+        <div data-reveal="" style="position:relative; overflow:hidden; border:1px solid var(--border); border-radius:18px; background:var(--surface); padding:clamp(30px,4vw,52px); display:flex; flex-wrap:wrap; gap:26px; align-items:center; justify-content:space-between;">
+          <div aria-hidden="true" style="position:absolute; inset:0; background-image:repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 40px); opacity:.5; mask-image:linear-gradient(90deg,#000,transparent 60%);"></div>
+          <div style="position:relative;">
+            <h2 style="margin:0 0 8px; font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,2.6vw,32px); font-weight:700; letter-spacing:-0.03em;">Hiring for a system that has to hold up?</h2>
+            <p style="margin:0; color:var(--muted); font-size:16px;">One call, no pitch — I'll tell you honestly whether I'm the right fit.</p>
+          </div>
+          <a href="#contact" style="position:relative; display:inline-flex; align-items:center; gap:9px; padding:15px 26px; border-radius:11px; background:var(--accent); color:#08090A; font-weight:600; font-size:15.5px; white-space:nowrap; transition:background .2s ease, transform .18s ease;" style-hover="background:var(--accent2); transform:translateY(-2px);">Book a 20-min call <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background:var(--surface);">
+    <div style="max-width:1180px; margin:0 auto; padding:52px 24px 40px; display:grid; gap:36px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+      <div>
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; margin-bottom:14px;">
+          <span aria-hidden="true" style="display:grid; place-items:center; width:26px; height:26px; border-radius:7px; background:linear-gradient(150deg, var(--accent), var(--accent2)); color:#08090A; font-size:11px;">WA</span>
+          Wajid Ali
+        </div>
+        <p style="margin:0; color:var(--muted); font-size:14.5px; max-width:30ch;">Senior software engineer — scalable systems, SaaS platforms, AI-first products.</p>
+        <div style="margin-top:16px; display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);">
+          <span aria-hidden="true" style="width:7px; height:7px; border-radius:50%; background:var(--accent2);"></span> Available from Sept 2026
+        </div>
+      </div>
+      <nav aria-label="Footer — site">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">Site</div>
+        <div style="display:grid; gap:9px; font-size:14.5px;">
+          <a href="#about" style="color:var(--text);" style-hover="color:var(--accent);">About</a>
+          <a href="#skills" style="color:var(--text);" style-hover="color:var(--accent);">Skills</a>
+          <a href="#experience" style="color:var(--text);" style-hover="color:var(--accent);">Experience</a>
+          <a href="#projects" style="color:var(--text);" style-hover="color:var(--accent);">Projects</a>
+        </div>
+      </nav>
+      <nav aria-label="Footer — elsewhere">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">Elsewhere</div>
+        <div style="display:grid; gap:9px; font-size:14.5px;">
+          <a href="#contact" style="color:var(--text);" style-hover="color:var(--accent);">LinkedIn ↗</a>
+          <a href="#contact" style="color:var(--text);" style-hover="color:var(--accent);">GitHub ↗</a>
+          <a href="#contact" style="color:var(--text);" style-hover="color:var(--accent);">Writing ↗</a>
+          <a href="/resume.pdf" style="color:var(--text);" style-hover="color:var(--accent);">Résumé (PDF) ↓</a>
+        </div>
+      </nav>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">Open to</div>
+        <p style="margin:0; color:var(--muted); font-size:14.5px; max-width:30ch;">UAE · Saudi Arabia · Qatar · Kuwait · Oman · Bahrain · Pakistan · USA · UK · Malaysia</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--border);">
+      <div style="max-width:1180px; margin:0 auto; padding:18px 24px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);">
+        <span>© 2026 Wajid Ali — built from scratch, no template.</span>
+        <span>Sample content marked SAMPLE. Résumé is source of truth.</span>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#5C9CF5&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#5C9CF5&quot;,&quot;#2FB58C&quot;,&quot;#C98A3E&quot;,&quot;#8B7BF0&quot;],&quot;section&quot;:&quot;Brand&quot;},&quot;startDark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Brand&quot;},&quot;showTestimonials&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+class Component extends DCLogic {
+  state = {
+    dark: true,
+    menuOpen: false,
+    filter: "All",
+    errors: { name: "", email: "", message: "" },
+    sentMessage: ""
+  };
+
+  componentDidMount() {
+    this.setState({ dark: (this.props.startDark ?? true) });
+    this._seen = new WeakSet();
+    this.writeCounts();
+    this._mo = new MutationObserver(() => this.writeCounts());
+    this._mo.observe(document.body, { childList: true, subtree: true });
+  }
+
+  writeCounts() {
+    if (!this._seen) return;
+    document.querySelectorAll("[data-count]").forEach(el => {
+      if (this._seen.has(el)) return;
+      this._seen.add(el);
+      const raw = el.getAttribute("data-count");
+      if (raw == null || isNaN(parseFloat(raw))) return;
+      el.textContent = raw;
+    });
+  }
+
+  componentDidUpdate() { this.writeCounts(); }
+
+  componentWillUnmount() { if (this._mo) this._mo.disconnect(); }
+
+  validate(fd) {
+    const errors = { name: "", email: "", message: "" };
+    const name = (fd.get("name") || "").trim();
+    const email = (fd.get("email") || "").trim();
+    const msg = (fd.get("message") || "").trim();
+    if (name.length < 2) errors.name = "Please enter your name.";
+    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) errors.email = "Enter a valid work email.";
+    if (msg.length < 20) errors.message = "A little more detail helps — 20+ characters.";
+    return errors;
+  }
+
+  renderVals() {
+    const accentColor = this.props.accentColor || "#5C9CF5";
+    const projects = [
+      {
+        name: "ReelBridge", kind: "Building now", glyph: "▷", tag: "SaaS",
+        href: "#contact", hrefLabel: "early access",
+        figureLabel: "product screenshot — scheduler + metrics dashboard",
+        figureAlt: "Placeholder for a ReelBridge scheduling and analytics dashboard screenshot",
+        problem: "Creators re-upload the same video to Facebook, Instagram and YouTube by hand, one platform at a time, then check three dashboards to see how it performed.",
+        role: "Founder & engineer — monorepo architecture, platform adapter interface, OAuth token handling, job pipeline.",
+        outcome: "One-click publish and scheduling to all connected accounts, with engagement metrics unified in a single dashboard.",
+        stack: ["TypeScript", "React (Vite)", "Express", "BullMQ", "Redis", "Zod", "OAuth 2.0", "Meta Graph API", "YouTube Data API"]
+      },
+      {
+        name: "HRMS — Bin Delamah Contracting Co.", kind: "Enterprise", glyph: "◫", tag: "Enterprise",
+        href: "#contact", hrefLabel: "private — walkthrough on request",
+        figureLabel: "module map / architecture diagram",
+        figureAlt: "Placeholder for the HRMS module map diagram",
+        problem: "A Saudi contracting enterprise (Ras Tanura / Dammam region) ran payroll, attendance, leave, recruitment and compliance across disconnected spreadsheets and legacy tools.",
+        role: "Core engineer — module architecture, role-based access, data model across 30+ interdependent modules.",
+        outcome: "A single HR system covering the full employee lifecycle, built for Saudi labour-law compliance and Arabic/English use.",
+        stack: ["TypeScript", "Node.js", "PostgreSQL", "REST APIs", "RBAC", "Docker"]
+      },
+      {
+        name: "Beam AI", kind: "AI / Agents", glyph: "◇", tag: "AI",
+        href: "https://beam.ai/", hrefLabel: "beam.ai",
+        figureLabel: "product screenshot — agent workflow builder",
+        figureAlt: "Placeholder for a Beam AI product screenshot",
+        problem: "Enterprise teams needed AI agents that execute real back-office workflows, not chat demos — reliably, with human oversight.",
+        role: "Engineer — agent workflow surfaces plus the integration layer wiring LLM steps to business systems via Nango, n8n and similar integration platforms.",
+        outcome: "Production agentic workflows with inspectable steps and human-in-the-loop checkpoints.",
+        stack: ["TypeScript", "Next.js", "NestJS", "Nango", "n8n", "LLM APIs", "Workflow orchestration", "REST/webhooks"]
+      },
+      {
+        name: "ENBIOSIS", kind: "AI / Health", glyph: "◈", tag: "AI",
+        href: "https://enbiosis.com/", hrefLabel: "enbiosis.com",
+        figureLabel: "product screenshot — microbiome report UI",
+        figureAlt: "Placeholder for an ENBIOSIS microbiome report screenshot",
+        problem: "Microbiome sequencing produces dense biological data that has to become a personalised, readable nutrition plan for non-technical users.",
+        role: "Engineer — data-driven report interfaces and the services delivering personalised results.",
+        outcome: "AI-generated personalised nutrition reports delivered to consumers and clinicians.",
+        stack: ["TypeScript", "React", "Node.js", "PostgreSQL", "Data pipelines", "AWS"]
+      },
+      {
+        name: "AfterSchool HQ", kind: "SaaS", glyph: "◱", tag: "SaaS",
+        href: "https://afterschoolhq.com/login", hrefLabel: "afterschoolhq.com",
+        figureLabel: "product screenshot — programme management dashboard",
+        figureAlt: "Placeholder for an AfterSchool HQ dashboard screenshot",
+        problem: "After-school programme operators juggled enrolment, rosters, payments and parent communication across tools that didn't talk to each other.",
+        role: "Engineer — multi-role SaaS features across admin, staff and parent surfaces.",
+        outcome: "One platform for enrolment, scheduling, billing and parent communication.",
+        stack: ["C#", ".NET", "ASP.NET Core", "SQL Server", "React", "TypeScript", "Stripe", "REST APIs"]
+      },
+      {
+        name: "iHorizons", kind: "Enterprise", glyph: "⌗", tag: "Enterprise",
+        href: "https://www.ihorizons.com/", hrefLabel: "ihorizons.com",
+        figureLabel: "screenshot — enterprise digital platform",
+        figureAlt: "Placeholder for an iHorizons platform screenshot",
+        problem: "Regional enterprise and government clients needed large-scale digital platforms built to strict performance, security and accessibility requirements.",
+        role: "Engineer — client-facing platform delivery within an enterprise engineering team.",
+        outcome: "Shipped enterprise-grade digital products for clients across the Gulf region.",
+        stack: ["C#", ".NET", "ASP.NET Core", "SQL Server", "JavaScript/TypeScript", "CI/CD", "Cloud hosting"]
+      }
+    ];
+    const filters = ["All", "SaaS", "AI", "Enterprise"];
+    const shot = (u) => "https://image.thum.io/get/width/1200/crop/675/noanimate/" + u;
+    projects.forEach(p => {
+      if (p.href && p.href.startsWith("http")) p.shot = shot(p.href);
+      else p.shot = "";
+      p.hasShot = !!p.shot;
+    });
+    return {
+      themeAttr: this.state.dark ? "dark" : "light",
+      themeIcon: this.state.dark ? "☀" : "☾",
+      accentColor,
+      menuOpen: this.state.menuOpen,
+      showTestimonials: this.props.showTestimonials ?? true,
+      toggleTheme: () => this.setState(s => ({ dark: !s.dark })),
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      heroStack: ["TypeScript", "C# / .NET", "Go", "Python", "PostgreSQL", "Kafka", "Kubernetes", "AWS", "Claude / OpenAI APIs", "Terraform"],
+      proofPoints: [
+        { title: "Multi-tenant SaaS, end to end", body: "Three products taken from prototype to paying customers." },
+        { title: "Systems that survive growth", body: "Redesigned a monolith path into services at 40× traffic without downtime." },
+        { title: "LLM features in production", body: "RAG pipelines with evals in CI and per-request cost budgets." },
+        { title: "Senior by scope, not just title", body: "Led 3-6 engineers, owned on-call, wrote the ADRs and the runbooks." }
+      ],
+      stats: [
+        { value: 4.5, suffix: "+", label: "Years building production systems" },
+        { value: 99.98, suffix: "%", label: "Uptime held on services I owned" },
+        { value: 40, suffix: "×", label: "Traffic growth absorbed without a rewrite" },
+        { value: 12, suffix: "", label: "Engineers mentored or onboarded" }
+      ],
+      facts: [
+        { k: "role", v: "Senior Software Engineer" },
+        { k: "exp", v: "4.5+ years" },
+        { k: "focus", v: "Scalable systems · AI-first SaaS" },
+        { k: "core", v: "TypeScript · Go · Python" },
+        { k: "work", v: "Remote · Relocation" },
+        { k: "lang", v: "English (professional), Urdu" }
+      ],
+      skillGroups: [
+        { name: "Backend & Systems Design", glyph: "⌗", depth: "primary", items: ["Distributed systems", "Event-driven arch", "API design (REST/gRPC)", "Idempotency", "Caching strategy", "PostgreSQL tuning", "Queues & workers"] },
+        { name: "SaaS Architecture", glyph: "◫", depth: "primary", items: ["Multi-tenancy", "RBAC & auth", "Usage metering", "Billing integration", "Feature flags", "Migrations at scale"] },
+        { name: "AI / LLM Engineering", glyph: "◇", depth: "primary", items: ["RAG pipelines", "Vector search", "Prompt architecture", "Structured outputs", "Eval harnesses", "Cost & latency budgets", "Agentic workflows"] },
+        { name: "Cloud & Infrastructure", glyph: "☁", depth: "strong", items: ["AWS", "Kubernetes", "Terraform", "CI/CD", "Observability", "Incident response", "Cost optimisation"] },
+        { name: "Languages & Runtimes", glyph: "λ", depth: "strong", items: ["TypeScript", "C# / .NET", "Go", "Python", "Node.js", "SQL", "Bash"] },
+        { name: "Product & Leadership", glyph: "△", depth: "working", items: ["Tech leadership", "ADRs & design docs", "Code review culture", "Mentoring", "Roadmap scoping", "Async collaboration"] }
+      ],
+      roles: [
+        { period: "2024 — Present", location: "Remote · Dubai, UAE", title: "Senior Software Engineer", company: "Company Name", scope: "Platform team · 5 engineers", wins: ["Owned the metering and billing domain end to end for 400+ tenants.", "Cut p95 API latency 61% by reshaping hot-path queries and adding read replicas.", "Introduced eval-gated deploys for LLM features; regressions caught pre-release."], stack: ["TypeScript", "Node", "PostgreSQL", "Kafka", "AWS", "Terraform"] },
+        { period: "2022 — 2024", location: "Karachi, Pakistan", title: "Software Engineer II", company: "Company Name", scope: "Product engineering", wins: ["Shipped the multi-tenant workspace model that unblocked enterprise sales.", "Migrated 1.2B rows with zero downtime using dual-write and backfill.", "Set up observability from scratch: traces, SLOs, alert routing."], stack: ["Go", "Python", "Redis", "Kubernetes", "Grafana"] },
+        { period: "2021 — 2022", location: "Karachi, Pakistan", title: "Software Engineer", company: "Company Name", scope: "Full-stack", wins: ["Built and shipped the customer-facing dashboard used daily by 8k users.", "Reduced build-and-deploy time from 22 to 4 minutes."], stack: ["React", "Node", "PostgreSQL", "Docker"] }
+      ],
+      projectFilters: filters.map(f => ({
+        label: f, active: this.state.filter === f,
+        bg: this.state.filter === f ? "var(--accent)" : "var(--bg)",
+        fg: this.state.filter === f ? "#08090A" : "var(--muted)",
+        borderColor: this.state.filter === f ? "var(--accent)" : "var(--border)",
+        onClick: () => this.setState({ filter: f })
+      })),
+      visibleProjects: this.state.filter === "All" ? projects : projects.filter(p => p.tag === this.state.filter),
+      quotes: [
+        { text: "Your technical expertise, problem-solving skills, and ability to deliver solutions quickly have been invaluable to our organization.", initials: "BD", name: "Bin Delamah Contracting Co. (BDCC)", role: "Official appreciation letter · 28 Sep 2025 · Ras Tanura, KSA", href: "uploads/Appreciation_Letter.jpeg", hrefLabel: "View the letter" },
+        { text: "Your hard work, dedication, and smart approach to finding solutions have significantly enhanced our project outcomes and exceeded our expectations.", initials: "BD", name: "Bin Delamah Contracting Co. (BDCC)", role: "On two years as Software Engineer", href: "uploads/Appreciation_Letter.jpeg", hrefLabel: "View the letter" }
+      ],
+      endorsers: [
+        { initials: "MT", name: "Mohammad Tharwat", role: "Software Engineer — colleague", note: "“Wajid is the person I go to when a module has to be right the first time. He understands the whole system, not just his ticket, and he explains his reasoning clearly enough that the rest of us build on it.”" },
+        { initials: "AL", name: "Ali", role: "Senior Engineer, Beam AI", note: "“Strong engineer on the integration and agent side — he picked up our workflow architecture fast and shipped work that held up in production. Easy to review, easy to hand ownership to.”" },
+        { initials: "AS", name: "Aftaab Sonday", role: "Colleague — Kuwait", note: "“Dependable and genuinely fast. Wajid takes ownership end to end, communicates clearly across time zones, and delivers without needing to be chased.”" }
+      ],
+      resumeHighlights: [
+        "4.5+ years across SaaS platforms, distributed backends, and AI-first products.",
+        "Senior Software Engineer — currently owning platform-critical domains with on-call responsibility.",
+        "Core stack: TypeScript, Go, Python, PostgreSQL, Kafka, Kubernetes, AWS, Terraform.",
+        "Quantified wins: 61% latency reduction, zero-downtime 1.2B-row migration, 99.98% uptime."
+      ],
+      faqs: [
+        { q: "What kind of roles are you looking for?", a: "Senior or staff software engineering roles on platform, infrastructure, or AI product teams — full-time remote, or on-site with relocation and sponsorship. I'm most useful where a system needs to scale and the team wants someone accountable for it, not just contributing to it." },
+        { q: "Which regions and time zones do you work in?", a: "Open to the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Oman, Bahrain), Pakistan, USA, UK, and Malaysia. Based around UTC+4/+5, and I've worked with teams from UTC-8 to UTC+8 with 4+ overlap hours." },
+        { q: "What does “AI-first” mean in your work?", a: "Treating the model as a component with a contract: inspectable retrieval, structured outputs, evals running in CI, explicit cost and latency budgets per request, and a defined fallback when the model is wrong. Not a chatbot bolted onto a CRUD app." },
+        { q: "How senior is “senior” here?", a: "I've led teams of 3–6 engineers, owned production on-call, authored the architecture decisions for revenue-critical domains, and mentored 12 engineers. Scope over title — happy to walk through specific system designs on a call." }
+      ],
+      contactLinks: [
+        { label: "email", value: "hello@example.com", href: "mailto:hello@example.com" },
+        { label: "linkedin", value: "/in/your-handle", href: "#contact" },
+        { label: "github", value: "@your-handle", href: "#contact" },
+        { label: "calendar", value: "Book 20 minutes", href: "#contact" }
+      ],
+      regions: ["UAE", "Saudi Arabia", "Qatar", "Kuwait", "Oman", "Bahrain", "Pakistan", "USA", "UK", "Malaysia", "Fully remote"],
+      hideShot: (e) => { e.target.style.display = "none"; },
+      errors: this.state.errors,
+      sentMessage: this.state.sentMessage,
+      onSubmit: (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const errors = this.validate(fd);
+        const ok = !errors.name && !errors.email && !errors.message;
+        this.setState({ errors, sentMessage: ok ? "✓ Thanks — I'll reply within one business day." : "" });
+        if (ok) e.target.reset();
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
