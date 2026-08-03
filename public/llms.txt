@@ -1,0 +1,23 @@
+# Wajid Ali
+
+> Senior software engineer (4.5+ years) building scalable systems, multi-tenant SaaS platforms, and AI-first products. Open to senior/staff engineering roles — full-time remote, or on-site with relocation and sponsorship — across the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Oman, Bahrain), Pakistan, USA, UK, and Malaysia.
+
+Core stack: TypeScript, C#/.NET, Go, Python, PostgreSQL, Kafka, Kubernetes, AWS, Terraform, and LLM APIs (Claude, OpenAI). Has taken three SaaS products from prototype to paying, multi-tenant production; led teams of 3-6 engineers; owned production on-call; mentored 12 engineers.
+
+"Scalable systems" means capacity that's a config change, not a rewrite: stateless services, idempotent workers, explicit backpressure, load-tested SLOs. "AI-first" means the LLM is a component with a contract — inspectable retrieval, structured outputs, evals in CI, cost/latency budgets, defined fallbacks — not a chatbot bolted onto a CRUD app.
+
+## Key pages
+
+- [About](https://wajidali.netlify.app/#about): background and how "scalable systems" and "AI-first" are defined in practice
+- [Skills](https://wajidali.netlify.app/#skills): backend/systems design, SaaS architecture, AI/LLM engineering, cloud infrastructure
+- [Experience](https://wajidali.netlify.app/#experience): career timeline
+- [Projects](https://wajidali.netlify.app/#projects): real shipped work — iHorizons, AfterSchool HQ, Beam AI, ENBIOSIS, HRMS (Bin Delamah Contracting Co.), ReelBridge
+- [Upcoming projects](https://wajidali.netlify.app/#upcoming-projects): what's being built next
+- [FAQ](https://wajidali.netlify.app/#faq): direct answers on role fit, regions/time zones, seniority, and what "AI-first" means
+- [Contact](https://wajidali.netlify.app/#contact): contact form and direct links
+
+## Elsewhere
+
+- LinkedIn: https://www.linkedin.com/in/wajid-alii/
+- GitHub: https://github.com/wajidalii
+- Email: wajidalii.me@gmail.com

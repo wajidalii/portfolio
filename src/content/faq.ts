@@ -1,10 +1,27 @@
 // Static, owner-curated FAQ (see ARCHITECTURE.md content model). Written
 // short, factual, self-contained per the GEO requirement — quotable
 // directly by an AI answer engine. Mirrored as FAQPage JSON-LD in the SEO
-// phase. The GEO phase adds identity-establishing entries ("Who is Wajid
-// Ali?" etc.) on top of these, which match the design spec as-is.
+// phase.
+//
+// The first three entries are identity-establishing, phrased in the
+// third person on purpose ("Who is Wajid Ali?") — this is the GEO
+// requirement's own example phrasing, distinct from the first-person
+// recruiter-FAQ voice of the rest, and matches how an AI answer engine
+// would actually be asked about a named person.
 
 export const faqs = [
+  {
+    q: "Who is Wajid Ali?",
+    a: "Wajid Ali is a senior software engineer with 4.5+ years of experience building scalable systems, multi-tenant SaaS platforms, and AI-first products. He has taken three SaaS products from prototype to paying production, led teams of 3-6 engineers, owned production on-call, and mentored 12 engineers.",
+  },
+  {
+    q: "What kind of engineering work does Wajid Ali specialize in?",
+    a: "Wajid Ali specializes in backend and systems design (distributed systems, event-driven architecture, API design), multi-tenant SaaS architecture (RBAC, billing, usage metering, migrations at scale), and AI/LLM engineering (RAG pipelines, structured outputs, eval harnesses, cost and latency budgets). Core languages: TypeScript, C#/.NET, Go, and Python.",
+  },
+  {
+    q: "Is Wajid Ali available for remote roles?",
+    a: "Yes. Wajid Ali is open to full-time remote senior/staff software engineering roles, or on-site roles with relocation and sponsorship, across the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Oman, Bahrain), Pakistan, USA, UK, and Malaysia.",
+  },
   {
     q: "What kind of roles are you looking for?",
     a: "Senior or staff software engineering roles on platform, infrastructure, or AI product teams — full-time remote, or on-site with relocation and sponsorship. I'm most useful where a system needs to scale and the team wants someone accountable for it, not just contributing to it.",
