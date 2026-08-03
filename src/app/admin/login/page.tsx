@@ -21,6 +21,7 @@ export default async function AdminLoginPage({
             Incorrect password.
           </p>
         )}
+        {params.from && <input type="hidden" name="from" value={params.from} />}
         <label htmlFor="password" className="block font-mono text-xs uppercase tracking-wider text-muted mb-2">
           Password
         </label>
