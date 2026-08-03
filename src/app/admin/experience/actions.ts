@@ -5,6 +5,9 @@ import { roles } from "@/db/schema";
 import { asc, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import type { ItemActionState } from "@/components/ui/action-form";
+
+export type FormActionState = { ok: boolean; error?: string };
 
 function parseLines(raw: string): string[] {
   return raw
@@ -25,9 +28,14 @@ function readRoleFields(formData: FormData) {
   };
 }
 
-export async function createRole(formData: FormData) {
+export async function createRole(
+  _prevState: FormActionState,
+  formData: FormData,
+): Promise<FormActionState> {
   const fields = readRoleFields(formData);
-  if (!fields.title || !fields.company) return;
+  if (!fields.title || !fields.company) {
+    return { ok: false, error: "Title and company are required." };
+  }
 
   const [{ maxOrder }] = await db
     .select({ maxOrder: sql<number>`coalesce(max(${roles.sortOrder}), -1)` })
@@ -37,12 +45,18 @@ export async function createRole(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/experience");
-  redirect("/admin/experience");
+  redirect(`/admin/experience?flash=${encodeURIComponent("Role added.")}`);
 }
 
-export async function updateRole(id: number, formData: FormData) {
+export async function updateRole(
+  id: number,
+  _prevState: FormActionState,
+  formData: FormData,
+): Promise<FormActionState> {
   const fields = readRoleFields(formData);
-  if (!fields.title || !fields.company) return;
+  if (!fields.title || !fields.company) {
+    return { ok: false, error: "Title and company are required." };
+  }
 
   await db
     .update(roles)
@@ -51,29 +65,48 @@ export async function updateRole(id: number, formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/experience");
-  redirect("/admin/experience");
+  redirect(`/admin/experience?flash=${encodeURIComponent("Role saved.")}`);
 }
 
-export async function deleteRole(id: number) {
-  await db.delete(roles).where(eq(roles.id, id));
-  revalidatePath("/");
-  revalidatePath("/admin/experience");
+export async function deleteRole(
+  id: number,
+  _prevState: ItemActionState,
+  _formData: FormData,
+): Promise<ItemActionState> {
+  try {
+    await db.delete(roles).where(eq(roles.id, id));
+    revalidatePath("/");
+    revalidatePath("/admin/experience");
+    return { ok: true, ts: Date.now() };
+  } catch {
+    return { ok: false, error: "Couldn't delete that role.", ts: Date.now() };
+  }
 }
 
-export async function moveRole(id: number, direction: "up" | "down") {
-  const items = await db.query.roles.findMany({ orderBy: asc(roles.sortOrder) });
-  const index = items.findIndex((r) => r.id === id);
-  if (index === -1) return;
+export async function moveRole(
+  id: number,
+  direction: "up" | "down",
+  _prevState: ItemActionState,
+  _formData: FormData,
+): Promise<ItemActionState> {
+  try {
+    const items = await db.query.roles.findMany({ orderBy: asc(roles.sortOrder) });
+    const index = items.findIndex((r) => r.id === id);
+    if (index === -1) return { ok: false, error: "Role not found.", ts: Date.now() };
 
-  const swapIndex = direction === "up" ? index - 1 : index + 1;
-  if (swapIndex < 0 || swapIndex >= items.length) return;
+    const swapIndex = direction === "up" ? index - 1 : index + 1;
+    if (swapIndex < 0 || swapIndex >= items.length) return { ok: true, ts: Date.now() };
 
-  const current = items[index];
-  const swap = items[swapIndex];
+    const current = items[index];
+    const swap = items[swapIndex];
 
-  await db.update(roles).set({ sortOrder: swap.sortOrder }).where(eq(roles.id, current.id));
-  await db.update(roles).set({ sortOrder: current.sortOrder }).where(eq(roles.id, swap.id));
+    await db.update(roles).set({ sortOrder: swap.sortOrder }).where(eq(roles.id, current.id));
+    await db.update(roles).set({ sortOrder: current.sortOrder }).where(eq(roles.id, swap.id));
 
-  revalidatePath("/");
-  revalidatePath("/admin/experience");
+    revalidatePath("/");
+    revalidatePath("/admin/experience");
+    return { ok: true, ts: Date.now() };
+  } catch {
+    return { ok: false, error: "Couldn't reorder roles.", ts: Date.now() };
+  }
 }
