@@ -1,6 +1,8 @@
 "use server";
 
 import { sendContactEmail } from "@/lib/email";
+import { db } from "@/db/client";
+import { contactSubmissions } from "@/db/schema";
 
 export type ContactFormState = {
   errors: { name?: string; email?: string; message?: string };
@@ -33,6 +35,8 @@ export async function submitContactForm(
   if (Object.keys(errors).length > 0) {
     return { errors, status: "idle" };
   }
+
+  await db.insert(contactSubmissions).values({ name, email, topic, message });
 
   try {
     await sendContactEmail({ name, email, topic, message });
