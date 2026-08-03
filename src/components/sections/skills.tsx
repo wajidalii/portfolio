@@ -12,7 +12,7 @@ export async function Skills() {
   return (
     <section id="skills" aria-labelledby="skills-h" className="border-b border-border bg-surface">
       <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-26">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
           02 — Skills &amp; expertise
         </div>
         <h2
@@ -35,7 +35,7 @@ export async function Skills() {
               <div className="flex items-center gap-2.5 mb-4.5">
                 <span
                   aria-hidden
-                  className="grid place-items-center w-7 h-7 rounded-lg border border-border bg-surface-2 font-mono text-xs text-accent"
+                  className="grid place-items-center w-7 h-7 rounded-lg border border-border bg-surface-2 font-mono text-xs text-accent-fg"
                 >
                   {g.glyph}
                 </span>

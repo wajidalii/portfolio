@@ -19,7 +19,7 @@ export async function UpcomingProjects() {
       className="border-b border-border bg-surface"
     >
       <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-24">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
           06 — What&apos;s next
         </div>
         <h2
@@ -49,7 +49,7 @@ export async function UpcomingProjects() {
                   <h3 className="m-0 font-display text-[17px] font-semibold tracking-[-0.015em]">
                     {p.title}
                   </h3>
-                  <span className="shrink-0 font-mono text-[11px] text-accent-2 border border-border rounded-full px-2 py-0.5">
+                  <span className="shrink-0 font-mono text-[11px] text-accent-2-fg border border-border rounded-full px-2 py-0.5">
                     {STATUS_LABEL[p.status] ?? p.status}
                   </span>
                 </div>
@@ -75,7 +75,7 @@ export async function UpcomingProjects() {
                       href={p.link}
                       target="_blank"
                       rel="noopener"
-                      className="ml-auto inline-flex items-center gap-1.5 text-accent"
+                      className="ml-auto inline-flex items-center gap-1.5 text-accent-fg"
                     >
                       follow along <span aria-hidden>↗</span>
                     </a>

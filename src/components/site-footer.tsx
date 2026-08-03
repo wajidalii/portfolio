@@ -42,7 +42,7 @@ export function SiteFooter() {
           </div>
           <div className="grid gap-2.5 text-[14.5px]">
             {SITE_LINKS.map((l) => (
-              <a key={l.href} href={l.href} className="text-text hover:text-accent">
+              <a key={l.href} href={l.href} className="text-text hover:text-accent-fg">
                 {l.label}
               </a>
             ))}
@@ -60,7 +60,7 @@ export function SiteFooter() {
                 href={l.href}
                 target="_blank"
                 rel="noopener"
-                className="text-text hover:text-accent"
+                className="text-text hover:text-accent-fg"
               >
                 {l.label}
               </a>

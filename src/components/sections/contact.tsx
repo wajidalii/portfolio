@@ -7,7 +7,7 @@ export function Contact() {
       <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-26">
         <div className="grid grid-cols-1 min-[880px]:grid-cols-[0.9fr_1.1fr] gap-8 min-[880px]:gap-16 items-start">
           <div>
-            <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+            <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
               08 — Contact
             </div>
             <h2

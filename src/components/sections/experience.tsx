@@ -12,7 +12,7 @@ export async function Experience() {
   return (
     <section id="experience" aria-labelledby="exp-h" className="border-b border-border">
       <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-26">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent mb-4">
+        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
           03 — Experience
         </div>
         <h2
@@ -48,7 +48,7 @@ export async function Experience() {
                 <ul className="m-0 mb-4 p-0 list-none grid gap-2.5">
                   {r.wins.map((w) => (
                     <li key={w} className="grid grid-cols-[auto_1fr] gap-2.5 text-muted text-[15.5px]">
-                      <span aria-hidden className="text-accent-2 font-mono">
+                      <span aria-hidden className="text-accent-2-fg font-mono">
                         ▸
                       </span>
                       <span>{w}</span>

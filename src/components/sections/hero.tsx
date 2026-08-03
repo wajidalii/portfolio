@@ -43,8 +43,8 @@ export function Hero() {
               className="font-display font-bold text-[38px] sm:text-5xl lg:text-[68px] leading-[1.02] tracking-[-0.035em] mb-5 text-balance"
             >
               Senior software engineer building{" "}
-              <span className="text-accent">scalable systems</span> and{" "}
-              <span className="text-accent-2">AI-first products</span>.
+              <span className="text-accent-fg">scalable systems</span> and{" "}
+              <span className="text-accent-2-fg">AI-first products</span>.
             </h1>
 
             <p className="text-[17px] sm:text-lg text-muted max-w-[60ch] mb-8 text-pretty">
