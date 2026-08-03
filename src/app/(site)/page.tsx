@@ -7,6 +7,8 @@ import { Projects } from "@/components/sections/projects";
 import { Testimonials } from "@/components/sections/testimonials";
 import { UpcomingProjects } from "@/components/sections/upcoming-projects";
 import { Faq } from "@/components/sections/faq";
+import { Contact } from "@/components/sections/contact";
+import { CtaBanner } from "@/components/sections/cta-banner";
 
 export default function Home() {
   return (
@@ -20,6 +22,8 @@ export default function Home() {
       <Testimonials />
       <UpcomingProjects />
       <Faq />
+      <Contact />
+      <CtaBanner />
     </>
   );
 }
