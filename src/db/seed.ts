@@ -91,6 +91,25 @@ async function seed() {
         "Async collaboration",
       ],
     },
+    {
+      name: "Portfolio Engineering (This Site)",
+      glyph: "▣",
+      depth: "primary",
+      sortOrder: 6,
+      items: [
+        "Next.js 15 (App Router)",
+        "React 19 Server Components",
+        "TypeScript",
+        "Tailwind CSS v4",
+        "Drizzle ORM",
+        "Neon serverless Postgres",
+        "Server Actions",
+        "Custom HMAC session auth",
+        "Resend (transactional email)",
+        "JSON-LD / dynamic OG / SEO-GEO",
+        "Netlify CI/CD",
+      ],
+    },
   ]);
 
   await db.insert(roles).values([
