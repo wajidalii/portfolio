@@ -2,8 +2,9 @@
 
 import { db } from "@/db/client";
 import { upcomingProjects } from "@/db/schema";
+import { UPCOMING_PROJECTS_TAG } from "@/db/queries";
 import { asc, eq, sql } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 function parseTags(raw: string): string[] {
@@ -37,6 +38,7 @@ export async function createUpcomingProject(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/upcoming-projects");
+  revalidateTag(UPCOMING_PROJECTS_TAG);
   redirect("/admin/upcoming-projects");
 }
 
@@ -51,6 +53,7 @@ export async function updateUpcomingProject(id: number, formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/upcoming-projects");
+  revalidateTag(UPCOMING_PROJECTS_TAG);
   redirect("/admin/upcoming-projects");
 }
 
@@ -58,6 +61,7 @@ export async function deleteUpcomingProject(id: number) {
   await db.delete(upcomingProjects).where(eq(upcomingProjects.id, id));
   revalidatePath("/");
   revalidatePath("/admin/upcoming-projects");
+  revalidateTag(UPCOMING_PROJECTS_TAG);
 }
 
 export async function moveUpcomingProject(id: number, direction: "up" | "down") {
@@ -84,4 +88,5 @@ export async function moveUpcomingProject(id: number, direction: "up" | "down") 
 
   revalidatePath("/");
   revalidatePath("/admin/upcoming-projects");
+  revalidateTag(UPCOMING_PROJECTS_TAG);
 }

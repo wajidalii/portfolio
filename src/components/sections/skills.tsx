@@ -1,11 +1,7 @@
-import { db } from "@/db/client";
-import { skillGroups } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import { getSkillGroups } from "@/db/queries";
 
 export async function Skills() {
-  const groups = await db.query.skillGroups.findMany({
-    orderBy: asc(skillGroups.sortOrder),
-  });
+  const groups = await getSkillGroups();
 
   if (groups.length === 0) return null;
 

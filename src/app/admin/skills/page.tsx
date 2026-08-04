@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/db/client";
-import { skillGroups } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import { getSkillGroups } from "@/db/queries";
 import { Button } from "@/components/ui/button";
 import { deleteSkillGroup, moveSkillGroup } from "./actions";
 
@@ -13,9 +11,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function AdminSkillsPage() {
-  const groups = await db.query.skillGroups.findMany({
-    orderBy: asc(skillGroups.sortOrder),
-  });
+  const groups = await getSkillGroups();
 
   return (
     <main className="min-h-screen px-6 py-16 max-w-3xl mx-auto">

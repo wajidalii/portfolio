@@ -2,8 +2,9 @@
 
 import { db } from "@/db/client";
 import { roles } from "@/db/schema";
+import { ROLES_TAG } from "@/db/queries";
 import { asc, eq, sql } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 function parseLines(raw: string): string[] {
@@ -37,6 +38,7 @@ export async function createRole(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/experience");
+  revalidateTag(ROLES_TAG);
   redirect("/admin/experience");
 }
 
@@ -51,6 +53,7 @@ export async function updateRole(id: number, formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/experience");
+  revalidateTag(ROLES_TAG);
   redirect("/admin/experience");
 }
 
@@ -58,6 +61,7 @@ export async function deleteRole(id: number) {
   await db.delete(roles).where(eq(roles.id, id));
   revalidatePath("/");
   revalidatePath("/admin/experience");
+  revalidateTag(ROLES_TAG);
 }
 
 export async function moveRole(id: number, direction: "up" | "down") {
@@ -76,4 +80,5 @@ export async function moveRole(id: number, direction: "up" | "down") {
 
   revalidatePath("/");
   revalidatePath("/admin/experience");
+  revalidateTag(ROLES_TAG);
 }

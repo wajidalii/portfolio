@@ -1,6 +1,4 @@
-import { db } from "@/db/client";
-import { upcomingProjects } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import { getUpcomingProjects } from "@/db/queries";
 
 const STATUS_LABEL: Record<string, string> = {
   planned: "Planned",
@@ -8,9 +6,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 export async function UpcomingProjects() {
-  const items = await db.query.upcomingProjects.findMany({
-    orderBy: asc(upcomingProjects.sortOrder),
-  });
+  const items = await getUpcomingProjects();
 
   return (
     <section
