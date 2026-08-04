@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { db } from "@/db/client";
-import { skillGroups } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { getSkillGroup } from "@/db/queries";
 import { SkillGroupForm } from "@/components/admin/skill-group-form";
 import { updateSkillGroup } from "../actions";
 
@@ -17,9 +15,7 @@ export default async function EditSkillGroupPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const group = await db.query.skillGroups.findFirst({
-    where: eq(skillGroups.id, Number(id)),
-  });
+  const group = await getSkillGroup(Number(id));
 
   if (!group) notFound();
 

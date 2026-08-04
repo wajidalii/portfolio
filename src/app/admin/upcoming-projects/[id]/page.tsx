@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { db } from "@/db/client";
-import { upcomingProjects } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { getUpcomingProject } from "@/db/queries";
 import { UpcomingProjectForm } from "@/components/admin/upcoming-project-form";
 import { updateUpcomingProject } from "../actions";
 
@@ -17,9 +15,7 @@ export default async function EditUpcomingProjectPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const item = await db.query.upcomingProjects.findFirst({
-    where: eq(upcomingProjects.id, Number(id)),
-  });
+  const item = await getUpcomingProject(Number(id));
 
   if (!item) notFound();
 

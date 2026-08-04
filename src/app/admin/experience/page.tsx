@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/db/client";
-import { roles } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import { getRoles } from "@/db/queries";
 import { Button } from "@/components/ui/button";
 import { deleteRole, moveRole } from "./actions";
 
@@ -13,9 +11,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function AdminExperiencePage() {
-  const items = await db.query.roles.findMany({
-    orderBy: asc(roles.sortOrder),
-  });
+  const items = await getRoles();
 
   return (
     <main className="min-h-screen px-6 py-16 max-w-3xl mx-auto">

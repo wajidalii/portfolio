@@ -2,8 +2,9 @@
 
 import { db } from "@/db/client";
 import { skillGroups } from "@/db/schema";
+import { SKILL_GROUPS_TAG } from "@/db/queries";
 import { asc, eq, sql } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 function parseItems(raw: string): string[] {
@@ -35,6 +36,7 @@ export async function createSkillGroup(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/skills");
+  revalidateTag(SKILL_GROUPS_TAG);
   redirect("/admin/skills");
 }
 
@@ -53,6 +55,7 @@ export async function updateSkillGroup(id: number, formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/admin/skills");
+  revalidateTag(SKILL_GROUPS_TAG);
   redirect("/admin/skills");
 }
 
@@ -60,6 +63,7 @@ export async function deleteSkillGroup(id: number) {
   await db.delete(skillGroups).where(eq(skillGroups.id, id));
   revalidatePath("/");
   revalidatePath("/admin/skills");
+  revalidateTag(SKILL_GROUPS_TAG);
 }
 
 export async function moveSkillGroup(id: number, direction: "up" | "down") {
@@ -86,4 +90,5 @@ export async function moveSkillGroup(id: number, direction: "up" | "down") {
 
   revalidatePath("/");
   revalidatePath("/admin/skills");
+  revalidateTag(SKILL_GROUPS_TAG);
 }

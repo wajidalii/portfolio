@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/db/client";
-import { contactSubmissions } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { getContactSubmissions } from "@/db/queries";
 import { Button } from "@/components/ui/button";
 import { deleteContactSubmission } from "./actions";
 
@@ -13,9 +11,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function AdminMessagesPage() {
-  const items = await db.query.contactSubmissions.findMany({
-    orderBy: desc(contactSubmissions.createdAt),
-  });
+  const items = await getContactSubmissions();
 
   return (
     <main className="min-h-screen px-6 py-16 max-w-3xl mx-auto">
@@ -36,7 +32,7 @@ export default async function AdminMessagesPage() {
                   {m.email}
                 </a>
                 <div className="text-muted text-xs font-mono mt-1">
-                  {m.topic} · {m.createdAt.toLocaleString()}
+                  {m.topic} · {new Date(m.createdAt).toLocaleString()}
                 </div>
               </div>
               <form action={deleteContactSubmission.bind(null, m.id)}>

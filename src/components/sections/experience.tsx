@@ -1,11 +1,7 @@
-import { db } from "@/db/client";
-import { roles } from "@/db/schema";
-import { asc } from "drizzle-orm";
+import { getRoles } from "@/db/queries";
 
 export async function Experience() {
-  const items = await db.query.roles.findMany({
-    orderBy: asc(roles.sortOrder),
-  });
+  const items = await getRoles();
 
   if (items.length === 0) return null;
 
