@@ -7,8 +7,8 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 |---|---|---|
 | #41 Design spec & docs | ✅ done | — |
 | #42 Tokens, fonts, textures | ✅ done | see log |
-| #43 Motion primitives | ⏳ next | — |
-| #44 Header + footer | ☐ | — |
+| #43 Motion primitives | ✅ done | see log |
+| #44 Header + footer | ⏳ next | — |
 | #45 Hero, stats, ticker | ☐ | — |
 | #46 About, skills, experience | ☐ | — |
 | #47 Projects + upcoming | ☐ | — |
@@ -44,3 +44,20 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 - Reveal CSS is progressive enhancement (`html[data-motion=on]` only).
 - `Button` → keycap variants with press travel. Hard-coded `#08090a` /
   `red-400` replaced by tokens. OG image moved to the new palette.
+
+### 2026-10-20 — #43 Motion primitives
+
+New `src/components/motion/` (no animation library, ~6 kB of hooks):
+
+- `MotionProvider` — scroll reveals for `[data-reveal]` (`wipe`/`fade`/default
+  rise), staggered via `[data-reveal-group]`, MutationObserver for late
+  content, failsafe if IntersectionObserver never reports, reveal-all on print.
+- `Cursor` — crosshair + trailing ring + live X/Y readout; ring grows and
+  shows `OPEN ↗` / `GO` / `WRITE` / `PRESS` / `EXPAND` or a custom
+  `data-cursor` label.
+- `Magnetic`, `TiltCard` (tilt + spotlight via `--mx/--my`),
+  `DecodeText` (glyph scramble, layout-stable, SR-safe), `CountUp`
+  (SSR prints the final value), `ProximityType` (variable-font letters
+  swell near the pointer; breathing wave fallback on touch).
+- All pointer effects gated on `(hover:hover) and (pointer:fine)` and
+  `prefers-reduced-motion`.

@@ -255,6 +255,93 @@ html[data-cursor="on"] select {
   cursor: text !important;
 }
 
+/* ---------- Cursor ---------- */
+.cursor-ring {
+  width: 0;
+  height: 0;
+}
+.cursor-ring::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: -16px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+  transition:
+    transform 0.35s var(--ease-spring),
+    border-color 0.2s,
+    background-color 0.2s;
+}
+.cursor-ring[data-active]::before {
+  transform: scale(2.1);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.cursor-ring[data-down]::before {
+  transform: scale(0.8);
+}
+.cursor-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-martian-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--accent-fg);
+  white-space: nowrap;
+}
+
+/* ---------- Tilt card spotlight ---------- */
+.tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s var(--ease-spring),
+    border-color 0.25s;
+  will-change: transform;
+}
+.tilt-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 14%, transparent),
+    transparent 60%
+  );
+}
+.tilt-card:hover::after {
+  opacity: 1;
+}
+
+/* ---------- Proximity type ---------- */
+.proximity-ch {
+  display: inline-block;
+  font-variation-settings: var(--rest);
+  transition: color 0.3s;
+}
+/* No live pointer (touch, or before hydration): a slow breathing wave. */
+.proximity:not([data-live]) .proximity-ch {
+  animation: breathe 5s var(--ease-spring) infinite;
+  animation-delay: calc(var(--i) * 120ms);
+}
+@keyframes breathe {
+  0%,
+  100% {
+    font-variation-settings: var(--rest);
+  }
+  50% {
+    font-variation-settings: "wdth" 118, "wght" 860;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
