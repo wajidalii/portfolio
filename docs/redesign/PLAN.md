@@ -14,26 +14,27 @@ measuring device: labelled channels, LCD readouts, tactile keys, a live
 signal trace, registration marks, a tape counter that tracks your scroll.
 
 Why it's not "AI default": no gradient blobs, no glassmorphism, no
-blue/purple/teal palette, no Inter. Warm graphite + bone paper, one hot
-signal-orange, one amber LCD colour, expanded industrial type.
+purple/teal/green/pink palette, no Inter. Gunmetal greys, one icy
+silver-blue accent, expanded industrial type.
 
 ## 2. Design system
 
-### Palette
+### Palette — "Steel & ice" (v2, owner-chosen 2026-10-20)
+
+> v1 used signal orange + amber; the owner rejected the orange. See #57.
 
 | Token | Night (default) | Day | Use |
 |---|---|---|---|
-| `--bg` | `#121110` graphite | `#E9E4D8` bone paper | page ground |
-| `--surface` | `#1B1A18` | `#F4F0E7` | panels |
-| `--surface2` | `#24221F` | `#DDD6C6` | chips, insets |
-| `--border` | `#34312C` | `#C3BAA6` | hairlines |
-| `--text` | `#EEE8DC` bone | `#171614` ink | body |
-| `--muted` | `#A39B8C` | `#5F584C` | secondary text (≥4.5:1) |
-| `--accent` | `#FF5A1F` signal orange | `#FF5A1F` | fills, keys, LEDs |
-| `--accent-fg` | `#FF6A33` | `#A3330A` | orange as text (≥4.5:1) |
-| `--accent2` | `#F4B63F` amber LCD | `#F4B63F` | readouts, highlights |
-| `--accent2-fg` | `#F4B63F` | `#7F5300` | amber as text |
-| `--lcd-bg` / `--lcd-fg` | `#0D0C0A` / `#F4B63F` | same | LCD panels stay dark in both themes |
+| `--bg` | `#0E1114` gunmetal | `#E7EBEF` | page ground |
+| `--surface` | `#151A1F` | `#F3F5F7` | panels |
+| `--surface2` | `#1C232A` | `#D9DFE5` | chips, insets |
+| `--border` | `#2A333C` | `#BFC8D1` | hairlines |
+| `--text` | `#E6EBF0` frost | `#12161A` | body |
+| `--muted` | `#8B96A2` | `#56616C` | secondary text (≥4.5:1) |
+| `--accent` | `#A9C7E8` ice | `#A9C7E8` | fills, keys, LEDs |
+| `--accent-fg` | `#A9C7E8` | `#2F5378` | ice as text (≥4.5:1) |
+| `--accent2` | `#CFD8E2` chrome | — | secondary highlight |
+| `--lcd` / `--lcd-fg` | `#0A0D10` / `#A9C7E8` | same | LCD panels stay dark in both themes |
 
 ### Type
 
@@ -54,12 +55,12 @@ signal-orange, one amber LCD colour, expanded industrial type.
 | # | Effect | Where |
 |---|---|---|
 | M1 | **Proximity type** — each letter of the hero name widens/thickens as the cursor nears (variable-font axes) | Hero |
-| M2 | **Reticle cursor** — crosshair with live X/Y readout; morphs into a labelled ring over links/buttons | Global (fine pointer only) |
+| M2 | **Dot field** — hero background dots swell around the pointer, ripple on click, slow wave runs untouched (native cursor kept — custom cursor removed per #57) | Hero |
 | M3 | **Live signal trace** — canvas oscilloscope whose amplitude follows mouse speed + live Dubai/Karachi clocks | Hero instrument panel |
 | M4 | **LCD count-up** — stats roll up from 0 when scrolled into view | Stats |
 | M5 | **Tape counter + channel display** — header shows scroll % as a 4-digit counter and the current section channel | Header |
 | M6 | **Reveal wipes** — headings rise out of a clip mask, panels fade/slide in on scroll | All sections |
-| M7 | **Tilt + spotlight cards** — 3D tilt toward cursor with a light spot following it | Projects, Skills, Upcoming |
+| M7 | **Zoom + tilt + spotlight cards** — every card/panel scales up on hover; cards also tilt toward the cursor with a light spot | All blocks |
 | M8 | **Zoom-in screenshots** — screenshot scales up + desaturated→colour on hover | Projects |
 | M9 | **Magnetic keycaps** — primary buttons drift toward the cursor, press down on click | Buttons |
 | M10 | **Text decode** — nav labels scramble then resolve on hover | Header nav |
@@ -77,9 +78,9 @@ signal-orange, one amber LCD colour, expanded industrial type.
   at full opacity and final values. Reveal/count-up only activate after
   hydration sets `html[data-motion="on"]`, and a failsafe reveals everything
   after 2.5 s. (Fixes the class of bug recorded in ARCHITECTURE.md.)
-- `prefers-reduced-motion: reduce` disables cursor, tilt, magnetic,
+- `prefers-reduced-motion: reduce` disables dot field, tilt, magnetic,
   proximity type, marquee and reveals.
-- Cursor/tilt/magnetic only on `(hover: hover) and (pointer: fine)`.
+- Tilt/magnetic/proximity only on `(hover: hover) and (pointer: fine)`.
 - No animation library — small hand-written client hooks with
   `requestAnimationFrame` and `IntersectionObserver`. Keeps JS small.
 - Only animate `transform`, `opacity`, `clip-path`, `font-variation-settings`.

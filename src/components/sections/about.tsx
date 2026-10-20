@@ -40,7 +40,7 @@ export function About() {
 
           <div
             data-reveal
-            className="reg-marks border border-border rounded-lg bg-surface px-5 pt-5 pb-3 min-[960px]:sticky min-[960px]:top-24"
+            className="reg-marks hover-zoom border border-border rounded-lg bg-surface px-5 pt-5 pb-3 min-[960px]:sticky min-[960px]:top-24"
           >
             <div className="flex justify-between mb-3">
               <span className="label-mono">{"// spec sheet"}</span>

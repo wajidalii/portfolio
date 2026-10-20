@@ -12,7 +12,8 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 | #45 Hero, stats, ticker | ✅ done | see log |
 | #46 About, skills, experience | ✅ done | see log |
 | #47 Projects + upcoming | ✅ done | see log |
-| #48 Recs, FAQ, contact, CTA | ☐ | — |
+| #57 Owner feedback: Steel & ice, no cursor, zoom | ✅ done | see log |
+| #48 Recs, FAQ, contact, CTA | ⏳ next | — |
 | #49 Admin + QA | ☐ | — |
 
 ## Log
@@ -116,3 +117,22 @@ New `src/components/motion/` (no animation library, ~6 kB of hooks):
   progress); empty state is an LCD "NO SIGNAL" panel.
 - Also (owner request): added the `websitelaunches-verification` meta tag
   via `metadata.verification.other` in the root layout.
+
+### 2026-10-20 — #57 Owner feedback round 1
+
+Owner: "I don't like the design. Remove orange color and focus circle
+instead of mouse cursor. The blocks should zoom in when hoverover. It
+should not feel like static website or dead website."
+
+- Asked for a palette direction (4 options) → owner chose **Steel & ice**.
+  All tokens swapped (both themes, contrast re-checked), oscilloscope,
+  LCD glow and OG image recoloured. No orange anywhere.
+- **Custom cursor removed** entirely — native pointer everywhere.
+- **Hover zoom**: tilt cards now scale to 1.04 (1.03 fallback on touch /
+  keyboard focus) with an ice outline; new `hover-zoom` utility on stats,
+  hero instrument panel, about spec sheet, footer serial plate.
+- **More life**: new `DotField` canvas behind the hero — dots swell under
+  the pointer, ripple on click/tap, and a slow diagonal wave keeps rolling
+  even on phones. Name gets scroll parallax.
+- Design canvas + `docs/redesign/design/` + PLAN.md updated to v2.
+- Verified in Chrome: palette, dot lens, card zoom/tilt with native cursor.
