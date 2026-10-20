@@ -423,6 +423,60 @@ html[data-motion="on"] [data-reveal="wipe"]:not([data-revealed]) {
   background-size: 100% 1px;
 }
 
+/* ---------- FAQ: animated open/close where supported ---------- */
+.faq {
+  interpolate-size: allow-keywords;
+}
+.faq::details-content {
+  block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    block-size 0.5s var(--ease-out-expo),
+    opacity 0.4s,
+    content-visibility 0.5s allow-discrete;
+}
+.faq[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+/* ---------- Form fields ---------- */
+.field {
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 12px 14px;
+  color: var(--text);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.25s,
+    background-color 0.2s;
+}
+.field:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+}
+.field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--glow);
+  background: var(--bg);
+}
+
+/* ---------- CTA scan line ---------- */
+.cta-scan {
+  background: linear-gradient(90deg, transparent, var(--glow), transparent);
+  animation: scan 5s var(--ease-spring) infinite;
+}
+@keyframes scan {
+  0% {
+    transform: translateX(0);
+  }
+  60%,
+  100% {
+    transform: translateX(450%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

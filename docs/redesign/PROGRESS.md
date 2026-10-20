@@ -13,8 +13,8 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 | #46 About, skills, experience | ✅ done | see log |
 | #47 Projects + upcoming | ✅ done | see log |
 | #57 Owner feedback: Steel & ice, no cursor, zoom | ✅ done | see log |
-| #48 Recs, FAQ, contact, CTA | ⏳ next | — |
-| #49 Admin + QA | ☐ | — |
+| #48 Recs, FAQ, contact, CTA | ✅ done | see log |
+| #49 Admin + QA | ⏳ next | — |
 
 ## Log
 
@@ -136,3 +136,19 @@ should not feel like static website or dead website."
   even on phones. Name gets scroll parallax.
 - Design canvas + `docs/redesign/design/` + PLAN.md updated to v2.
 - Verified in Chrome: palette, dot lens, card zoom/tilt with native cursor.
+
+### 2026-10-20 — #48 Recommendations, FAQ, contact, CTA
+
+- Recommendations: quote cards with hover zoom; the real BDCC letter as
+  "exhibit A" with a **×2.4 magnifying loupe** that follows the pointer
+  (tap/click opens the full letter); peer endorsements as tilt+zoom cards.
+- FAQ: numbered rows that zoom on hover, a **dial** that turns 45° on hover
+  and 135° when open, and a smooth height animation (`::details-content`,
+  progressive — older browsers just open instantly).
+- Contact: link "keys" zoom on hover, region chips on an LCD strip.
+  Form keeps the exact same server action, field names and validation
+  messages; only styling plus a status LED ("Line open → Transmitting →
+  Received") and a progress sweep on the send button while pending. The
+  form itself deliberately doesn't zoom (scaling while typing is jarring).
+- CTA: zooming panel with a scan line sweeping across and a magnetic key.
+- Verified in Chrome: loupe, FAQ dials/open, hover zoom.

@@ -18,11 +18,18 @@ export function ContactForm() {
       ref={formRef}
       action={formAction}
       noValidate
-      className="border border-border rounded-2xl bg-bg p-6 sm:p-8 grid gap-4.5"
+      className="reg-marks relative border border-border rounded-lg bg-bg p-6 sm:p-8 grid gap-4.5"
     >
+      <div className="flex justify-between items-center -mt-1 mb-1">
+        <span className="label-mono">{"// transmit"}</span>
+        <span className="label-mono inline-flex items-center gap-2">
+          <span aria-hidden className={`led !w-[7px] !h-[7px] ${pending ? "led-blink" : ""}`} />
+          {pending ? "Transmitting" : state.status === "success" ? "Received" : "Line open"}
+        </span>
+      </div>
       <div className="grid gap-4.5 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
         <div className="grid gap-1.5">
-          <label htmlFor="f-name" className="font-mono text-[11.5px] tracking-[0.06em] uppercase text-muted">
+          <label htmlFor="f-name" className="label-mono">
             Your name *
           </label>
           <input
@@ -32,14 +39,14 @@ export function ContactForm() {
             autoComplete="name"
             aria-describedby="e-name"
             placeholder="Sara Al-Mansoori"
-            className="rounded-[10px] border border-border bg-surface px-3.5 py-3 text-text"
+            className="field"
           />
           <span id="e-name" role="alert" className="min-h-4 text-[12.5px] font-mono text-danger">
             {state.errors.name}
           </span>
         </div>
         <div className="grid gap-1.5">
-          <label htmlFor="f-email" className="font-mono text-[11.5px] tracking-[0.06em] uppercase text-muted">
+          <label htmlFor="f-email" className="label-mono">
             Work email *
           </label>
           <input
@@ -49,7 +56,7 @@ export function ContactForm() {
             autoComplete="email"
             aria-describedby="e-email"
             placeholder="you@company.com"
-            className="rounded-[10px] border border-border bg-surface px-3.5 py-3 text-text"
+            className="field"
           />
           <span id="e-email" role="alert" className="min-h-4 text-[12.5px] font-mono text-danger">
             {state.errors.email}
@@ -58,14 +65,14 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="f-topic" className="font-mono text-[11.5px] tracking-[0.06em] uppercase text-muted">
+        <label htmlFor="f-topic" className="label-mono">
           What&apos;s this about?
         </label>
         <select
           id="f-topic"
           name="topic"
           defaultValue="Full-time role"
-          className="rounded-[10px] border border-border bg-surface px-3.5 py-3 text-text"
+          className="field"
         >
           <option>Full-time role</option>
           <option>Contract / consulting</option>
@@ -75,7 +82,7 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="f-msg" className="font-mono text-[11.5px] tracking-[0.06em] uppercase text-muted">
+        <label htmlFor="f-msg" className="label-mono">
           Message *
         </label>
         <textarea
@@ -84,7 +91,7 @@ export function ContactForm() {
           rows={5}
           aria-describedby="e-msg"
           placeholder="Role, team size, stack, and what's currently breaking."
-          className="rounded-[10px] border border-border bg-surface px-3.5 py-3 text-text resize-y"
+          className="field resize-y"
         />
         <span id="e-msg" role="alert" className="min-h-4 text-[12.5px] font-mono text-danger">
           {state.errors.message}
@@ -95,14 +102,22 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[11px] bg-accent text-on-accent font-semibold text-[15.5px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 hover:bg-accent-2"
+          className="group relative overflow-hidden inline-flex items-center gap-3 px-6 py-4 rounded-md bg-accent text-on-accent font-bold text-[15.5px] font-semiwide cursor-pointer shadow-[0_4px_0_var(--accent-deep)] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 active:translate-y-1 active:shadow-none disabled:cursor-wait"
         >
-          {pending ? "Sending…" : "Send message"} <span aria-hidden>→</span>
+          {/* Progress sweep while the message is in flight. */}
+          <span
+            aria-hidden
+            className={`absolute inset-y-0 left-0 bg-on-accent/15 ${pending ? "w-full transition-[width] duration-[2.5s] ease-out" : "w-0"}`}
+          />
+          <span className="relative">{pending ? "Transmitting…" : "Send message"}</span>
+          <span aria-hidden className="relative transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </span>
         </button>
         <span role="status" className="font-mono text-[12.5px]">
           {state.status === "success" && (
-            <span className="text-accent-2-fg">
-              ✓ Thanks — I&apos;ll reply within one business day.
+            <span className="text-accent-fg animate-[card-in_.5s_var(--ease-out-expo)_both] inline-block">
+              ✓ Signal received — I&apos;ll reply within one business day.
             </span>
           )}
           {state.status === "error" && (
