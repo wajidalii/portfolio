@@ -102,7 +102,7 @@ export function ProximityType({
           key={i}
           aria-hidden
           data-ch={ch === " " ? undefined : ""}
-          className={`proximity-ch ${accentLast && i === chars.length - 1 ? "text-accent" : ""}`}
+          className={`proximity-ch ${accentLast && i === chars.length - 1 ? "text-accent-fg" : ""}`}
           style={{ "--i": i } as React.CSSProperties}
         >
           {ch === " " ? " " : ch}

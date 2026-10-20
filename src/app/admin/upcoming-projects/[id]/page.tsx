@@ -24,7 +24,7 @@ export default async function EditUpcomingProjectPage({
       <Link href="/admin/upcoming-projects" className="font-mono text-xs text-muted">
         ← Upcoming projects
       </Link>
-      <h1 className="font-display text-2xl font-bold mt-2 mb-8">Edit upcoming project</h1>
+      <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em] mt-2 mb-8">Edit upcoming project</h1>
       <UpcomingProjectForm
         action={updateUpcomingProject.bind(null, item.id)}
         initial={item}

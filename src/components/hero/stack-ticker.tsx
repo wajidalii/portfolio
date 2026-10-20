@@ -27,7 +27,8 @@ export function StackTicker({ items }: { items: readonly string[] }) {
   const loop = [...items, ...items];
 
   return (
-    <div className="group relative overflow-hidden border-b border-border bg-accent text-on-accent py-4 sm:py-5 -rotate-[0.6deg] scale-[1.02]">
+    <div className="overflow-hidden py-2">
+    <div className="group relative overflow-hidden border-y border-border bg-accent text-on-accent py-4 sm:py-5 -rotate-[0.6deg] scale-[1.02]">
       <ul className="sr-only">
         {items.map((t) => (
           <li key={t}>{t}</li>
@@ -48,6 +49,7 @@ export function StackTicker({ items }: { items: readonly string[] }) {
           </span>
         ))}
       </div>
+    </div>
     </div>
   );
 }

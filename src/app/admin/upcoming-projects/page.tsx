@@ -20,7 +20,7 @@ export default async function AdminUpcomingProjectsPage() {
           <Link href="/admin" className="font-mono text-xs text-muted">
             ← Admin
           </Link>
-          <h1 className="font-display text-2xl font-bold mt-2">Upcoming Projects</h1>
+          <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em] mt-2">Upcoming Projects</h1>
         </div>
         <Button href="/admin/upcoming-projects/new" size="md">
           Add project
@@ -31,7 +31,7 @@ export default async function AdminUpcomingProjectsPage() {
         {items.map((p, i) => (
           <div
             key={p.id}
-            className="border border-border rounded-xl bg-surface p-4 flex items-center gap-4"
+            className="border border-border rounded-lg bg-surface p-4 flex items-center gap-4"
           >
             <div className="flex flex-col gap-1">
               <form action={moveUpcomingProject.bind(null, p.id, "up")}>
