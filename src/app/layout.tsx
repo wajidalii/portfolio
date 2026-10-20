@@ -1,27 +1,22 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Archivo, Martian_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON } from "@/lib/site-config";
 import { heroStack } from "@/content/home";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+// Archivo's width axis (62–125) powers the expanded display type and the
+// proximity-type hero; Martian Mono is the instrument-label face.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  axes: ["wdth"],
   display: "swap",
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
-  variable: "--font-ibm-plex-sans",
+const martianMono = Martian_Mono({
+  variable: "--font-martian-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  axes: ["wdth"],
   display: "swap",
 });
 
@@ -101,7 +96,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${ibmPlexSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${archivo.variable} ${martianMono.variable} font-sans antialiased`}
       >
         {children}
       </body>

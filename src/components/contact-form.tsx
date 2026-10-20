@@ -34,7 +34,7 @@ export function ContactForm() {
             placeholder="Sara Al-Mansoori"
             className="rounded-[10px] border border-border bg-surface px-3.5 py-3 text-text"
           />
-          <span id="e-name" role="alert" className="min-h-4 text-[12.5px] font-mono text-red-400">
+          <span id="e-name" role="alert" className="min-h-4 text-[12.5px] font-mono text-danger">
             {state.errors.name}
           </span>
         </div>
@@ -51,7 +51,7 @@ export function ContactForm() {
             placeholder="you@company.com"
             className="rounded-[10px] border border-border bg-surface px-3.5 py-3 text-text"
           />
-          <span id="e-email" role="alert" className="min-h-4 text-[12.5px] font-mono text-red-400">
+          <span id="e-email" role="alert" className="min-h-4 text-[12.5px] font-mono text-danger">
             {state.errors.email}
           </span>
         </div>
@@ -86,7 +86,7 @@ export function ContactForm() {
           placeholder="Role, team size, stack, and what's currently breaking."
           className="rounded-[10px] border border-border bg-surface px-3.5 py-3 text-text resize-y"
         />
-        <span id="e-msg" role="alert" className="min-h-4 text-[12.5px] font-mono text-red-400">
+        <span id="e-msg" role="alert" className="min-h-4 text-[12.5px] font-mono text-danger">
           {state.errors.message}
         </span>
       </div>
@@ -95,7 +95,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[11px] bg-accent text-[#08090a] font-semibold text-[15.5px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 hover:bg-accent-2"
+          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[11px] bg-accent text-on-accent font-semibold text-[15.5px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 hover:bg-accent-2"
         >
           {pending ? "Sending…" : "Send message"} <span aria-hidden>→</span>
         </button>
@@ -106,7 +106,7 @@ export function ContactForm() {
             </span>
           )}
           {state.status === "error" && (
-            <span className="text-red-400">{state.serverError}</span>
+            <span className="text-danger">{state.serverError}</span>
           )}
         </span>
       </div>
