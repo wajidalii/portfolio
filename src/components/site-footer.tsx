@@ -22,7 +22,7 @@ export function SiteFooter() {
     <footer className="relative overflow-hidden bg-surface border-t border-border">
       <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-16 pb-10">
         <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.2fr]">
-          <div className="reg-marks border border-border rounded-lg bg-bg p-5 self-start">
+          <div className="reg-marks hover-zoom border border-border rounded-lg bg-bg p-5 self-start">
             <div className="label-mono mb-3">Serial plate</div>
             <dl className="m-0 grid gap-1.5 font-mono text-[11.5px]">
               <div className="flex justify-between gap-4">
@@ -92,7 +92,6 @@ export function SiteFooter() {
             <a
               href="#main"
               className="mt-6 inline-flex items-center gap-2 px-3.5 py-2 rounded-md border border-border bg-bg font-mono text-[11.5px] text-text shadow-[0_2px_0_var(--border)] hover:border-accent hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all"
-              data-cursor="REWIND"
             >
               <span aria-hidden>⏮</span> Rewind to top
             </a>
@@ -100,7 +99,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Giant wordmark — outlined, fills with orange from the left on hover. */}
+      {/* Giant wordmark — outlined, fills with ice from the left on hover. */}
       <div aria-hidden className="footer-mark max-w-[1240px] mx-auto px-5 sm:px-8 select-none">
         <div className="font-wide font-black leading-[0.8] tracking-[-0.04em] text-[17vw] lg:text-[208px] whitespace-nowrap">
           WAJID ALI

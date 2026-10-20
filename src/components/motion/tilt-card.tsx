@@ -4,7 +4,7 @@ import { useRef, type ReactNode } from "react";
 import { usePointerFx } from "./use-motion";
 
 /**
- * 3D tilt toward the pointer with a soft spotlight that follows it.
+ * 3D tilt toward the pointer, a zoom-in, and a soft spotlight that follows it.
  * Sets --mx/--my (spotlight position, %) on the element; the `.tilt-card`
  * CSS in globals draws the light. Without a fine pointer it's a plain div.
  */
@@ -33,7 +33,7 @@ export function TiltCard({
     frame.current = requestAnimationFrame(() => {
       el.style.setProperty("--mx", `${px * 100}%`);
       el.style.setProperty("--my", `${py * 100}%`);
-      el.style.transform = `perspective(1000px) rotateX(${(0.5 - py) * max}deg) rotateY(${(px - 0.5) * max}deg) translate3d(0, -4px, 0)`;
+      el.style.transform = `perspective(1000px) rotateX(${(0.5 - py) * max}deg) rotateY(${(px - 0.5) * max}deg) translate3d(0, -4px, 0) scale(1.04)`;
     });
   };
 

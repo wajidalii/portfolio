@@ -12,7 +12,7 @@ export function Stats() {
           <div
             key={s.label}
             data-reveal
-            className="group lcd px-4 sm:px-5 pt-4 pb-4.5 transition-transform duration-300 hover:-translate-y-1"
+            className="group lcd hover-zoom relative px-4 sm:px-5 pt-4 pb-4.5"
           >
             <div className="flex justify-between mb-3 font-mono text-[9px] tracking-[0.14em] text-lcd-muted">
               <span>READOUT {String(i + 1).padStart(2, "0")}</span>

@@ -4,12 +4,15 @@ import { Magnetic } from "@/components/motion/magnetic";
 import { SignalScope } from "@/components/hero/signal-scope";
 import { LiveClock } from "@/components/hero/live-clock";
 import { StackTicker } from "@/components/hero/stack-ticker";
+import { DotField } from "@/components/hero/dot-field";
+import { Parallax } from "@/components/motion/parallax";
 
 export function Hero() {
   return (
     <>
       <section aria-labelledby="hero-h" className="relative overflow-hidden border-b border-border">
-        {/* Warm glow behind the name, top right. */}
+        <DotField />
+        {/* Soft ice glow behind the name, top right. */}
         <div
           aria-hidden
           className="absolute -top-[260px] -right-[160px] w-[680px] h-[680px] rounded-full pointer-events-none"
@@ -32,7 +35,9 @@ export function Hero() {
               data-reveal="wipe"
               className="block font-display leading-[0.86] tracking-[-0.035em] whitespace-nowrap text-[clamp(46px,13.2vw,196px)] mb-7 sm:mb-9"
             >
-              <ProximityType text="WAJID ALI." accentLast />
+              <Parallax speed={-0.18}>
+                <ProximityType text="WAJID ALI." accentLast />
+              </Parallax>
             </span>
             <span
               data-reveal
@@ -57,7 +62,6 @@ export function Hero() {
                 <Magnetic>
                   <a
                     href="#contact"
-                    data-cursor="BOOK"
                     className="group inline-flex items-center gap-3 px-6 py-4 rounded-md bg-accent text-on-accent font-bold text-[15.5px] font-semiwide shadow-[0_4px_0_var(--accent-deep),0_16px_34px_-16px_var(--accent)] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_0_0_var(--accent-deep)]"
                   >
                     Book a 20-min call
@@ -82,7 +86,7 @@ export function Hero() {
               aria-label="Proof points"
               data-reveal
               style={{ "--reveal-delay": "320ms" } as React.CSSProperties}
-              className="reg-marks border border-border rounded-lg bg-surface p-5 sm:p-6 shadow-[0_30px_60px_-40px_rgba(0,0,0,.7)]"
+              className="reg-marks hover-zoom border border-border rounded-lg bg-surface p-5 sm:p-6 shadow-[0_30px_60px_-40px_rgba(0,0,0,.7)]"
             >
               <div className="flex justify-between gap-3 mb-3.5">
                 <span className="label-mono">{"// signal"}</span>

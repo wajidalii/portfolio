@@ -44,7 +44,7 @@ export function SignalScope({ className = "" }: { className?: string }) {
       lastT = now;
     };
 
-    const amber = "#F4B63F";
+    const ice = "#A9C7E8";
     let phase = 0;
     let raf = 0;
     let visible = true;
@@ -52,7 +52,7 @@ export function SignalScope({ className = "" }: { className?: string }) {
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
       // graticule
-      ctx.strokeStyle = "rgba(244,182,63,0.08)";
+      ctx.strokeStyle = "rgba(169,199,232,0.09)";
       ctx.lineWidth = 1;
       for (let gx = 0; gx <= w; gx += w / 10) {
         ctx.beginPath();
@@ -80,9 +80,9 @@ export function SignalScope({ className = "" }: { className?: string }) {
         if (x === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = amber;
+      ctx.strokeStyle = ice;
       ctx.lineWidth = 2;
-      ctx.shadowColor = amber;
+      ctx.shadowColor = ice;
       ctx.shadowBlur = 10;
       ctx.stroke();
       ctx.shadowBlur = 0;

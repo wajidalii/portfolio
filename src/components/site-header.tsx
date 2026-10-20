@@ -95,7 +95,7 @@ export function SiteHeader() {
         aria-label="Primary"
         className="max-w-[1240px] mx-auto px-5 sm:px-8 py-3 flex items-center gap-4 lg:gap-6"
       >
-        <a href="#main" className="group flex items-center gap-3 text-text" data-cursor="TOP">
+        <a href="#main" className="group flex items-center gap-3 text-text">
           <span className="grid place-items-center w-[34px] h-[34px] rounded-[5px] bg-accent text-on-accent text-[12.5px] font-black font-wide shadow-[0_3px_0_var(--accent-deep)] transition-transform duration-200 group-hover:-rotate-6 group-active:translate-y-[3px] group-active:shadow-none">
             WA
           </span>
@@ -143,7 +143,6 @@ export function SiteHeader() {
               aria-checked={!isDark}
               onClick={toggleTheme}
               aria-label="Day theme"
-              data-cursor={isDark ? "DAY" : "NIGHT"}
               className="relative w-[58px] h-[28px] rounded-[5px] lcd !border-border"
             >
               <span

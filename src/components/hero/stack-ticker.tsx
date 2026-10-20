@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Infinite stack marquee on a signal-orange band. Runs left; flips
+ * Infinite stack marquee on an ice band. Runs left; flips
  * direction when the visitor scrolls up, and pauses on hover. The list is
  * duplicated for a seamless loop, so the visual copy is aria-hidden and a
  * plain list is provided for screen readers.
