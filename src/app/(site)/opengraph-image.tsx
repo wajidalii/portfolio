@@ -15,8 +15,8 @@ export default async function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "#0B0D0F",
-          color: "#E8ECEF",
+          background: "#121110",
+          color: "#EEE8DC",
           padding: "80px",
           fontFamily: "sans-serif",
         }}
@@ -36,16 +36,16 @@ export default async function OpengraphImage() {
               justifyContent: "center",
               width: 64,
               height: 64,
-              borderRadius: 16,
-              background: "linear-gradient(150deg, #5C9CF5, #2FB58C)",
-              color: "#08090A",
+              borderRadius: 8,
+              background: "#FF5A1F",
+              color: "#121110",
               fontSize: 26,
               fontWeight: 700,
             }}
           >
             WA
           </div>
-          <div style={{ display: "flex", fontSize: 30, color: "#94A2AD" }}>
+          <div style={{ display: "flex", fontSize: 30, color: "#A39B8C" }}>
             wajidali.dev
           </div>
         </div>
@@ -64,11 +64,11 @@ export default async function OpengraphImage() {
           <span>software&nbsp;</span>
           <span>engineer&nbsp;</span>
           <span>building&nbsp;</span>
-          <span style={{ color: "#5C9CF5" }}>scalable&nbsp;</span>
-          <span style={{ color: "#5C9CF5" }}>systems&nbsp;</span>
+          <span style={{ color: "#FF6A33" }}>scalable&nbsp;</span>
+          <span style={{ color: "#FF6A33" }}>systems&nbsp;</span>
           <span>and&nbsp;</span>
-          <span style={{ color: "#2FB58C" }}>AI-first&nbsp;</span>
-          <span style={{ color: "#2FB58C" }}>products.</span>
+          <span style={{ color: "#F4B63F" }}>AI-first&nbsp;</span>
+          <span style={{ color: "#F4B63F" }}>products.</span>
         </div>
       </div>
     ),

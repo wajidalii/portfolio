@@ -19,7 +19,7 @@ export default async function AdminLoginPage({
           {params.from ? `Sign in to continue to ${params.from}` : "Enter the admin password."}
         </p>
         {params.error && (
-          <p className="mb-4 text-sm font-mono text-red-400">
+          <p className="mb-4 text-sm font-mono text-danger">
             Incorrect password.
           </p>
         )}
