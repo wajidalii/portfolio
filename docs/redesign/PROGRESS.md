@@ -11,7 +11,7 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 | #44 Header + footer | ✅ done | see log |
 | #45 Hero, stats, ticker | ✅ done | see log |
 | #46 About, skills, experience | ✅ done | see log |
-| #47 Projects + upcoming | ⏳ next | — |
+| #47 Projects + upcoming | ✅ done | see log |
 | #48 Recs, FAQ, contact, CTA | ☐ | — |
 | #49 Admin + QA | ☐ | — |
 
@@ -104,3 +104,15 @@ New `src/components/motion/` (no animation library, ~6 kB of hooks):
   an element hidden with `clip-path`, so "wipe" headings never revealed.
   `MotionProvider` now observes the wipe target's parent instead.
   Verified in Chrome.
+
+### 2026-10-20 — #47 Projects + upcoming
+
+- Project cards: `TiltCard` tilt + spotlight, screenshot **zooms in** and
+  goes grey→colour on hover, viewfinder brackets close in, `REC 0n` tag
+  blinks, link underline sweeps in.
+- Filter: segmented LCD control with a sliding indicator; cards re-enter
+  with a staggered rise; result count announced to screen readers.
+- Upcoming projects: tilt modules with a status LED (blinks when in
+  progress); empty state is an LCD "NO SIGNAL" panel.
+- Also (owner request): added the `websitelaunches-verification` meta tag
+  via `metadata.verification.other` in the root layout.
