@@ -8,8 +8,8 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 | #41 Design spec & docs | ✅ done | — |
 | #42 Tokens, fonts, textures | ✅ done | see log |
 | #43 Motion primitives | ✅ done | see log |
-| #44 Header + footer | ⏳ next | — |
-| #45 Hero, stats, ticker | ☐ | — |
+| #44 Header + footer | ✅ done | see log |
+| #45 Hero, stats, ticker | ⏳ next | — |
 | #46 About, skills, experience | ☐ | — |
 | #47 Projects + upcoming | ☐ | — |
 | #48 Recs, FAQ, contact, CTA | ☐ | — |
@@ -61,3 +61,16 @@ New `src/components/motion/` (no animation library, ~6 kB of hooks):
   swell near the pointer; breathing wave fallback on touch).
 - All pointer effects gated on `(hover:hover) and (pointer:fine)` and
   `prefers-reduced-motion`.
+
+### 2026-10-20 — #44 Header + footer
+
+- Header: keycap `WA` logo (tilts on hover, presses on click), LCD with a
+  4-digit **tape counter** (scroll ‰) and the **current channel**
+  (scroll-spied from `[data-channel]` sections), orange scroll-progress
+  tape along the bottom edge, decode-on-hover nav, hardware **Night/Day
+  slide switch** (`role="switch"`), magnetic CTA keycap. Hides on scroll
+  down, returns on scroll up. Mobile menu: wide display links with
+  staggered entry, animated burger→×, Escape closes.
+- Footer: serial plate panel (model/origin/build/status LED), link lists
+  with an orange lead-line on hover, "rewind to top" key, and a giant
+  outlined `WAJID ALI` wordmark that floods orange on hover.

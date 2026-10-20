@@ -342,6 +342,30 @@ html[data-cursor="on"] select {
   }
 }
 
+/* ---------- Header / footer ---------- */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.footer-mark > div {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border);
+  background: linear-gradient(90deg, var(--accent) 0 50%, transparent 50% 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-position 1.1s var(--ease-out-expo), -webkit-text-stroke-color 0.4s;
+  padding-bottom: 0.06em;
+}
+.footer-mark:hover > div {
+  background-position: 0 0;
+  -webkit-text-stroke-color: var(--accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
