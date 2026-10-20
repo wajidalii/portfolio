@@ -3,3 +3,9 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+  from = "https://wajidali.netlify.app/*"
+  to = "https://wajidali.dev/:splat"
+  status = 301
+  force = true
