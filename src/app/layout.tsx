@@ -39,6 +39,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  // Renders <meta name="websitelaunches-verification" content="…"> in <head>.
+  verification: {
+    other: {
+      "websitelaunches-verification": "f599e617fe2c5e170ec61394cce87758",
+    },
+  },
   openGraph: {
     type: "website",
     url: SITE_URL,

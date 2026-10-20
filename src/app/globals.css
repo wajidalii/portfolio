@@ -399,6 +399,57 @@ html[data-cursor="on"] select {
   box-shadow: 0 0 0 5px var(--glow);
 }
 
+/* ---------- Projects ---------- */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+}
+/* Zoom-in + grey→colour screenshot on hover */
+.project-shot {
+  filter: grayscale(1) contrast(1.05) brightness(0.92);
+  transition:
+    transform 0.9s var(--ease-out-expo),
+    filter 0.6s ease;
+}
+.project-card:hover .project-shot,
+.project-card:focus-within .project-shot {
+  transform: scale(1.09);
+  filter: none;
+}
+/* Viewfinder corner brackets that close in on hover */
+.viewfinder {
+  --c: var(--accent);
+  background:
+    linear-gradient(var(--c), var(--c)) 0 0 / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) 0 0 / 1.5px 14px,
+    linear-gradient(var(--c), var(--c)) 100% 0 / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) 100% 0 / 1.5px 14px,
+    linear-gradient(var(--c), var(--c)) 0 100% / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) 0 100% / 1.5px 14px,
+    linear-gradient(var(--c), var(--c)) 100% 100% / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) 100% 100% / 1.5px 14px;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.08);
+  transition:
+    opacity 0.35s,
+    transform 0.6s var(--ease-out-expo);
+}
+.project-card:hover .viewfinder {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Underline that sweeps in from the left */
+.link-sweep {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+  transition: background-size 0.4s var(--ease-out-expo);
+}
+.link-sweep:hover {
+  background-size: 100% 1px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
