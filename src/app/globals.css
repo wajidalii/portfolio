@@ -367,6 +367,38 @@ html[data-cursor="on"] select {
   -webkit-text-stroke-color: var(--accent);
 }
 
+/* ---------- Skills VU meter ---------- */
+.vu-bar {
+  transition: background-color 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.skill-mod .vu-bar[data-on] {
+  background: color-mix(in srgb, var(--accent2) 45%, var(--surface2));
+}
+.skill-mod:hover .vu-bar[data-on] {
+  background: var(--accent2);
+  border-color: transparent;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent2) 70%, transparent);
+}
+
+/* ---------- Experience playhead ---------- */
+.playhead[data-live] .exp-role {
+  transition: opacity 0.5s;
+}
+.playhead[data-live] .exp-role:not([data-active]) {
+  opacity: 0.5;
+}
+.playhead[data-live] .exp-role:hover {
+  opacity: 1;
+}
+.exp-node {
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.exp-role[data-active] .exp-node {
+  background: var(--accent);
+  transform: scale(1.25);
+  box-shadow: 0 0 0 5px var(--glow);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
