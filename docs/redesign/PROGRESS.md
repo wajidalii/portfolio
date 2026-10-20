@@ -14,7 +14,7 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 | #47 Projects + upcoming | ✅ done | see log |
 | #57 Owner feedback: Steel & ice, no cursor, zoom | ✅ done | see log |
 | #48 Recs, FAQ, contact, CTA | ✅ done | see log |
-| #49 Admin + QA | ⏳ next | — |
+| #49 Admin + QA | ✅ done | see log |
 
 ## Log
 
@@ -152,3 +152,27 @@ should not feel like static website or dead website."
   form itself deliberately doesn't zoom (scaling while typing is jarring).
 - CTA: zooming panel with a scan line sweeping across and a magnetic key.
 - Verified in Chrome: loupe, FAQ dials/open, hover zoom.
+
+### 2026-10-20 — #49 Admin + QA
+
+- Admin: wide display headings, dashboard cards zoom on hover, login
+  panel gets registration marks, radii unified. **No logic changes** —
+  only class names. `/admin` still redirects to login when signed out.
+  CRUD flows weren't clicked through because they write to the live Neon
+  database.
+- QA:
+  - `tsc`, `eslint`, `next build` pass. Homepage: 15.2 kB page JS
+    (118 kB first load incl. framework).
+  - Phone width (390px): no horizontal overflow. Fixed: "Get in touch"
+    showed on phones (class conflict in the Magnetic wrapper), logo text
+    wrapped, tilted ticker poked 4px past the edge.
+  - Day theme checked; name dot switched to the text-safe accent.
+  - Reduced motion: every JS effect checks `prefers-reduced-motion`, CSS
+    kills transitions/animations globally.
+- ARCHITECTURE.md updated (styling, fonts, animation rows).
+
+## Summary
+
+The redesign is complete on `redesign/field-instrument`. It's in a final
+PR to `main` for the owner to review on the Netlify deploy preview before
+merging.

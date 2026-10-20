@@ -99,7 +99,7 @@ export function SiteHeader() {
           <span className="grid place-items-center w-[34px] h-[34px] rounded-[5px] bg-accent text-on-accent text-[12.5px] font-black font-wide shadow-[0_3px_0_var(--accent-deep)] transition-transform duration-200 group-hover:-rotate-6 group-active:translate-y-[3px] group-active:shadow-none">
             WA
           </span>
-          <span className="font-wide font-extrabold text-[15.5px] tracking-[-0.01em]">
+          <span className="font-wide font-extrabold text-[15.5px] tracking-[-0.01em] whitespace-nowrap">
             WAJID ALI
           </span>
         </a>
@@ -159,7 +159,8 @@ export function SiteHeader() {
             </span>
           </div>
 
-          <Magnetic className="hidden min-[960px]:inline-flex" strength={6}>
+          <span className="hidden min-[960px]:inline-flex">
+          <Magnetic strength={6}>
             <a
               href="#contact"
               className="inline-flex items-center px-4 py-2.5 rounded-md bg-accent text-on-accent font-semibold text-[14px] whitespace-nowrap shadow-[0_3px_0_var(--accent-deep)] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 active:translate-y-[3px] active:shadow-none font-semiwide"
@@ -167,6 +168,7 @@ export function SiteHeader() {
               Get in touch
             </a>
           </Magnetic>
+          </span>
 
           <button
             type="button"

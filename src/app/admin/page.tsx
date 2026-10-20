@@ -33,7 +33,7 @@ export default function AdminHomePage() {
   return (
     <main className="min-h-screen px-6 py-16 max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-10">
-        <h1 className="font-display text-2xl font-bold">Admin</h1>
+        <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em]">Admin</h1>
         <form action="/api/admin/logout" method="POST">
           <Button type="submit" variant="ghost" size="sm">
             Sign out
@@ -45,7 +45,7 @@ export default function AdminHomePage() {
           <Link
             key={s.href}
             href={s.href}
-            className="block border border-border rounded-xl bg-surface p-5 hover:border-accent transition-colors"
+            className="hover-zoom relative block border border-border rounded-lg bg-surface p-5 hover:border-accent"
           >
             <div className="font-semibold">{s.title}</div>
             <div className="text-muted text-sm mt-1">{s.description}</div>
