@@ -21,12 +21,29 @@ export function MotionProvider() {
 
     const reveal = (el: Element) => el.setAttribute("data-revealed", "");
 
+    // A clip-path "wipe" target reports zero visible area to the observer,
+    // so we watch its parent and reveal the wipe children through this map.
+    const proxies = new Map<Element, Element[]>();
+    const target = (el: Element): Element => {
+      if (el.getAttribute("data-reveal") !== "wipe" || !el.parentElement) return el;
+      const parent = el.parentElement;
+      const list = proxies.get(parent) ?? [];
+      if (!list.includes(el)) list.push(el);
+      proxies.set(parent, list);
+      return parent;
+    };
+
     const io = new IntersectionObserver(
       (entries) => {
         heardBack = true;
         for (const e of entries) {
           if (e.isIntersecting) {
-            reveal(e.target);
+            const wiped = proxies.get(e.target);
+            if (wiped) {
+              wiped.forEach(reveal);
+              proxies.delete(e.target);
+            }
+            if (e.target.hasAttribute("data-reveal")) reveal(e.target);
             io.unobserve(e.target);
           }
         }
@@ -37,7 +54,7 @@ export function MotionProvider() {
     const watch = (scope: ParentNode) => {
       scope
         .querySelectorAll("[data-reveal]:not([data-revealed])")
-        .forEach((el) => io.observe(el));
+        .forEach((el) => io.observe(target(el)));
     };
 
     // Stagger siblings that share a group, e.g. a grid of cards.
@@ -55,7 +72,7 @@ export function MotionProvider() {
       for (const r of records) {
         r.addedNodes.forEach((n) => {
           if (n instanceof Element) {
-            if (n.matches("[data-reveal]")) io.observe(n);
+            if (n.matches("[data-reveal]")) io.observe(target(n));
             watch(n);
           }
         });

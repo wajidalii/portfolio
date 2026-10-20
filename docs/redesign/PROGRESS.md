@@ -10,8 +10,8 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 | #43 Motion primitives | ✅ done | see log |
 | #44 Header + footer | ✅ done | see log |
 | #45 Hero, stats, ticker | ✅ done | see log |
-| #46 About, skills, experience | ⏳ next | — |
-| #47 Projects + upcoming | ☐ | — |
+| #46 About, skills, experience | ✅ done | see log |
+| #47 Projects + upcoming | ⏳ next | — |
 | #48 Recs, FAQ, contact, CTA | ☐ | — |
 | #49 Admin + QA | ☐ | — |
 
@@ -88,3 +88,19 @@ New `src/components/motion/` (no animation library, ~6 kB of hooks):
   pauses on hover, screen-reader list underneath.
 - Dev note: ports 3000/3001 are used by another local project; this one
   runs on `next dev -p 3100` while testing.
+
+### 2026-10-20 — #46 About, skills, experience
+
+- New `SectionHeading` (channel LED label + wide display h2 that wipes up).
+  Sections now carry `data-channel` so the header LCD follows along.
+- About: spec-sheet panel (sticky on desktop) with hover-lit rows; bold
+  phrases get an orange underline that draws in on hover.
+- Skills: rack modules with `TiltCard` tilt + spotlight, spinning glyph,
+  lifting chips, and a 5-bar **VU depth meter** (primary 5 / strong 4 /
+  working 3) that glows amber on hover; `aria-label` reports depth.
+- Experience: `Playhead` — rail fills with scroll, the role under the
+  playhead lights its node, others dim to 50% (fully lit without JS).
+- **Bug found + fixed:** IntersectionObserver reports zero visible area for
+  an element hidden with `clip-path`, so "wipe" headings never revealed.
+  `MotionProvider` now observes the wipe target's parent instead.
+  Verified in Chrome.
