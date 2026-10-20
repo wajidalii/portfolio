@@ -77,6 +77,7 @@ html[data-theme="light"] {
 }
 
 body {
+  overflow-x: clip;
   background: var(--bg);
   color: var(--text);
   transition: background 0.4s ease, color 0.4s ease;

@@ -9,8 +9,8 @@ https://claude.ai/artifact/FUF1dc3BZxU5xUmWkHKoQp · Epic: #40
 | #42 Tokens, fonts, textures | ✅ done | see log |
 | #43 Motion primitives | ✅ done | see log |
 | #44 Header + footer | ✅ done | see log |
-| #45 Hero, stats, ticker | ⏳ next | — |
-| #46 About, skills, experience | ☐ | — |
+| #45 Hero, stats, ticker | ✅ done | see log |
+| #46 About, skills, experience | ⏳ next | — |
 | #47 Projects + upcoming | ☐ | — |
 | #48 Recs, FAQ, contact, CTA | ☐ | — |
 | #49 Admin + QA | ☐ | — |
@@ -74,3 +74,17 @@ New `src/components/motion/` (no animation library, ~6 kB of hooks):
 - Footer: serial plate panel (model/origin/build/status LED), link lists
   with an orange lead-line on hover, "rewind to top" key, and a giant
   outlined `WAJID ALI` wordmark that floods orange on hover.
+
+### 2026-10-20 — #45 Hero, stats, ticker
+
+- Hero `h1` now holds the name **and** the title line (better for SEO
+  than the title alone). Name = `ProximityType` — verified in Chrome:
+  letters nearest the cursor widen/thicken live.
+- Instrument panel: canvas **oscilloscope** (amplitude follows pointer
+  speed, pauses off-screen, still frame for reduced motion), live
+  **Dubai/Karachi clocks**, numbered proof points that nudge on hover.
+- Stats are LCD readouts with `CountUp` (SSR prints final values).
+- Stack ticker: tilted signal-orange band, reverses when scrolling up,
+  pauses on hover, screen-reader list underneath.
+- Dev note: ports 3000/3001 are used by another local project; this one
+  runs on `next dev -p 3100` while testing.
