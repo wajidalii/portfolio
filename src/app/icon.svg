@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- "WA" keycap: ice face with a darker travel edge (Steel & ice palette) -->
+  <rect x="1" y="2" width="30" height="29" rx="6" fill="#5D7A9A"/>
+  <rect x="1" y="1" width="30" height="27" rx="6" fill="#A9C7E8"/>
+  <g fill="none" stroke="#0B0E11" stroke-width="2.6" stroke-linejoin="miter" stroke-linecap="butt">
+    <polyline points="4,8.5 7.1,20.5 10.2,12 13.3,20.5 16.4,8.5"/>
+    <polyline points="17.6,20.5 22.3,8.5 27,20.5"/>
+    <line x1="19.4" y1="16.2" x2="25.2" y2="16.2"/>
+  </g>
+</svg>
