@@ -1,27 +1,23 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Archivo, Martian_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON } from "@/lib/site-config";
 import { heroStack } from "@/content/home";
+import { PALETTES } from "@/components/theme/palettes";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+// Archivo's width axis (62–125) powers the expanded display type and the
+// proximity-type hero; Martian Mono is the instrument-label face.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  axes: ["wdth"],
   display: "swap",
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
-  variable: "--font-ibm-plex-sans",
+const martianMono = Martian_Mono({
+  variable: "--font-martian-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  axes: ["wdth"],
   display: "swap",
 });
 
@@ -69,12 +65,14 @@ export const metadata: Metadata = {
 // flash of the wrong theme. Kept inline (not a module) so it blocks paint.
 const themeInitScript = `
 (function () {
+  var root = document.documentElement;
   try {
     var stored = localStorage.getItem("theme");
-    var theme = stored === "light" || stored === "dark" ? stored : "dark";
-    document.documentElement.setAttribute("data-theme", theme);
+    root.setAttribute("data-theme", stored === "light" || stored === "dark" ? stored : "dark");
+    var palette = localStorage.getItem("palette");
+    if (${JSON.stringify(PALETTES.map((p) => p.id))}.indexOf(palette) > -1) root.setAttribute("data-palette", palette);
   } catch (e) {
-    document.documentElement.setAttribute("data-theme", "dark");
+    root.setAttribute("data-theme", "dark");
   }
 })();
 `;
@@ -107,7 +105,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${ibmPlexSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${archivo.variable} ${martianMono.variable} font-sans antialiased`}
       >
         {children}
       </body>

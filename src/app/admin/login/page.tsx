@@ -12,14 +12,14 @@ export default async function AdminLoginPage({
       <form
         action="/api/admin/login"
         method="POST"
-        className="w-full max-w-sm border border-border rounded-2xl bg-surface p-8"
+        className="reg-marks w-full max-w-sm border border-border rounded-lg bg-surface p-8"
       >
-        <h1 className="font-display text-xl font-semibold mb-1">Admin sign in</h1>
+        <h1 className="font-display font-wide text-xl font-extrabold mb-1">Admin sign in</h1>
         <p className="text-muted text-sm mb-6">
           {params.from ? `Sign in to continue to ${params.from}` : "Enter the admin password."}
         </p>
         {params.error && (
-          <p className="mb-4 text-sm font-mono text-red-400">
+          <p className="mb-4 text-sm font-mono text-danger">
             Incorrect password.
           </p>
         )}

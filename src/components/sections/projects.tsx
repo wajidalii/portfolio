@@ -3,121 +3,158 @@
 import { useState } from "react";
 import Image from "next/image";
 import { projects, projectFilters, shotSrc, type Project } from "@/content/projects";
+import { TiltCard } from "@/components/motion/tilt-card";
+import { SectionHeading } from "@/components/ui/section-heading";
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [shotFailed, setShotFailed] = useState(false);
   const showShot = project.hasShot && !shotFailed;
+  const external = project.href.startsWith("http");
 
   return (
-    <article className="border border-border rounded-2xl bg-bg overflow-hidden flex flex-col transition-all duration-250 hover:border-accent hover:-translate-y-1">
+    <TiltCard
+      as="article"
+      max={5}
+      className="project-card group h-full border border-border rounded-lg bg-bg overflow-hidden flex flex-col hover:border-accent"
+    >
       <div
         role="img"
         aria-label={project.figureAlt}
-        className="relative aspect-video bg-surface-2 border-b border-border grid place-items-center"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 9px)",
-        }}
+        className="relative aspect-[16/10] bg-surface-2 border-b border-border overflow-hidden"
       >
-        <div className="grid gap-2 place-items-center p-4 text-center">
-          <span
-            aria-hidden
-            className="grid place-items-center w-11 h-11 rounded-[11px] border border-border bg-bg font-mono text-[13px] text-accent-fg"
-          >
-            {project.glyph}
-          </span>
-          <span className="font-mono text-[11.5px] text-muted tracking-[0.04em]">
-            {project.figureLabel}
-          </span>
+        <div
+          className="project-shot absolute inset-0 grid place-items-center"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 10px)",
+          }}
+        >
+          <div className="grid gap-2.5 place-items-center p-4 text-center">
+            <span
+              aria-hidden
+              className="grid place-items-center w-12 h-12 rounded-md border border-border bg-bg font-mono text-[18px] text-accent-fg"
+            >
+              {project.glyph}
+            </span>
+            <span className="font-mono text-[10.5px] text-muted tracking-[0.04em] max-w-[30ch]">
+              {project.figureLabel}
+            </span>
+          </div>
+          {showShot && (
+            <Image
+              src={shotSrc(project)}
+              alt=""
+              fill
+              loading="lazy"
+              sizes="(min-width: 1024px) 400px, 100vw"
+              className="object-cover object-top"
+              onError={() => setShotFailed(true)}
+              unoptimized
+            />
+          )}
         </div>
-        {showShot && (
-          <Image
-            src={shotSrc(project)}
-            alt={project.figureAlt}
-            fill
-            loading="lazy"
-            className="absolute inset-0 object-cover object-top"
-            onError={() => setShotFailed(true)}
-            unoptimized
-          />
-        )}
+        {/* Viewfinder chrome */}
+        <span aria-hidden className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded-sm bg-lcd/80 font-mono text-[9.5px] tracking-[0.12em] text-lcd-fg">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:animate-[led-blink_1s_steps(2,jump-none)_infinite]" />
+          REC {String(index + 1).padStart(2, "0")}
+        </span>
+        <span aria-hidden className="viewfinder absolute inset-3 pointer-events-none" />
       </div>
+
       <div className="p-5.5 flex flex-col gap-4 flex-1">
         <div>
-          <div className="flex items-center gap-2.5 mb-2">
-            <h3 className="m-0 font-display text-[19px] font-semibold tracking-[-0.02em]">
+          <div className="flex items-center justify-between gap-3 mb-2.5">
+            <h3 className="m-0 font-semiwide font-bold text-[21px] tracking-[-0.02em]">
               {project.name}
             </h3>
-            <span className="font-mono text-[11px] text-accent-2-fg border border-border rounded-full px-2 py-0.5">
+            <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.06em] text-accent-2-fg border border-border rounded-sm px-2 py-1">
               {project.kind}
             </span>
           </div>
-          <p className="m-0 text-muted text-[15px] text-pretty">{project.problem}</p>
+          <p className="m-0 text-muted text-[15px] leading-relaxed text-pretty">{project.problem}</p>
         </div>
-        <dl className="m-0 grid gap-2 text-[14.5px]">
-          <div className="grid grid-cols-[64px_1fr] gap-3">
-            <dt className="font-mono text-[11.5px] text-muted pt-0.5">role</dt>
+        <dl className="m-0 grid gap-2.5 text-[14.5px]">
+          <div className="grid grid-cols-[68px_1fr] gap-3">
+            <dt className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted pt-1">role</dt>
             <dd className="m-0">{project.role}</dd>
           </div>
-          <div className="grid grid-cols-[64px_1fr] gap-3">
-            <dt className="font-mono text-[11.5px] text-muted pt-0.5">outcome</dt>
-            <dd className="m-0 text-text">
-              <strong className="font-semibold">{project.outcome}</strong>
-            </dd>
+          <div className="grid grid-cols-[68px_1fr] gap-3">
+            <dt className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-accent-fg pt-1">outcome</dt>
+            <dd className="m-0 font-semibold">{project.outcome}</dd>
           </div>
         </dl>
+        {project.highlights && (
+          <ul className="m-0 pl-4 grid gap-1.5 text-[14px] leading-snug text-muted list-disc marker:text-accent-fg">
+            {project.highlights.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        )}
         <div className="flex flex-wrap gap-1.5">
           {project.stack.map((t) => (
             <span
               key={t}
-              className="px-2 py-1 rounded-md border border-border bg-surface-2 font-mono text-[11.5px] text-muted"
+              className="px-2 py-1 rounded border border-border bg-surface-2 font-mono text-[10.5px] text-muted"
             >
               {t}
             </span>
           ))}
         </div>
-        <div className="mt-auto pt-4 border-t border-border flex flex-wrap gap-4 font-mono text-[12.5px]">
+        <div className="mt-auto pt-4 border-t border-dashed border-border flex flex-wrap gap-4 justify-between font-mono text-[12px]">
           <a
             href={project.href}
-            target={project.href.startsWith("http") ? "_blank" : undefined}
-            rel={project.href.startsWith("http") ? "noopener" : undefined}
-            className="inline-flex items-center gap-1.5"
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener" : undefined}
+            className="link-sweep inline-flex items-center gap-1.5 text-accent-fg"
           >
             {project.hrefLabel} <span aria-hidden>↗</span>
           </a>
-          <a href="#contact" className="inline-flex items-center gap-1.5 text-muted">
-            case study <span aria-hidden>→</span>
+          <a href="#contact" className="group/cs inline-flex items-center gap-1.5 text-muted hover:text-text transition-colors">
+            case study
+            <span aria-hidden className="transition-transform duration-300 group-hover/cs:translate-x-1">
+              →
+            </span>
           </a>
         </div>
       </div>
-    </article>
+    </TiltCard>
   );
 }
 
 export function Projects() {
   const [filter, setFilter] = useState<(typeof projectFilters)[number]>("All");
   const visible = filter === "All" ? projects : projects.filter((p) => p.tag === filter);
+  const activeIndex = projectFilters.indexOf(filter);
 
   return (
-    <section id="projects" aria-labelledby="proj-h" className="border-b border-border bg-surface">
-      <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-26">
-        <div className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-accent-fg mb-4">
-          04 — Selected work
-        </div>
-        <div className="flex flex-wrap gap-5 items-end justify-between mb-11">
-          <div>
-            <h2
-              id="proj-h"
-              className="font-display text-[28px] sm:text-4xl lg:text-[42px] font-bold tracking-[-0.03em] mb-3"
-            >
+    <section
+      id="projects"
+      data-channel="CH·04 SELECTED WORK"
+      aria-labelledby="proj-h"
+      className="border-b border-border bg-surface"
+    >
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-20 sm:py-24 lg:py-30">
+        <div className="flex flex-wrap gap-6 items-end justify-between mb-12">
+          <div className="max-w-[720px]">
+            <SectionHeading id="proj-h" channel="04" label="Selected work" className="mb-5">
               Projects &amp; case studies
-            </h2>
-            <p className="text-muted max-w-[58ch] m-0 text-[16.5px]">
+            </SectionHeading>
+            <p data-reveal className="text-muted max-w-[58ch] m-0 text-[16px] leading-relaxed">
               Every card is problem → role → stack → outcome, with links to
               the live product and a deeper write-up where one exists.
             </p>
           </div>
-          <div className="flex gap-1.5 flex-wrap">
+
+          {/* Segmented LCD selector with a sliding indicator. */}
+          <div role="group" aria-label="Filter projects" className="lcd relative grid grid-cols-4 p-1">
+            <span
+              aria-hidden
+              className="absolute top-1 bottom-1 left-1 rounded-[4px] bg-accent shadow-[0_0_14px_-2px_var(--accent)] transition-transform duration-400 ease-[var(--ease-spring)]"
+              style={{
+                width: `calc((100% - 8px) / ${projectFilters.length})`,
+                transform: `translateX(${activeIndex * 100}%)`,
+              }}
+            />
             {projectFilters.map((f) => {
               const active = filter === f;
               return (
@@ -126,10 +163,8 @@ export function Projects() {
                   type="button"
                   onClick={() => setFilter(f)}
                   aria-pressed={active}
-                  className={`px-3.5 py-2 rounded-lg border font-mono text-[12.5px] transition-colors ${
-                    active
-                      ? "bg-accent text-[#08090a] border-accent"
-                      : "bg-bg text-muted border-border hover:border-accent"
+                  className={`relative z-10 px-3.5 sm:px-4 py-2.5 rounded-[4px] font-mono text-[11px] uppercase tracking-[0.08em] transition-colors duration-300 ${
+                    active ? "text-on-accent font-semibold" : "text-lcd-muted hover:text-lcd-fg"
                   }`}
                 >
                   {f}
@@ -138,9 +173,20 @@ export function Projects() {
             })}
           </div>
         </div>
-        <div className="grid gap-5 grid-cols-[repeat(auto-fit,minmax(330px,1fr))]">
-          {visible.map((p) => (
-            <ProjectCard key={p.name} project={p} />
+
+        <p className="sr-only" aria-live="polite">
+          Showing {visible.length} {visible.length === 1 ? "project" : "projects"}
+        </p>
+
+        <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,340px),1fr))]">
+          {visible.map((p, i) => (
+            <div
+              key={`${filter}-${p.name}`}
+              className="animate-[card-in_.6s_var(--ease-out-expo)_both]"
+              style={{ animationDelay: `${i * 60}ms` }}
+            >
+              <ProjectCard project={p} index={projects.indexOf(p)} />
+            </div>
           ))}
         </div>
       </div>

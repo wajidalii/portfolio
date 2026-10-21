@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wajid Ali — Field Instrument homepage</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Martian+Mono:wdth,wght@75..112.5,100..800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:inherit}a:hover{color:#A9C7E8}
+.fi{--bg:#0E1114;--surface:#151A1F;--surface2:#1C232A;--border:#2A333C;--text:#E6EBF0;--muted:#8B96A2;--accent:#A9C7E8;--accent-fg:#A9C7E8;--amber:#A9C7E8;--amber-fg:#A9C7E8;--lcd:#0A0D10;--ink:#0E1114;background:var(--bg);color:var(--text);font-family:Archivo,system-ui,sans-serif;font-variation-settings:"wdth" 100;position:relative;overflow:hidden}
+.fi.day{--bg:#E7EBEF;--surface:#F3F5F7;--surface2:#D9DFE5;--border:#BFC8D1;--text:#12161A;--muted:#56616C;--accent-fg:#2F5378;--amber-fg:#3D4A57}
+.fi::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(var(--border) 1px,transparent 1px);background-size:24px 24px;opacity:.55}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;position:relative}
+.mono{font-family:"Martian Mono",monospace;font-variation-settings:"wdth" 87}
+.lbl{font-family:"Martian Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ch{font-family:"Martian Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-fg);display:flex;align-items:center;gap:10px}
+.ch i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(169,199,232,.18)}
+.disp{font-family:Archivo,sans-serif;font-variation-settings:"wdth" 125;font-weight:800;letter-spacing:-.02em;line-height:.95;margin:0}
+.h2{font-family:Archivo,sans-serif;font-variation-settings:"wdth" 118;font-weight:750;font-size:52px;letter-spacing:-.025em;line-height:1;margin:0}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;position:relative}
+.reg::after{content:"+";position:absolute;top:-9px;right:-6px;font-family:"Martian Mono",monospace;font-size:14px;color:var(--muted)}
+.reg::before{content:"+";position:absolute;bottom:-10px;left:-6px;font-family:"Martian Mono",monospace;font-size:14px;color:var(--muted)}
+.key{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:var(--ink);font-weight:700;font-size:15px;padding:16px 22px;border-radius:6px;text-decoration:none;box-shadow:0 4px 0 #5D7A9A,0 14px 30px -14px rgba(169,199,232,.7);transition:transform .15s,box-shadow .15s;font-variation-settings:"wdth" 110}
+.key:hover{transform:translate(2px,-2px);color:var(--ink)}
+.key:active{transform:translateY(4px);box-shadow:0 0 0 #5D7A9A}
+.key2{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-weight:600;font-size:15px;padding:15px 20px;border-radius:6px;text-decoration:none;box-shadow:0 3px 0 var(--border);transition:transform .15s}
+.key2:hover{transform:translateY(-2px);color:var(--text)}
+.chip{font-family:"Martian Mono",monospace;font-size:11.5px;padding:6px 10px;border:1px solid var(--border);border-radius:4px;background:var(--surface2);color:var(--text);transition:all .2s;display:inline-block}
+.chip:hover{border-color:var(--accent);color:var(--accent-fg);transform:translateY(-2px)}
+.nm span{display:inline-block;transition:font-variation-settings .35s cubic-bezier(.2,.8,.2,1),color .3s;font-variation-settings:"wdth" 92,"wght" 700}
+.nm span:hover{font-variation-settings:"wdth" 125,"wght" 900;color:var(--accent)}
+.lcd{background:var(--lcd);border-radius:6px;border:1px solid #222a32;box-shadow:inset 0 2px 10px rgba(0,0,0,.6)}
+.lcdv{font-family:"Martian Mono",monospace;font-variation-settings:"wdth" 112;color:var(--amber);text-shadow:0 0 14px rgba(169,199,232,.45);font-weight:600}
+.trace{stroke-dasharray:8 4;animation:tr 1.6s linear infinite}
+@keyframes tr{to{stroke-dashoffset:-48}}
+@keyframes blink{50%{opacity:.25}}
+.led{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:blink 1.4s steps(2) infinite;display:inline-block}
+.tick{display:flex;gap:48px;white-space:nowrap;animation:mq 30s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mod{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .25s;transform:perspective(900px)}
+.mod:hover{transform:perspective(900px) rotateX(4deg) rotateY(-5deg) translateY(-6px);border-color:var(--accent)}
+.vu{display:flex;gap:3px}
+.vu b{width:12px;height:6px;border-radius:1px;background:var(--surface2);border:1px solid var(--border);transition:background .2s}
+.mod:hover .vu b.on{background:var(--amber);box-shadow:0 0 6px rgba(169,199,232,.6);border-color:transparent}
+.shot{overflow:hidden;aspect-ratio:16/10;border-bottom:1px solid var(--border);position:relative;background:var(--surface2)}
+.shot div{position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s;filter:grayscale(1) contrast(1.05)}
+.pcard:hover .shot div{transform:scale(1.09);filter:grayscale(0)}
+.pcard{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .25s}
+.pcard:hover{transform:perspective(1000px) rotateX(3deg) rotateY(4deg) translateY(-6px);border-color:var(--accent)}
+.rail{position:absolute;left:180px;top:0;bottom:0;width:2px;background:var(--border)}
+.rail i{position:absolute;left:0;top:0;width:2px;height:58%;background:var(--accent)}
+.faq{border-top:1px solid var(--border);padding:22px 0;display:flex;justify-content:space-between;gap:24px;align-items:center}
+.knob{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);position:relative;transition:transform .4s;flex:none}
+.knob::after{content:"";position:absolute;left:50%;top:5px;width:2px;height:10px;background:var(--accent);margin-left:-1px;border-radius:1px}
+.faq:hover .knob{transform:rotate(135deg)}
+.inp{display:grid;gap:8px}
+.inp input,.inp textarea,.inp select{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:14px;color:var(--text);font:inherit;font-size:15px}
+.loupe{position:absolute;width:150px;height:150px;border-radius:50%;border:2px solid var(--accent);right:40px;top:60px;box-shadow:0 20px 40px -10px rgba(0,0,0,.6),inset 0 0 0 6px rgba(18,17,16,.6);background:var(--surface);display:grid;place-items:center}
+.nav a{text-decoration:none;color:var(--muted);font-size:14px;padding:8px 12px;border-radius:4px}
+.nav a:hover{color:var(--text);background:var(--surface2)}
+.sw{width:64px;height:28px;border-radius:4px;background:var(--lcd);border:1px solid var(--border);position:relative}
+.sw i{position:absolute;top:3px;left:3px;width:28px;height:20px;border-radius:3px;background:var(--surface2);border:1px solid var(--border);box-shadow:0 2px 0 rgba(0,0,0,.4)}
+</style>
+</helmet>
+<div class="fi {{themeClass}}">
+
+<header style="position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); background: var(--bg)">
+<div class="wrap" style="display: flex; align-items: center; gap: 24px; padding-top: 14px; padding-bottom: 14px">
+<a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text)">
+<span style="display: grid; place-items: center; width: 34px; height: 34px; border-radius: 5px; background: var(--accent); color: var(--ink); font-weight: 900; font-size: 13px; font-variation-settings: 'wdth' 125">WA</span>
+<span style="font-weight: 800; font-size: 16px; font-variation-settings: 'wdth' 120; letter-spacing: -.01em">WAJID ALI</span>
+</a>
+<div class="lcd" style="display: flex; align-items: center; gap: 14px; padding: 7px 12px">
+<span class="lcdv" style="font-size: 13px">0247</span>
+<span class="mono" style="font-size: 10px; color: #7F8A96; letter-spacing: .12em">CH·03 EXPERIENCE</span>
+</div>
+<nav class="nav" aria-label="Primary" style="display: flex; gap: 2px; margin-left: auto">
+<a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#upcoming">Upcoming</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 8px">
+<span class="lbl" style="font-size: 9.5px">NIGHT</span>
+<button class="sw" aria-label="Toggle day or night theme"><i></i></button>
+<span class="lbl" style="font-size: 9.5px">DAY</span>
+</div>
+<a class="key" href="#contact" style="padding: 11px 16px; font-size: 14px">Get in touch</a>
+</div>
+</header>
+
+<section id="top" style="border-bottom: 1px solid var(--border)">
+<div class="wrap" style="padding-top: 80px; padding-bottom: 72px">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px">
+<div class="ch"><span class="led"></span> Open to senior / staff roles — remote &amp; relocation</div>
+<div class="lbl">MODEL WA-4.5 · SERIAL 2021—2026</div>
+</div>
+<h1 class="disp nm" aria-label="Wajid Ali" style="font-size: 188px; letter-spacing: -.035em; margin-bottom: 36px; white-space: nowrap"><span>W</span><span>A</span><span>J</span><span>I</span><span>D</span><span> </span><span>A</span><span>L</span><span>I</span><span style="color: var(--accent)">.</span></h1>
+<div style="display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start">
+<div>
+<p style="font-size: 30px; line-height: 1.2; margin: 0 0 22px; font-variation-settings: 'wdth' 108; font-weight: 600; letter-spacing: -.015em">Senior software engineer building <span style="color: var(--accent-fg)">scalable systems</span> and <span style="color: var(--amber-fg)">AI-first products</span>.</p>
+<p style="font-size: 17px; line-height: 1.6; color: var(--muted); margin: 0 0 34px; max-width: 56ch">4.5+ years shipping SaaS platforms end to end — distributed backends, multi-tenant architecture, and LLM systems that hold up in production. I own problems from schema to SLO, and I write the runbook after.</p>
+<div style="display: flex; gap: 14px; margin-bottom: 0">
+<a class="key" href="#contact">Book a 20-min call <span aria-hidden="true">→</span></a>
+<a class="key2" href="#projects">See the work <span aria-hidden="true">↓</span></a>
+</div>
+</div>
+<aside class="panel reg" aria-label="Instrument panel" style="padding: 20px">
+<div style="display: flex; justify-content: space-between; margin-bottom: 14px"><span class="lbl">// signal</span><span class="lbl">INPUT · CURSOR VELOCITY</span></div>
+<div class="lcd" style="height: 120px; position: relative; overflow: hidden; margin-bottom: 16px">
+<svg aria-hidden="true" width="100%" height="120" viewBox="0 0 480 120" preserveAspectRatio="none" style="display: block">
+<path d="M0 60 H480 M0 30 H480 M0 90 H480" stroke="#222a32" stroke-width="1"></path>
+<path class="trace" d="M0 60 C 20 20, 40 100, 60 60 S 100 10, 120 60 S 160 110, 180 60 S 220 25, 240 60 S 280 95, 300 60 S 340 15, 360 60 S 400 105, 420 60 S 460 35, 480 60" fill="none" stroke="#A9C7E8" stroke-width="2"></path>
+</svg>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px">
+<div class="lcd" style="padding: 10px 12px"><div class="mono" style="font-size: 9.5px; color: #7F8A96; letter-spacing: .12em">DXB · UTC+4</div><div class="lcdv" style="font-size: 22px">14:32:07</div></div>
+<div class="lcd" style="padding: 10px 12px"><div class="mono" style="font-size: 9.5px; color: #7F8A96; letter-spacing: .12em">KHI · UTC+5</div><div class="lcdv" style="font-size: 22px">15:32:07</div></div>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0; display: grid; gap: 12px">
+<li style="display: grid; grid-template-columns: 26px 1fr; gap: 10px"><span class="mono" style="font-size: 11px; color: var(--accent-fg)">01</span><span style="font-size: 14.5px"><b>Multi-tenant SaaS, end to end.</b> <span style="color: var(--muted)">Three products taken from prototype to paying customers.</span></span></li>
+<li style="display: grid; grid-template-columns: 26px 1fr; gap: 10px"><span class="mono" style="font-size: 11px; color: var(--accent-fg)">02</span><span style="font-size: 14.5px"><b>Systems that survive growth.</b> <span style="color: var(--muted)">Monolith path to services at 40× traffic, no downtime.</span></span></li>
+<li style="display: grid; grid-template-columns: 26px 1fr; gap: 10px"><span class="mono" style="font-size: 11px; color: var(--accent-fg)">03</span><span style="font-size: 14.5px"><b>LLM features in production.</b> <span style="color: var(--muted)">RAG with evals in CI and per-request cost budgets.</span></span></li>
+</ul>
+</aside>
+</div>
+</div>
+</section>
+
+<section aria-label="Impact by the numbers" style="border-bottom: 1px solid var(--border); background: var(--surface)">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding-top: 36px; padding-bottom: 36px">
+<div class="lcd" style="padding: 18px 20px"><div class="lcdv" style="font-size: 46px; line-height: 1">04.5<span style="color: var(--accent)">+</span></div><div class="mono" style="font-size: 10.5px; color: #8B96A2; margin-top: 10px; letter-spacing: .06em">YEARS IN PRODUCTION</div></div>
+<div class="lcd" style="padding: 18px 20px"><div class="lcdv" style="font-size: 46px; line-height: 1">99.98<span style="color: var(--accent)">%</span></div><div class="mono" style="font-size: 10.5px; color: #8B96A2; margin-top: 10px; letter-spacing: .06em">UPTIME ON OWNED SERVICES</div></div>
+<div class="lcd" style="padding: 18px 20px"><div class="lcdv" style="font-size: 46px; line-height: 1">040<span style="color: var(--accent)">×</span></div><div class="mono" style="font-size: 10.5px; color: #8B96A2; margin-top: 10px; letter-spacing: .06em">TRAFFIC, NO REWRITE</div></div>
+<div class="lcd" style="padding: 18px 20px"><div class="lcdv" style="font-size: 46px; line-height: 1">012</div><div class="mono" style="font-size: 10.5px; color: #8B96A2; margin-top: 10px; letter-spacing: .06em">ENGINEERS MENTORED</div></div>
+</div>
+</section>
+
+<div aria-hidden="true" style="border-bottom: 1px solid var(--border); overflow: hidden; padding: 18px 0; background: var(--accent); color: var(--ink)">
+<div class="tick" style="font-weight: 800; font-size: 22px; font-variation-settings: 'wdth' 125; letter-spacing: -.01em">
+<span>TYPESCRIPT ✳</span><span>C# / .NET ✳</span><span>GO ✳</span><span>PYTHON ✳</span><span>POSTGRESQL ✳</span><span>KAFKA ✳</span><span>KUBERNETES ✳</span><span>AWS ✳</span><span>CLAUDE / OPENAI ✳</span><span>TERRAFORM ✳</span>
+<span>TYPESCRIPT ✳</span><span>C# / .NET ✳</span><span>GO ✳</span><span>PYTHON ✳</span><span>POSTGRESQL ✳</span><span>KAFKA ✳</span><span>KUBERNETES ✳</span><span>AWS ✳</span><span>CLAUDE / OPENAI ✳</span><span>TERRAFORM ✳</span>
+</div>
+</div>
+
+<section id="about" style="border-bottom: 1px solid var(--border)">
+<div class="wrap" style="padding-top: 112px; padding-bottom: 112px; display: grid; grid-template-columns: 1fr 380px; gap: 72px">
+<div>
+<div class="ch" style="margin-bottom: 22px"><i></i> CH·01 — About</div>
+<h2 class="h2" style="margin-bottom: 30px">I build the boring parts well, so the ambitious parts can ship.</h2>
+<div style="display: grid; gap: 18px; font-size: 17px; line-height: 1.65; color: var(--muted); max-width: 64ch">
+<p style="margin: 0">I started in web engineering and moved quickly toward the parts of the stack where correctness compounds: data models, service boundaries, queues, caches, and the observability that tells you the truth at 3am.</p>
+<p style="margin: 0"><b style="color: var(--text)">“Scalable systems”</b> in my work means capacity that is a config change rather than a rewrite: stateless services, idempotent workers, explicit backpressure.</p>
+<p style="margin: 0"><b style="color: var(--text)">“AI-first”</b> means the LLM is a component with a contract — retrieval you can inspect, evals in CI, structured outputs, and graceful degradation when the model is wrong.</p>
+</div>
+</div>
+<div class="panel reg" style="padding: 22px; align-self: start">
+<div style="display: flex; justify-content: space-between; margin-bottom: 14px"><span class="lbl">// spec sheet</span><span class="lbl">REV 2026</span></div>
+<dl style="margin: 0">
+<div style="display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px dashed var(--border)"><dt class="mono" style="font-size: 11.5px; color: var(--muted)">ROLE</dt><dd style="margin: 0; font-weight: 600; font-size: 14.5px">Senior Software Engineer</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px dashed var(--border)"><dt class="mono" style="font-size: 11.5px; color: var(--muted)">EXP</dt><dd style="margin: 0; font-weight: 600; font-size: 14.5px">4.5+ years</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px dashed var(--border)"><dt class="mono" style="font-size: 11.5px; color: var(--muted)">FOCUS</dt><dd style="margin: 0; font-weight: 600; font-size: 14.5px">Scalable systems · AI-first SaaS</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px dashed var(--border)"><dt class="mono" style="font-size: 11.5px; color: var(--muted)">CORE</dt><dd style="margin: 0; font-weight: 600; font-size: 14.5px">TypeScript · Go · Python</dd></div>
+<div style="display: flex; justify-content: space-between; padding: 11px 0"><dt class="mono" style="font-size: 11.5px; color: var(--muted)">WORK</dt><dd style="margin: 0; font-weight: 600; font-size: 14.5px">Remote · Relocation</dd></div>
+</dl>
+</div>
+</div>
+</section>
+
+<section id="skills" style="border-bottom: 1px solid var(--border); background: var(--surface)">
+<div class="wrap" style="padding-top: 112px; padding-bottom: 112px">
+<div class="ch" style="margin-bottom: 22px"><i></i> CH·02 — Skills &amp; expertise</div>
+<div style="display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 48px">
+<h2 class="h2" style="max-width: 16ch">Depth where it matters, range where it helps.</h2>
+<p style="color: var(--muted); max-width: 42ch; margin: 0; font-size: 16px">Grouped by domain, metered by depth — so a reviewer (or a model) can match a role spec in seconds.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+<div class="panel mod" style="padding: 22px; background: var(--bg)">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px"><div style="display: flex; gap: 10px; align-items: center"><span class="mono" style="width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 4px; color: var(--accent-fg)">⌗</span><h3 style="margin: 0; font-size: 17px; font-variation-settings: 'wdth' 112">Backend &amp; Systems</h3></div><span class="led" style="animation: none"></span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px"><span class="chip">Distributed systems</span><span class="chip">Event-driven arch</span><span class="chip">REST / gRPC</span><span class="chip">Idempotency</span><span class="chip">Queues &amp; workers</span></div>
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="lbl">DEPTH · PRIMARY</span><span class="vu"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></span></div>
+</div>
+<div class="panel mod" style="padding: 22px; background: var(--bg)">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px"><div style="display: flex; gap: 10px; align-items: center"><span class="mono" style="width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 4px; color: var(--accent-fg)">◇</span><h3 style="margin: 0; font-size: 17px; font-variation-settings: 'wdth' 112">AI / LLM Engineering</h3></div><span class="led" style="animation: none"></span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px"><span class="chip">RAG pipelines</span><span class="chip">Vector search</span><span class="chip">Structured outputs</span><span class="chip">Eval harnesses</span><span class="chip">Agentic workflows</span></div>
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="lbl">DEPTH · PRIMARY</span><span class="vu"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></span></div>
+</div>
+<div class="panel mod" style="padding: 22px; background: var(--bg)">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px"><div style="display: flex; gap: 10px; align-items: center"><span class="mono" style="width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 4px; color: var(--accent-fg)">☁</span><h3 style="margin: 0; font-size: 17px; font-variation-settings: 'wdth' 112">Cloud &amp; Infrastructure</h3></div><span class="led" style="animation: none; background: var(--amber); box-shadow: 0 0 10px var(--amber)"></span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px"><span class="chip">AWS</span><span class="chip">Kubernetes</span><span class="chip">Terraform</span><span class="chip">CI/CD</span><span class="chip">Observability</span></div>
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="lbl">DEPTH · STRONG</span><span class="vu"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b></b></span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="experience" style="border-bottom: 1px solid var(--border)">
+<div class="wrap" style="padding-top: 112px; padding-bottom: 112px">
+<div class="ch" style="margin-bottom: 22px"><i></i> CH·03 — Experience</div>
+<h2 class="h2" style="margin-bottom: 56px">Career timeline</h2>
+<div style="position: relative">
+<div class="rail"><i></i></div>
+<div style="display: grid; grid-template-columns: 180px 1fr; gap: 48px; padding-bottom: 56px">
+<div><div class="lcdv mono" style="font-size: 13px; color: var(--amber-fg); text-shadow: none">SEP 2023 — NOW</div><div class="lbl" style="margin-top: 6px">Dammam, KSA</div></div>
+<div style="position: relative">
+<span style="position: absolute; left: -55px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px rgba(169,199,232,.2)"></span>
+<h3 style="margin: 0 0 6px; font-size: 26px; font-variation-settings: 'wdth' 115; font-weight: 750">Software Engineer</h3>
+<div style="color: var(--muted); margin-bottom: 18px">BDCC (Bin Delamah Contracting Co.) · Solo engineer — multi-tenant HRMS &amp; enterprise systems</div>
+<ul style="margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 10px; color: var(--muted); font-size: 15.5px; max-width: 72ch">
+<li>▸ Solo-architected, built, and deployed a multi-tenant HRMS serving 3,000+ employees across subsidiary companies.</li>
+<li>▸ Built an OpenAI-powered chatbot that turns natural-language HR queries into validated SQL against the live schema.</li>
+<li>▸ Delivered 25+ integrated production modules — payroll, leave, clearance, iqama/visa, fleet, BOQ.</li>
+</ul>
+<div style="display: flex; gap: 6px; flex-wrap: wrap"><span class="chip">React 18</span><span class="chip">Express.js</span><span class="chip">MySQL</span><span class="chip">OpenAI API</span><span class="chip">ASP.NET Core</span></div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: 180px 1fr; gap: 48px; opacity: .55">
+<div><div class="mono" style="font-size: 13px">MAY 2024 — MAR 2025</div><div class="lbl" style="margin-top: 6px">Remote (USA)</div></div>
+<div style="position: relative">
+<span style="position: absolute; left: -53px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted)"></span>
+<h3 style="margin: 0 0 6px; font-size: 26px; font-variation-settings: 'wdth' 115; font-weight: 750">Software Engineer</h3>
+<div style="color: var(--muted)">Beam.ai · AI automation platform — integrations &amp; agent workflows</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="projects" style="border-bottom: 1px solid var(--border); background: var(--surface)">
+<div class="wrap" style="padding-top: 112px; padding-bottom: 112px">
+<div class="ch" style="margin-bottom: 22px"><i></i> CH·04 — Selected work</div>
+<div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 44px">
+<h2 class="h2">Projects &amp; case studies</h2>
+<div class="lcd" style="display: flex; padding: 4px; gap: 4px">
+<button class="mono" style="background: var(--accent); color: var(--ink); border: 0; padding: 9px 14px; border-radius: 4px; font-size: 11.5px; font-weight: 600">ALL</button>
+<button class="mono" style="background: transparent; color: #8B96A2; border: 0; padding: 9px 14px; border-radius: 4px; font-size: 11.5px">SAAS</button>
+<button class="mono" style="background: transparent; color: #8B96A2; border: 0; padding: 9px 14px; border-radius: 4px; font-size: 11.5px">AI</button>
+<button class="mono" style="background: transparent; color: #8B96A2; border: 0; padding: 9px 14px; border-radius: 4px; font-size: 11.5px">ENTERPRISE</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+<article class="panel pcard" style="background: var(--bg); overflow: hidden">
+<div class="shot"><div style="background: repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 10px); display: grid; place-items: center"><span class="mono" style="font-size: 28px; color: var(--accent-fg)">◇</span></div><span class="mono" style="position: absolute; top: 12px; left: 12px; font-size: 10px; color: var(--accent-fg); letter-spacing: .1em">● REC</span></div>
+<div style="padding: 22px; display: grid; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h3 style="margin: 0; font-size: 22px; font-variation-settings: 'wdth' 118; font-weight: 750">Beam AI</h3><span class="mono" style="font-size: 10.5px; color: var(--amber-fg); border: 1px solid var(--border); padding: 4px 8px; border-radius: 3px">AI / AGENTS</span></div>
+<p style="margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55">Enterprise teams needed AI agents that execute real back-office workflows, not chat demos — reliably, with human oversight.</p>
+<div style="border-top: 1px dashed var(--border); padding-top: 14px; display: flex; justify-content: space-between" class="mono"><a href="https://beam.ai/" style="font-size: 12px; color: var(--accent-fg)">beam.ai ↗</a><span style="font-size: 12px; color: var(--muted)">case study →</span></div>
+</div>
+</article>
+<article class="panel pcard" style="background: var(--bg); overflow: hidden">
+<div class="shot"><div style="background: repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 10px); display: grid; place-items: center"><span class="mono" style="font-size: 28px; color: var(--accent-fg)">◈</span></div><span class="mono" style="position: absolute; top: 12px; left: 12px; font-size: 10px; color: var(--accent-fg); letter-spacing: .1em">● REC</span></div>
+<div style="padding: 22px; display: grid; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h3 style="margin: 0; font-size: 22px; font-variation-settings: 'wdth' 118; font-weight: 750">ENBIOSIS</h3><span class="mono" style="font-size: 10.5px; color: var(--amber-fg); border: 1px solid var(--border); padding: 4px 8px; border-radius: 3px">AI / HEALTH</span></div>
+<p style="margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55">Microbiome sequencing produces dense biological data that has to become a personalised, readable nutrition plan.</p>
+<div style="border-top: 1px dashed var(--border); padding-top: 14px; display: flex; justify-content: space-between" class="mono"><a href="https://enbiosis.com/" style="font-size: 12px; color: var(--accent-fg)">enbiosis.com ↗</a><span style="font-size: 12px; color: var(--muted)">case study →</span></div>
+</div>
+</article>
+<article class="panel pcard" style="background: var(--bg); overflow: hidden">
+<div class="shot"><div style="background: repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 10px); display: grid; place-items: center"><span class="mono" style="font-size: 28px; color: var(--accent-fg)">▷</span></div><span class="mono" style="position: absolute; top: 12px; left: 12px; font-size: 10px; color: var(--accent-fg); letter-spacing: .1em">● REC</span></div>
+<div style="padding: 22px; display: grid; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h3 style="margin: 0; font-size: 22px; font-variation-settings: 'wdth' 118; font-weight: 750">ReelBridge</h3><span class="mono" style="font-size: 10.5px; color: var(--amber-fg); border: 1px solid var(--border); padding: 4px 8px; border-radius: 3px">BUILDING NOW</span></div>
+<p style="margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55">Creators re-upload the same video to Facebook, Instagram and YouTube by hand, then check three dashboards.</p>
+<div style="border-top: 1px dashed var(--border); padding-top: 14px; display: flex; justify-content: space-between" class="mono"><a href="#contact" style="font-size: 12px; color: var(--accent-fg)">early access ↗</a><span style="font-size: 12px; color: var(--muted)">case study →</span></div>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="rec-h" style="border-bottom: 1px solid var(--border)">
+<div class="wrap" style="padding-top: 112px; padding-bottom: 112px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center">
+<div>
+<div class="ch" style="margin-bottom: 22px"><i></i> CH·05 — Recommendations</div>
+<h2 id="rec-h" class="h2" style="font-size: 44px; margin-bottom: 30px">What employers and colleagues say</h2>
+<blockquote style="margin: 0 0 22px; font-size: 24px; line-height: 1.35; font-variation-settings: 'wdth' 104; font-weight: 500">“Your technical expertise, problem-solving skills, and ability to deliver solutions quickly have been invaluable to our organization.”</blockquote>
+<div class="lbl">BDCC · Official appreciation letter · 28 Sep 2025</div>
+</div>
+<div class="panel" style="height: 380px; overflow: hidden; background: #f4efe4">
+<div style="padding: 40px; color: #222a32; font-size: 13px; line-height: 1.9">
+<div style="font-weight: 800; font-size: 16px; margin-bottom: 18px; font-variation-settings: 'wdth' 110">Appreciation Letter</div>
+<div style="background: #d9d2c3; height: 8px; width: 80%; margin-bottom: 12px"></div>
+<div style="background: #d9d2c3; height: 8px; width: 92%; margin-bottom: 12px"></div>
+<div style="background: #d9d2c3; height: 8px; width: 70%; margin-bottom: 12px"></div>
+<div style="background: #d9d2c3; height: 8px; width: 88%; margin-bottom: 12px"></div>
+<div style="background: #d9d2c3; height: 8px; width: 60%"></div>
+</div>
+<div class="loupe"><span class="mono" style="font-size: 11px; color: var(--accent-fg)">×2.4 LOUPE</span></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="faq-h" style="border-bottom: 1px solid var(--border); background: var(--surface)">
+<div class="wrap" style="padding-top: 112px; padding-bottom: 112px; display: grid; grid-template-columns: 380px 1fr; gap: 72px">
+<div>
+<div class="ch" style="margin-bottom: 22px"><i></i> CH·07 — FAQ</div>
+<h2 id="faq-h" class="h2" style="font-size: 44px">Straight answers for recruiters</h2>
+</div>
+<div style="border-bottom: 1px solid var(--border)">
+<div class="faq"><span style="font-size: 19px; font-weight: 600; font-variation-settings: 'wdth' 106">Who is Wajid Ali?</span><span class="knob" aria-hidden="true"></span></div>
+<div class="faq"><span style="font-size: 19px; font-weight: 600; font-variation-settings: 'wdth' 106">What kind of engineering work does Wajid Ali specialize in?</span><span class="knob" aria-hidden="true"></span></div>
+<div class="faq"><span style="font-size: 19px; font-weight: 600; font-variation-settings: 'wdth' 106">Is Wajid Ali available for remote roles?</span><span class="knob" aria-hidden="true"></span></div>
+<div class="faq"><span style="font-size: 19px; font-weight: 600; font-variation-settings: 'wdth' 106">What does “AI-first” mean in your work?</span><span class="knob" aria-hidden="true"></span></div>
+</div>
+</div>
+</section>
+
+<section id="contact" style="border-bottom: 1px solid var(--border)">
+<div class="wrap" style="padding-top: 112px; padding-bottom: 112px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px">
+<div>
+<div class="ch" style="margin-bottom: 22px"><i></i> CH·08 — Contact</div>
+<h2 class="h2" style="margin-bottom: 24px">Let’s talk about the system you’re trying to scale.</h2>
+<p style="color: var(--muted); font-size: 17px; line-height: 1.6; margin: 0 0 30px">Open to senior and staff roles — full-time remote, or relocation with sponsorship. I reply to every serious message within one business day.</p>
+<div style="display: grid; gap: 10px">
+<a class="key2" href="mailto:wajidalii.me@gmail.com" style="justify-content: space-between"><span class="mono" style="font-size: 11px; color: var(--muted)">EMAIL</span><span>wajidalii.me@gmail.com</span><span>↗</span></a>
+<a class="key2" href="https://www.linkedin.com/in/wajid-alii/" style="justify-content: space-between"><span class="mono" style="font-size: 11px; color: var(--muted)">LINKEDIN</span><span>/in/wajid-alii</span><span>↗</span></a>
+</div>
+</div>
+<form class="panel reg" style="padding: 32px; display: grid; gap: 18px">
+<div style="display: flex; justify-content: space-between"><span class="lbl">// transmit</span><span class="lbl" style="display: flex; gap: 8px; align-items: center"><span class="led"></span> LINE OPEN</span></div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
+<label class="inp"><span class="lbl">Your name *</span><input placeholder="Sara Al-Mansoori"></label>
+<label class="inp"><span class="lbl">Work email *</span><input placeholder="you@company.com"></label>
+</div>
+<label class="inp"><span class="lbl">What’s this about?</span><select><option>Full-time role</option></select></label>
+<label class="inp"><span class="lbl">Message *</span><textarea rows="4" placeholder="Role, team size, stack, and what’s currently breaking."></textarea></label>
+<button class="key" type="button" style="justify-self: start; border: 0; cursor: pointer">Transmit message <span aria-hidden="true">→</span></button>
+</form>
+</div>
+</section>
+
+<footer style="background: var(--surface)">
+<div class="wrap" style="padding-top: 64px; padding-bottom: 40px">
+<div class="disp" aria-hidden="true" style="font-size: 132px; color: var(--surface2); -webkit-text-stroke: 1px var(--border); margin-bottom: 40px">WAJID ALI</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px">
+<div class="panel" style="padding: 16px; background: var(--bg)"><div class="lbl" style="margin-bottom: 8px">SERIAL PLATE</div><div class="mono" style="font-size: 12px; line-height: 1.8">MODEL WA-4.5<br>MADE IN KHI · DXB<br>BUILT FROM SCRATCH</div></div>
+<div><div class="lbl" style="margin-bottom: 12px">SITE</div><div style="display: grid; gap: 8px"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a></div></div>
+<div><div class="lbl" style="margin-bottom: 12px">ELSEWHERE</div><div style="display: grid; gap: 8px"><a href="https://github.com/wajidalii">GitHub ↗</a><a href="https://www.linkedin.com/in/wajid-alii/">LinkedIn ↗</a></div></div>
+<div><div class="lbl" style="margin-bottom: 12px">OPEN TO</div><div style="color: var(--muted); font-size: 14px; line-height: 1.6">UAE · Saudi Arabia · Qatar · Kuwait · Oman · Bahrain · Pakistan · USA · UK · Malaysia</div></div>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["night","day"],"default":"night"},"$preview":{"width":1440,"height":7400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var t = this.props.theme ?? 'night';
+    return { themeClass: t === 'day' ? 'day' : '' };
+  }
+}
+</script>
+</body>
+</html>

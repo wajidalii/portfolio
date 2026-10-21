@@ -13,7 +13,7 @@ export default function NewRolePage() {
       <Link href="/admin/experience" className="font-mono text-xs text-muted">
         ← Experience
       </Link>
-      <h1 className="font-display text-2xl font-bold mt-2 mb-8">Add role</h1>
+      <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em] mt-2 mb-8">Add role</h1>
       <RoleForm action={createRole} />
     </main>
   );

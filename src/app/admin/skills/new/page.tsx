@@ -13,7 +13,7 @@ export default function NewSkillGroupPage() {
       <Link href="/admin/skills" className="font-mono text-xs text-muted">
         ← Skill groups
       </Link>
-      <h1 className="font-display text-2xl font-bold mt-2 mb-8">Add skill group</h1>
+      <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em] mt-2 mb-8">Add skill group</h1>
       <SkillGroupForm action={createSkillGroup} />
     </main>
   );

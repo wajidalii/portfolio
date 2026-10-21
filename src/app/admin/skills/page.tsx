@@ -20,7 +20,7 @@ export default async function AdminSkillsPage() {
           <Link href="/admin" className="font-mono text-xs text-muted">
             ← Admin
           </Link>
-          <h1 className="font-display text-2xl font-bold mt-2">Skill Groups</h1>
+          <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em] mt-2">Skill Groups</h1>
         </div>
         <Button href="/admin/skills/new" size="md">
           Add group
@@ -31,7 +31,7 @@ export default async function AdminSkillsPage() {
         {groups.map((g, i) => (
           <div
             key={g.id}
-            className="border border-border rounded-xl bg-surface p-4 flex items-center gap-4"
+            className="border border-border rounded-lg bg-surface p-4 flex items-center gap-4"
           >
             <div className="flex flex-col gap-1">
               <form action={moveSkillGroup.bind(null, g.id, "up")}>

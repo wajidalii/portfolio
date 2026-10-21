@@ -19,12 +19,12 @@ export default async function AdminMessagesPage() {
         <Link href="/admin" className="font-mono text-xs text-muted">
           ← Admin
         </Link>
-        <h1 className="font-display text-2xl font-bold mt-2">Contact Messages</h1>
+        <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em] mt-2">Contact Messages</h1>
       </div>
 
       <div className="grid gap-3">
         {items.map((m) => (
-          <div key={m.id} className="border border-border rounded-xl bg-surface p-4">
+          <div key={m.id} className="border border-border rounded-lg bg-surface p-4">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="font-semibold">{m.name}</div>

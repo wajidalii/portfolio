@@ -20,7 +20,7 @@ export default async function AdminExperiencePage() {
           <Link href="/admin" className="font-mono text-xs text-muted">
             ← Admin
           </Link>
-          <h1 className="font-display text-2xl font-bold mt-2">Experience</h1>
+          <h1 className="font-display font-wide text-2xl font-extrabold tracking-[-0.02em] mt-2">Experience</h1>
         </div>
         <Button href="/admin/experience/new" size="md">
           Add role
@@ -31,7 +31,7 @@ export default async function AdminExperiencePage() {
         {items.map((r, i) => (
           <div
             key={r.id}
-            className="border border-border rounded-xl bg-surface p-4 flex items-center gap-4"
+            className="border border-border rounded-lg bg-surface p-4 flex items-center gap-4"
           >
             <div className="flex flex-col gap-1">
               <form action={moveRole.bind(null, r.id, "up")}>
