@@ -19,7 +19,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-surface border-t border-border">
+    <footer className="relative z-10 overflow-hidden bg-surface border-t border-border">
       <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-16 pb-10">
         <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.2fr]">
           <div className="reg-marks hover-zoom border border-border rounded-lg bg-bg p-5 self-start">
@@ -109,7 +109,7 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-4 flex flex-wrap gap-3 justify-between font-mono text-[11px] text-muted">
           <span>© {year} Wajid Ali</span>
-          <span>Field Instrument · rev {year}</span>
+          <span>System Map · rev {year}</span>
         </div>
       </div>
     </footer>

@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/hero";
-import { Stats } from "@/components/sections/stats";
 import { About } from "@/components/sections/about";
 import { Skills } from "@/components/sections/skills";
 import { Experience } from "@/components/sections/experience";
@@ -8,7 +7,6 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { UpcomingProjects } from "@/components/sections/upcoming-projects";
 import { Faq } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
-import { CtaBanner } from "@/components/sections/cta-banner";
 import { faqs } from "@/content/faq";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON } from "@/lib/site-config";
 
@@ -48,7 +46,6 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd) }}
       />
       <Hero />
-      <Stats />
       <About />
       <Skills />
       <Experience />
@@ -57,7 +54,6 @@ export default function Home() {
       <UpcomingProjects />
       <Faq />
       <Contact />
-      <CtaBanner />
     </>
   );
 }

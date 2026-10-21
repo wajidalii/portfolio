@@ -43,7 +43,7 @@ export function SiteHeader() {
       const y = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const p = max > 0 ? Math.min(1, y / max) : 0;
-      let current = "CH·00 POWER ON";
+      let current = "00 · ingress";
       const line = window.innerHeight * 0.4;
       for (const s of sections) {
         if (s.getBoundingClientRect().top < line) current = s.dataset.channel!;
@@ -117,7 +117,7 @@ export function SiteHeader() {
             ref={channelRef}
             className="font-mono text-[9.5px] tracking-[0.14em] text-lcd-muted uppercase w-[150px] truncate"
           >
-            CH·00 POWER ON
+            00 · ingress
           </span>
         </div>
 

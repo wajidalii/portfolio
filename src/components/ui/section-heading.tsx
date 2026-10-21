@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
+import { STATIONS } from "@/components/stage/stations";
 
 /**
- * Channel label ("CH·02 — Skills") + display heading that wipes up into
- * view. Pass `channel` without the "CH·" prefix.
+ * Station label ("02 · services — Skills") + display heading that wipes up
+ * into view. `channel` is the station number, e.g. "02".
  */
 export function SectionHeading({
   id,
@@ -27,7 +28,7 @@ export function SectionHeading({
     <div className={className}>
       <div className="channel mb-5" data-reveal="fade">
         <span aria-hidden className="led !w-[7px] !h-[7px]" />
-        CH·{channel} — {label}
+        {channel} · {STATIONS[Number(channel)]?.node} — {label}
       </div>
       <h2
         id={id}
