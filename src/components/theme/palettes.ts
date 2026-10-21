@@ -10,3 +10,6 @@ export const PALETTES = [
 ] as const;
 
 export type PaletteId = (typeof PALETTES)[number]["id"];
+
+/** What first-time visitors see before they pick a palette. */
+export const DEFAULT_PALETTE: PaletteId = "ultraviolet";

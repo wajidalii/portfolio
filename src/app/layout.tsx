@@ -3,7 +3,7 @@ import { Archivo, Martian_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON } from "@/lib/site-config";
 import { heroStack } from "@/content/home";
-import { PALETTES } from "@/components/theme/palettes";
+import { DEFAULT_PALETTE, PALETTES } from "@/components/theme/palettes";
 
 // Archivo's width axis (62–125) powers the expanded display type and the
 // proximity-type hero; Martian Mono is the instrument-label face.
@@ -70,9 +70,13 @@ const themeInitScript = `
     var stored = localStorage.getItem("theme");
     root.setAttribute("data-theme", stored === "light" || stored === "dark" ? stored : "dark");
     var palette = localStorage.getItem("palette");
-    if (${JSON.stringify(PALETTES.map((p) => p.id))}.indexOf(palette) > -1) root.setAttribute("data-palette", palette);
+    root.setAttribute(
+      "data-palette",
+      ${JSON.stringify(PALETTES.map((p) => p.id))}.indexOf(palette) > -1 ? palette : "${DEFAULT_PALETTE}"
+    );
   } catch (e) {
     root.setAttribute("data-theme", "dark");
+    root.setAttribute("data-palette", "${DEFAULT_PALETTE}");
   }
 })();
 `;
