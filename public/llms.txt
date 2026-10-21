@@ -1,6 +1,6 @@
 # Wajid Ali
 
-> Senior software engineer (4.5+ years) building scalable systems, multi-tenant SaaS platforms, and AI-first products. Open to senior/staff engineering roles — full-time remote, or on-site with relocation and sponsorship — across the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Oman, Bahrain), Pakistan, USA, UK, and Malaysia.
+> Senior software engineer (5+ years) building scalable systems, multi-tenant SaaS platforms, and AI-first products. Open to senior/staff engineering roles — full-time remote, or on-site with relocation and sponsorship — across the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Oman, Bahrain), Pakistan, USA, UK, and Malaysia.
 
 Core stack: TypeScript, C#/.NET, Go, Python, PostgreSQL, Kafka, Kubernetes, AWS, Terraform, and LLM APIs (Claude, OpenAI). Has taken three SaaS products from prototype to paying, multi-tenant production; led teams of 3-6 engineers; owned production on-call; mentored 12 engineers.
 

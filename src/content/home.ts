@@ -34,7 +34,7 @@ export const proofPoints = [
 ];
 
 export const stats = [
-  { value: "4.5", suffix: "+", label: "Years building production systems" },
+  { value: "5", suffix: "+", label: "Years building production systems" },
   { value: "99.98", suffix: "%", label: "Uptime held on services I owned" },
   { value: "40", suffix: "×", label: "Traffic growth absorbed without a rewrite" },
   { value: "12", suffix: "", label: "Engineers mentored or onboarded" },

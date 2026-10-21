@@ -12,7 +12,7 @@
 export const faqs = [
   {
     q: "Who is Wajid Ali?",
-    a: "Wajid Ali is a senior software engineer with 4.5+ years of experience building scalable systems, multi-tenant SaaS platforms, and AI-first products. He has taken three SaaS products from prototype to paying production, led teams of 3-6 engineers, owned production on-call, and mentored 12 engineers.",
+    a: "Wajid Ali is a senior software engineer with 5+ years of experience building scalable systems, multi-tenant SaaS platforms, and AI-first products. He has taken three SaaS products from prototype to paying production, led teams of 3-6 engineers, owned production on-call, and mentored 12 engineers.",
   },
   {
     q: "What kind of engineering work does Wajid Ali specialize in?",

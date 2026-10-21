@@ -27,7 +27,7 @@ export function SiteFooter() {
             <dl className="m-0 grid gap-1.5 font-mono text-[11.5px]">
               <div className="flex justify-between gap-4">
                 <dt className="text-muted">MODEL</dt>
-                <dd className="m-0">WA-4.5 Senior Engineer</dd>
+                <dd className="m-0">WA-5 Senior Engineer</dd>
               </div>
               <div className="flex justify-between gap-4">
                 <dt className="text-muted">ORIGIN</dt>
