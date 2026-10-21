@@ -32,7 +32,7 @@ export function SectionHeading({
       <h2
         id={id}
         data-reveal="wipe"
-        className={`m-0 font-wide font-extrabold leading-[0.98] tracking-[-0.03em] text-balance ${sizes}`}
+        className={`section-title m-0 font-wide font-extrabold leading-[0.98] tracking-[-0.03em] text-balance ${sizes}`}
       >
         {children}
       </h2>

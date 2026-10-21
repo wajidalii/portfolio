@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { PALETTES, type PaletteId } from "./palettes";
+import { DEFAULT_PALETTE, PALETTES, type PaletteId } from "./palettes";
 import { originOf, setThemeAttr } from "./theme";
 
 function useCurrentPalette(): [PaletteId, (id: PaletteId, el: Element) => void] {
-  const [current, setCurrent] = useState<PaletteId>("steel");
+  const [current, setCurrent] = useState<PaletteId>(DEFAULT_PALETTE);
   useEffect(() => {
     const p = document.documentElement.getAttribute("data-palette");
     if (PALETTES.some((x) => x.id === p)) setCurrent(p as PaletteId);

@@ -156,6 +156,69 @@
   --glow: rgba(86, 54, 184, 0.12);
 }
 
+/* ---------- Ultraviolet signature look (the default palette) ----------
+ * Goes beyond a recolour: violet→cyan gradients on accent fills and
+ * section titles, a faint nebula light-leak over the page, and deeper
+ * violet LCD panels. Scoped to the palette so the others are untouched. */
+:root[data-palette="ultraviolet"] {
+  --uv-cyan: #7fe7ff;
+  --uv-grad: linear-gradient(120deg, #b9a6ff 0%, #9d8cff 45%, #7fe7ff 100%);
+  --uv-led: var(--uv-cyan);
+  --uv-title: linear-gradient(100deg, var(--text) 0%, var(--text) 25%, #c9b9ff 62%, #8feaff 100%);
+  --nebula-a: rgba(139, 108, 255, 0.11);
+  --nebula-b: rgba(127, 231, 255, 0.06);
+}
+:root[data-theme="light"][data-palette="ultraviolet"] {
+  --uv-led: #0b6f86; /* pale cyan vanishes on the light panel */
+  --uv-title: linear-gradient(100deg, var(--text) 0%, var(--text) 25%, #5636b8 62%, #0b6f86 100%);
+  --nebula-a: rgba(124, 92, 230, 0.08);
+  --nebula-b: rgba(11, 111, 134, 0.05);
+}
+/* Accent fills (buttons, keycaps, LEDs, filter thumb, progress) become a
+ * violet→cyan gradient; ink on top stays ≥ 7:1 across the whole ramp. */
+[data-palette="ultraviolet"] .bg-accent {
+  background-image: var(--uv-grad);
+}
+/* Section titles fade from the text colour into the gradient. */
+[data-palette="ultraviolet"] .section-title {
+  background: var(--uv-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Nebula light-leak: two fixed radial glows over everything, under the
+ * grain. Static, so it costs one composited layer and no repaints. */
+[data-palette="ultraviolet"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 45% at 92% -5%, var(--nebula-a), transparent 70%),
+    radial-gradient(45% 40% at -5% 105%, var(--nebula-b), transparent 70%);
+}
+[data-palette="ultraviolet"] .lcd {
+  border-color: #2a2340;
+  box-shadow:
+    inset 0 2px 12px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(185, 166, 255, 0.04),
+    0 10px 30px -18px rgba(139, 108, 255, 0.45);
+}
+[data-palette="ultraviolet"] .led {
+  background: var(--uv-led);
+  box-shadow: 0 0 0 3px var(--glow), 0 0 12px var(--uv-led);
+}
+[data-palette="ultraviolet"] .project-card::before {
+  background: conic-gradient(
+    from var(--spin),
+    transparent 0 60%,
+    var(--accent) 76%,
+    var(--uv-cyan) 88%,
+    transparent 96%
+  );
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
