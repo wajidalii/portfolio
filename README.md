@@ -30,8 +30,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Deployment (Netlify)
 
-Targets `wajidali.netlify.app` until a custom domain is purchased, via the
-official `@netlify/plugin-nextjs` runtime (already configured in
+Served at `wajidali.dev` (the old `wajidali.netlify.app` address
+301-redirects there), via the official `@netlify/plugin-nextjs` runtime (already configured in
 `netlify.toml`). This requires your Netlify account, so it isn't something
 that gets done from this repo alone:
 

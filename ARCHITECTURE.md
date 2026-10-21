@@ -54,7 +54,3 @@ src/
 middleware.ts          # /admin/** auth guard
 ```
 
-## Deferred / not yet decided
-
-- Real domain — currently deployed at `wajidali.netlify.app`, canonical
-  URLs and structured data will be updated once a domain is purchased.
