@@ -23,7 +23,7 @@ export function Hero() {
               Open to senior / staff roles — remote &amp; relocation
             </div>
             <div aria-hidden className="hidden md:block label-mono">
-              Model WA-4.5 · Serial 2021—2026
+              Model WA-5 · Serial 2021—2026
             </div>
           </div>
 
@@ -50,7 +50,7 @@ export function Hero() {
           <div className="grid grid-cols-1 min-[960px]:grid-cols-[1.05fr_0.95fr] gap-10 min-[960px]:gap-14 items-start mt-7">
             <div data-reveal style={{ "--reveal-delay": "220ms" } as React.CSSProperties}>
               <p className="text-[17px] sm:text-lg leading-relaxed text-muted max-w-[56ch] mb-9 text-pretty">
-                4.5+ years shipping SaaS platforms end to end — distributed
+                5+ years shipping SaaS platforms end to end — distributed
                 backends, multi-tenant architecture, and LLM systems that hold
                 up in production. I own problems from schema to SLO, and I
                 write the runbook after.

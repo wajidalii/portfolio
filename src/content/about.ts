@@ -3,7 +3,7 @@
 // SEO phase so answer engines can quote it directly (GEO requirement).
 
 export const aboutParagraphs = [
-  "I started in web engineering and moved quickly toward the parts of the stack where correctness compounds: data models, service boundaries, queues, caches, and the observability that tells you the truth at 3am. Over 4.5+ years I've taken three SaaS products from prototype to paying, multi-tenant production.",
+  "I started in web engineering and moved quickly toward the parts of the stack where correctness compounds: data models, service boundaries, queues, caches, and the observability that tells you the truth at 3am. Over 5+ years I've taken three SaaS products from prototype to paying, multi-tenant production.",
   {
     bold: "“Scalable systems”",
     rest: " in my work means capacity that is a config change rather than a rewrite: stateless services, idempotent workers, explicit backpressure, and load-tested assumptions written down as SLOs.",
@@ -17,7 +17,7 @@ export const aboutParagraphs = [
 
 export const quickFacts = [
   { k: "role", v: "Senior Software Engineer" },
-  { k: "exp", v: "4.5+ years" },
+  { k: "exp", v: "5+ years" },
   { k: "focus", v: "Scalable systems · AI-first SaaS" },
   { k: "core", v: "TypeScript · Go · Python" },
   { k: "work", v: "Remote · Relocation" },
