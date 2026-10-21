@@ -20,4 +20,5 @@ Core stack: TypeScript, C#/.NET, Go, Python, PostgreSQL, Kafka, Kubernetes, AWS,
 
 - LinkedIn: https://www.linkedin.com/in/wajid-alii/
 - GitHub: https://github.com/wajidalii
-- Email: wajidalii.me@gmail.com
+- Email: hi@wajidali.dev · info@wajidali.dev · wajidalii.me@gmail.com
+- Book a call: https://cal.com/wajid-ali-3ikayp/15min

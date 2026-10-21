@@ -1,3 +1,5 @@
+import type { ScenePreset } from "@/components/three/layouts";
+
 // Real projects — static, owner-curated (see ARCHITECTURE.md content model).
 // Live/public projects get a thum.io screenshot; private/pre-launch ones
 // show a placeholder card instead. Shots are 800×500: the card frame is
@@ -17,6 +19,8 @@ export type Project = {
   highlights?: string[];
   stack: string[];
   glyph: string;
+  /** Private projects without a screenshot show a live 3D system diagram. */
+  scene?: ScenePreset;
   hasShot: boolean;
 };
 
@@ -32,8 +36,9 @@ const raw: Omit<Project, "hasShot">[] = [
     glyph: "▷",
     href: "#contact",
     hrefLabel: "early access",
-    figureLabel: "product screenshot — scheduler + metrics dashboard",
-    figureAlt: "Placeholder for a ReelBridge scheduling and analytics dashboard screenshot",
+    scene: "fanout",
+    figureLabel: "publish pipeline · api → queue → workers → platforms",
+    figureAlt: "Animated 3D diagram of the ReelBridge publish pipeline: an API feeds a job queue that fans out to workers publishing to each platform",
     problem:
       "Creators re-upload the same video to Facebook, Instagram and YouTube by hand, one platform at a time, then check three dashboards to see how it performed.",
     role: "Founder & engineer — monorepo architecture, platform adapter interface, OAuth token handling, job pipeline.",
@@ -72,8 +77,9 @@ const raw: Omit<Project, "hasShot">[] = [
     glyph: "◫",
     href: "#contact",
     hrefLabel: "private — walkthrough on request",
-    figureLabel: "module map / architecture diagram",
-    figureAlt: "Placeholder for the HRMS module map diagram",
+    scene: "cluster",
+    figureLabel: "module map · 41 feature modules around one core",
+    figureAlt: "Animated 3D diagram of the HRMS module map: feature modules arranged in a ring around a shared core, exchanging requests",
     problem:
       "A Saudi contracting company ran HR, payroll for 2,000+ employees and its vehicle fleet on a legacy ERP with critical security holes, 10–16 s screens and no tests.",
     role: "Lead engineer — security hardening, backend re-architecture, performance, payroll engine and full UI redesign (315 merged PRs).",

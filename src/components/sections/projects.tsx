@@ -5,6 +5,8 @@ import Image from "next/image";
 import { projects, projectFilters, shotSrc, type Project } from "@/content/projects";
 import { TiltCard } from "@/components/motion/tilt-card";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { SystemView } from "@/components/three/system-view";
+import { Station } from "@/components/stage/station";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [shotFailed, setShotFailed] = useState(false);
@@ -29,17 +31,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               "repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 10px)",
           }}
         >
-          <div className="grid gap-2.5 place-items-center p-4 text-center">
-            <span
-              aria-hidden
-              className="grid place-items-center w-12 h-12 rounded-md border border-border bg-bg font-mono text-[18px] text-accent-fg"
-            >
-              {project.glyph}
-            </span>
-            <span className="font-mono text-[10.5px] text-muted tracking-[0.04em] max-w-[30ch]">
-              {project.figureLabel}
-            </span>
-          </div>
+          {project.scene ? (
+            <>
+              <SystemView preset={project.scene} className="absolute inset-0 w-full h-full" />
+              <span className="absolute left-3 right-3 bottom-2.5 font-mono text-[10px] text-muted tracking-[0.04em] text-center">
+                {project.figureLabel}
+              </span>
+            </>
+          ) : (
+            <div className="grid gap-2.5 place-items-center p-4 text-center">
+              <span
+                aria-hidden
+                className="grid place-items-center w-12 h-12 rounded-md border border-border bg-bg font-mono text-[18px] text-accent-fg"
+              >
+                {project.glyph}
+              </span>
+              <span className="font-mono text-[10.5px] text-muted tracking-[0.04em] max-w-[30ch]">
+                {project.figureLabel}
+              </span>
+            </div>
+          )}
           {showShot && (
             <Image
               src={shotSrc(project)}
@@ -127,69 +138,62 @@ export function Projects() {
   const activeIndex = projectFilters.indexOf(filter);
 
   return (
-    <section
-      id="projects"
-      data-channel="CH·04 SELECTED WORK"
-      aria-labelledby="proj-h"
-      className="border-b border-border bg-surface"
-    >
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-20 sm:py-24 lg:py-30">
-        <div className="flex flex-wrap gap-6 items-end justify-between mb-12">
-          <div className="max-w-[720px]">
-            <SectionHeading id="proj-h" channel="04" label="Selected work" className="mb-5">
-              Projects &amp; case studies
-            </SectionHeading>
-            <p data-reveal className="text-muted max-w-[58ch] m-0 text-[16px] leading-relaxed">
-              Every card is problem → role → stack → outcome, with links to
-              the live product and a deeper write-up where one exists.
-            </p>
-          </div>
-
-          {/* Segmented LCD selector with a sliding indicator. */}
-          <div role="group" aria-label="Filter projects" className="lcd relative grid grid-cols-4 p-1">
-            <span
-              aria-hidden
-              className="absolute top-1 bottom-1 left-1 rounded-[4px] bg-accent shadow-[0_0_14px_-2px_var(--accent)] transition-transform duration-400 ease-[var(--ease-spring)]"
-              style={{
-                width: `calc((100% - 8px) / ${projectFilters.length})`,
-                transform: `translateX(${activeIndex * 100}%)`,
-              }}
-            />
-            {projectFilters.map((f) => {
-              const active = filter === f;
-              return (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => setFilter(f)}
-                  aria-pressed={active}
-                  className={`relative z-10 px-3.5 sm:px-4 py-2.5 rounded-[4px] font-mono text-[11px] uppercase tracking-[0.08em] transition-colors duration-300 ${
-                    active ? "text-on-accent font-semibold" : "text-lcd-muted hover:text-lcd-fg"
-                  }`}
-                >
-                  {f}
-                </button>
-              );
-            })}
-          </div>
+    <Station index={4} side="center" width="full" bare labelledBy="proj-h">
+      <div className="station-panel flex flex-wrap gap-6 items-end justify-between mb-8">
+        <div className="max-w-[640px]">
+          <SectionHeading id="proj-h" channel="04" label="Selected work" size="md" className="mb-5">
+            Projects &amp; case studies
+          </SectionHeading>
+          <p data-reveal className="text-muted max-w-[58ch] m-0 text-[16px] leading-relaxed">
+            Each deployment is problem → role → stack → outcome, with links
+            to the live product where one exists.
+          </p>
         </div>
 
-        <p className="sr-only" aria-live="polite">
-          Showing {visible.length} {visible.length === 1 ? "project" : "projects"}
-        </p>
-
-        <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,340px),1fr))]">
-          {visible.map((p, i) => (
-            <div
-              key={`${filter}-${p.name}`}
-              className="animate-[card-in_.6s_var(--ease-out-expo)_both]"
-              style={{ animationDelay: `${i * 60}ms` }}
-            >
-              <ProjectCard project={p} index={projects.indexOf(p)} />
-            </div>
-          ))}
+        {/* Segmented LCD selector with a sliding indicator. */}
+        <div role="group" aria-label="Filter projects" className="lcd relative grid grid-cols-4 p-1">
+          <span
+            aria-hidden
+            className="absolute top-1 bottom-1 left-1 rounded-[4px] bg-accent shadow-[0_0_14px_-2px_var(--accent)] transition-transform duration-400 ease-[var(--ease-spring)]"
+            style={{
+              width: `calc((100% - 8px) / ${projectFilters.length})`,
+              transform: `translateX(${activeIndex * 100}%)`,
+            }}
+          />
+          {projectFilters.map((f) => {
+            const active = filter === f;
+            return (
+              <button
+                key={f}
+                type="button"
+                onClick={() => setFilter(f)}
+                aria-pressed={active}
+                className={`relative z-10 px-3.5 sm:px-4 py-2.5 rounded-[4px] font-mono text-[11px] uppercase tracking-[0.08em] transition-colors duration-300 ${
+                  active ? "text-on-accent font-semibold" : "text-lcd-muted hover:text-lcd-fg"
+                }`}
+              >
+                {f}
+              </button>
+            );
+          })}
         </div>
       </div>
-    </section>
+
+      <p className="sr-only" aria-live="polite">
+        Showing {visible.length} {visible.length === 1 ? "project" : "projects"}
+      </p>
+
+      <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,340px),1fr))]">
+        {visible.map((p, i) => (
+          <div
+            key={`${filter}-${p.name}`}
+            className="animate-[card-in_.6s_var(--ease-out-expo)_both]"
+            style={{ animationDelay: `${i * 60}ms` }}
+          >
+            <ProjectCard project={p} index={projects.indexOf(p)} />
+          </div>
+        ))}
+      </div>
+    </Station>
   );
 }

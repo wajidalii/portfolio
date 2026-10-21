@@ -38,17 +38,3 @@ export function originOf(el: Element) {
   const r = el.getBoundingClientRect();
   return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
 }
-
-/** Reads a hex CSS colour token as "r,g,b" for canvas drawing. */
-export function cssRgb(name: string, fallback: string): string {
-  const hex = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  const m = hex.match(/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
-  return m ? `${parseInt(m[1], 16)},${parseInt(m[2], 16)},${parseInt(m[3], 16)}` : fallback;
-}
-
-/** Calls `cb` whenever the mode or palette changes. Returns a disposer. */
-export function onThemeChange(cb: () => void): () => void {
-  const mo = new MutationObserver(cb);
-  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-palette"] });
-  return () => mo.disconnect();
-}
