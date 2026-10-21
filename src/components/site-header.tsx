@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { DecodeText } from "@/components/motion/decode-text";
 import { Magnetic } from "@/components/motion/magnetic";
+import { PalettePicker, PaletteRow } from "@/components/theme/palette-picker";
+import { originOf, setThemeAttr } from "@/components/theme/theme";
 
 const NAV_LINKS = [
   { href: "#about", label: "About" },
@@ -33,21 +35,24 @@ export function SiteHeader() {
   useEffect(() => {
     let lastY = window.scrollY;
     let raf = 0;
+    const sections = document.querySelectorAll<HTMLElement>("[data-channel]");
     const update = () => {
       raf = 0;
+      // All layout reads first, then writes, so a frame never forces a
+      // second synchronous layout.
       const y = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const p = max > 0 ? Math.min(1, y / max) : 0;
+      let current = "CH·00 POWER ON";
+      const line = window.innerHeight * 0.4;
+      for (const s of sections) {
+        if (s.getBoundingClientRect().top < line) current = s.dataset.channel!;
+        else break;
+      }
+
       if (counterRef.current)
         counterRef.current.textContent = String(Math.round(p * 1000)).padStart(4, "0");
       if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
-
-      const sections = document.querySelectorAll<HTMLElement>("[data-channel]");
-      let current = "CH·00 POWER ON";
-      const line = window.innerHeight * 0.4;
-      sections.forEach((s) => {
-        if (s.getBoundingClientRect().top < line) current = s.dataset.channel!;
-      });
       if (channelRef.current && channelRef.current.textContent !== current)
         channelRef.current.textContent = current;
 
@@ -76,12 +81,8 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  function toggleTheme() {
-    const next = isDark ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
+  function toggleTheme(e: React.MouseEvent<HTMLButtonElement>) {
+    setThemeAttr("data-theme", isDark ? "light" : "dark", originOf(e.currentTarget));
     setIsDark(!isDark);
   }
 
@@ -133,6 +134,9 @@ export function SiteHeader() {
         </div>
 
         <div className="flex items-center gap-3 ml-auto min-[960px]:ml-0">
+          <span className="hidden sm:block">
+            <PalettePicker />
+          </span>
           <div className="flex items-center gap-2">
             <span aria-hidden className={`label-mono !text-[9px] hidden sm:inline ${isDark ? "!text-text" : ""}`}>
               Night
@@ -223,6 +227,10 @@ export function SiteHeader() {
             </li>
           ))}
         </ul>
+        <div className="mt-5 flex items-center justify-between gap-4">
+          <span className="label-mono">Palette</span>
+          <PaletteRow />
+        </div>
         <a
           href="#contact"
           onClick={() => setMenuOpen(false)}

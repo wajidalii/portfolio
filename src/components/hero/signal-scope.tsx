@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { prefersMotion } from "@/components/motion/use-motion";
+import { cssRgb, onThemeChange } from "@/components/theme/theme";
 
 /**
  * Oscilloscope trace on a canvas. Idles as a calm sine; pointer speed
@@ -44,28 +45,30 @@ export function SignalScope({ className = "" }: { className?: string }) {
       lastT = now;
     };
 
-    const ice = "#A9C7E8";
+    let color = "169,199,232";
+    const readColor = () => {
+      color = cssRgb("--lcd-fg", color);
+    };
+    readColor();
     let phase = 0;
     let raf = 0;
     let visible = true;
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      // graticule
-      ctx.strokeStyle = "rgba(169,199,232,0.09)";
+      // graticule, stroked as one path
+      ctx.strokeStyle = `rgba(${color},0.09)`;
       ctx.lineWidth = 1;
+      ctx.beginPath();
       for (let gx = 0; gx <= w; gx += w / 10) {
-        ctx.beginPath();
         ctx.moveTo(gx, 0);
         ctx.lineTo(gx, h);
-        ctx.stroke();
       }
       for (let gy = 0; gy <= h; gy += h / 4) {
-        ctx.beginPath();
         ctx.moveTo(0, gy);
         ctx.lineTo(w, gy);
-        ctx.stroke();
       }
+      ctx.stroke();
 
       const amp = h * (0.12 + energy * 0.3);
       const mid = h / 2;
@@ -80,12 +83,15 @@ export function SignalScope({ className = "" }: { className?: string }) {
         if (x === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = ice;
-      ctx.lineWidth = 2;
-      ctx.shadowColor = ice;
-      ctx.shadowBlur = 10;
+      // Phosphor glow as a wide faint stroke under the trace — shadowBlur
+      // re-blurs the whole path every frame and costs far more.
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = `rgba(${color},0.18)`;
+      ctx.lineWidth = 7;
       ctx.stroke();
-      ctx.shadowBlur = 0;
+      ctx.strokeStyle = `rgb(${color})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
 
       if (readoutRef.current) {
         const hz = (2.0 + energy * 46).toFixed(1).padStart(4, "0");
@@ -104,12 +110,20 @@ export function SignalScope({ className = "" }: { className?: string }) {
 
     if (!prefersMotion()) {
       draw();
-      window.addEventListener("resize", () => {
+      const redraw = () => {
         resize();
+        readColor();
         draw();
-      });
-      return;
+      };
+      window.addEventListener("resize", redraw);
+      const stopTheme = onThemeChange(redraw);
+      return () => {
+        window.removeEventListener("resize", redraw);
+        stopTheme();
+      };
     }
+
+    const stopTheme = onThemeChange(readColor);
 
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
@@ -121,6 +135,7 @@ export function SignalScope({ className = "" }: { className?: string }) {
     window.addEventListener("resize", resize);
     return () => {
       io.disconnect();
+      stopTheme();
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("resize", resize);

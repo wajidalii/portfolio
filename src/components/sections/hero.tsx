@@ -12,12 +12,9 @@ export function Hero() {
     <>
       <section aria-labelledby="hero-h" className="relative overflow-hidden border-b border-border">
         <DotField />
-        {/* Soft ice glow behind the name, top right. */}
-        <div
-          aria-hidden
-          className="absolute -top-[260px] -right-[160px] w-[680px] h-[680px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, var(--glow), transparent 65%)" }}
-        />
+        {/* Soft accent glows drifting behind the name. */}
+        <div aria-hidden className="aurora aurora-a -top-[260px] -right-[160px] w-[680px] h-[680px]" />
+        <div aria-hidden className="aurora aurora-b top-[35%] -left-[220px] w-[560px] h-[560px]" />
 
         <div className="relative max-w-[1240px] mx-auto px-5 sm:px-8 pt-12 sm:pt-16 lg:pt-20 pb-14 sm:pb-18 lg:pb-22">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8 sm:mb-10">
@@ -45,8 +42,8 @@ export function Hero() {
               style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
             >
               Senior software engineer building{" "}
-              <span className="text-accent-fg">scalable systems</span> and{" "}
-              <span className="text-accent-2-fg">AI-first products</span>.
+              <span className="text-accent-fg shimmer">scalable systems</span> and{" "}
+              <span className="text-accent-2-fg shimmer shimmer-late">AI-first products</span>.
             </span>
           </h1>
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { prefersMotion } from "@/components/motion/use-motion";
+import { cssRgb, onThemeChange } from "@/components/theme/theme";
 
 /**
  * Ambient hero background: a grid of dots that swell and brighten around
@@ -27,9 +28,7 @@ export function DotField() {
     const ripples: { x: number; y: number; t: number }[] = [];
 
     const readColor = () => {
-      const hex = getComputedStyle(document.documentElement).getPropertyValue("--accent-fg").trim();
-      const m = hex.match(/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
-      if (m) color = `${parseInt(m[1], 16)},${parseInt(m[2], 16)},${parseInt(m[3], 16)}`;
+      color = cssRgb("--accent-fg", color);
     };
 
     const resize = () => {
@@ -47,14 +46,19 @@ export function DotField() {
     const draw = (time: number) => {
       ctx.clearRect(0, 0, w, h);
       const t = time / 1000;
+      // One colour per frame; per-dot opacity goes through globalAlpha, which
+      // is far cheaper than building and parsing an rgba() string per dot.
+      ctx.fillStyle = `rgb(${color})`;
       for (let y = GAP / 2; y < h; y += GAP) {
         for (let x = GAP / 2; x < w; x += GAP) {
           // rolling diagonal wave
           let e = (Math.sin((x + y) * 0.012 - t * 1.4) + 1) / 2;
           e = e * e * 0.5;
-          // pointer lens
-          const d = Math.hypot(x - px, y - py);
-          if (d < 220) e = Math.max(e, Math.pow(1 - d / 220, 1.4));
+          // pointer lens (squared-distance test before the sqrt)
+          const dx = x - px;
+          const dy = y - py;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 48400) e = Math.max(e, Math.pow(1 - Math.sqrt(d2) / 220, 1.4));
           // click ripples
           for (const r of ripples) {
             const age = t - r.t;
@@ -62,10 +66,11 @@ export function DotField() {
             if (ring < 40) e = Math.max(e, (1 - ring / 40) * Math.max(0, 1 - age / 1.2));
           }
           const size = 1 + e * 3.6;
-          ctx.fillStyle = `rgba(${color},${0.12 + e * 0.85})`;
+          ctx.globalAlpha = 0.12 + e * 0.85;
           ctx.fillRect(x - size / 2, y - size / 2, size, size);
         }
       }
+      ctx.globalAlpha = 1;
       while (ripples.length && t - ripples[0].t > 1.2) ripples.shift();
     };
 
@@ -74,7 +79,10 @@ export function DotField() {
 
     if (!prefersMotion()) {
       draw(0);
-      return;
+      return onThemeChange(() => {
+        readColor();
+        draw(0);
+      });
     }
 
     const toLocal = (e: PointerEvent) => {
@@ -107,8 +115,7 @@ export function DotField() {
     });
     io.observe(canvas);
 
-    const themeObs = new MutationObserver(readColor);
-    themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    const stopTheme = onThemeChange(readColor);
 
     host.addEventListener("pointermove", onMove, { passive: true });
     host.addEventListener("pointerleave", onLeave);
@@ -117,7 +124,7 @@ export function DotField() {
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
-      themeObs.disconnect();
+      stopTheme();
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);
       host.removeEventListener("pointerdown", onDown);
