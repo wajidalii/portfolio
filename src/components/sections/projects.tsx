@@ -83,6 +83,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <dd className="m-0 font-semibold">{project.outcome}</dd>
           </div>
         </dl>
+        {project.highlights && (
+          <ul className="m-0 pl-4 grid gap-1.5 text-[14px] leading-snug text-muted list-disc marker:text-accent-fg">
+            {project.highlights.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        )}
         <div className="flex flex-wrap gap-1.5">
           {project.stack.map((t) => (
             <span
