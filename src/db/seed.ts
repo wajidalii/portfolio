@@ -167,7 +167,7 @@ async function seed() {
         "Led the end-to-end modernization of a legacy HR / payroll / fleet ERP, shipping 315 merged PRs across security hardening, backend re-architecture, a full UI redesign and multi-tenant SaaS conversion.",
         "Closed 20+ critical security vulnerabilities, including remote-code-execution and command-injection endpoints, SQL injection hotspots, unauthenticated table CRUD and plaintext password storage.",
         "Re-architected a monolithic Express app into 41 layered feature modules on Prisma using the strangler-fig pattern, protected by characterization tests so behaviour stayed identical.",
-        "Converted the single-company app into a multi-tenant SaaS (live at mt.wajidali.dev): control-plane database, lazy per-tenant connection pools, automated tenant provisioning and TOTP-secured platform admins.",
+        "Converted the single-company app into a multi-tenant SaaS (live at hr.wajidali.dev): control-plane database, lazy per-tenant connection pools, automated tenant provisioning and TOTP-secured platform admins.",
         "Built an AI HR assistant: RAG with hybrid lexical + vector retrieval, allow-listed read-only SQL tools, SSE streaming and citations, with prompt-injection and data-isolation test suites.",
         "Cut the slowest APIs from 10–16 s and 5+ MB per response to 1–2 s and 2–4 KB; the Employees list went from 4.3 MB to ~2 KB and the salary sheet for 2,303 employees from 11 s to 0.3 s.",
         "Moved payroll for 2,000+ employees from the browser to the server with zero-difference parity on real months, backed by property-style tests over 3,000 generated months.",

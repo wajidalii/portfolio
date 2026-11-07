@@ -11,7 +11,7 @@ Core stack: TypeScript, C#/.NET, Go, Python, PostgreSQL, Kafka, Kubernetes, AWS,
 - [About](https://wajidali.dev/#about): background and how "scalable systems" and "AI-first" are defined in practice
 - [Skills](https://wajidali.dev/#skills): backend/systems design, SaaS architecture, AI/LLM engineering, cloud infrastructure
 - [Experience](https://wajidali.dev/#experience): career timeline
-- [Projects](https://wajidali.dev/#projects): real shipped work — iHorizons, AfterSchool HQ, Beam AI, ENBIOSIS, HRMS (Bin Delamah Contracting Co.), Multi-tenant SaaS HRMS (https://mt.wajidali.dev), ReelBridge
+- [Projects](https://wajidali.dev/#projects): real shipped work — iHorizons, AfterSchool HQ, Beam AI, ENBIOSIS, HRMS (Bin Delamah Contracting Co.), Multi-Tenant HR SaaS (https://hr.wajidali.dev), KnowledgeCity UX & Performance Redesign (https://kc.wajidali.dev), KnowledgeCity Technical Assessment (https://arm.wajidali.dev), ReelBridge
 - [Upcoming projects](https://wajidali.dev/#upcoming-projects): what's being built next
 - [FAQ](https://wajidali.dev/#faq): direct answers on role fit, regions/time zones, seniority, and what "AI-first" means
 - [Contact](https://wajidali.dev/#contact): contact form and direct links
