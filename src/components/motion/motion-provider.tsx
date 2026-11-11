@@ -64,6 +64,10 @@ export function MotionProvider() {
       );
     });
 
+    // The first screen is already painted by SSR. Never hide it again on
+    // hydration or delay the largest content paint behind an entrance reveal.
+    document.querySelector('[data-station="0"]')
+      ?.querySelectorAll("[data-reveal]").forEach(reveal);
     root.setAttribute("data-motion", "on");
     watch(document);
 

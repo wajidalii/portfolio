@@ -12,16 +12,27 @@ export function StackTicker({ items }: { items: readonly string[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let visible = false;
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      track.style.animationPlayState = visible ? "" : "paused";
+    });
+    observer.observe(track.parentElement!);
     let lastY = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
-      if (trackRef.current && Math.abs(y - lastY) > 2) {
+      if (visible && trackRef.current && Math.abs(y - lastY) > 2) {
         trackRef.current.style.animationDirection = y < lastY ? "reverse" : "normal";
       }
       lastY = y;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   const loop = [...items, ...items];
@@ -37,6 +48,7 @@ export function StackTicker({ items }: { items: readonly string[] }) {
       <div
         ref={trackRef}
         aria-hidden
+        style={{ animationPlayState: "paused" }}
         className="flex w-max gap-10 sm:gap-14 whitespace-nowrap animate-[marquee_38s_linear_infinite] group-hover:[animation-play-state:paused]"
       >
         {loop.map((t, i) => (

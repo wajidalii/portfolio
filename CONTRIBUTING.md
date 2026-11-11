@@ -1,7 +1,7 @@
 # Contributing
 
 Link work to an issue and milestone. Branch from current `main` using
-`feat/<issue>-<short-description>`, `fix/<issue>-<short-description>`, or
+`feat/<issue>-<short-description>`, `fix/<issue>-<short-description>`, `perf/<issue>-<short-description>`, or
 `chore/<issue>-<short-description>`. Keep each PR focused and avoid force-pushing
 shared branches.
 

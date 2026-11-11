@@ -1,7 +1,6 @@
 "use client";
 
 import type { MouseEvent, ReactNode } from "react";
-import { getCalApi } from "@calcom/embed-react";
 import { BOOKING_LINK } from "@/content/contact";
 
 const NAMESPACE = "book-call";
@@ -24,10 +23,16 @@ function calUi() {
   };
 }
 
-let calPromise: ReturnType<typeof getCalApi> | null = null;
+type CalApi = Awaited<ReturnType<typeof import("@calcom/embed-react")["getCalApi"]>>;
+let calPromise: Promise<CalApi> | null = null;
 /** Loads Cal's embed script once; later calls reuse it. */
 function loadCal() {
-  calPromise ??= getCalApi({ namespace: NAMESPACE });
+  calPromise ??= import("@calcom/embed-react")
+    .then(({ getCalApi }) => getCalApi({ namespace: NAMESPACE }))
+    .catch((error) => {
+      calPromise = null;
+      throw error;
+    });
   return calPromise;
 }
 
@@ -60,8 +65,8 @@ export function BookCallLink({ className, children }: { className?: string; chil
       target="_blank"
       rel="noopener"
       onClick={open}
-      onPointerEnter={() => void loadCal()}
-      onFocus={() => void loadCal()}
+      onPointerEnter={() => void loadCal().catch(() => {})}
+      onFocus={() => void loadCal().catch(() => {})}
       className={className}
     >
       {children}
