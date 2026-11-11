@@ -54,3 +54,12 @@ UUIDs, query bounds, literal wildcard search and CSV injection. Integration test
 require an explicit disposable `TEST_DATABASE_URL` and cover actual filtered reads,
 updates, export content and deletion. Browser tests must cover the signed-session
 boundary and actual forms; unit tests alone do not prove authorization.
+
+## Final browser integration
+
+New lead mutations use native POST `/admin/leads/mutate` with session, Origin,
+media/body, ID/status/date and deletion-confirmation checks, followed by explicit
+HTTP303 feedback. This replaces the initial server-action implementation after
+browser testing found unreliable same-path action redirect feedback. It also
+keeps private editing progressively usable without JavaScript. Middleware uses
+303 for unauthenticated POSTs to avoid forwarding private bodies to login.

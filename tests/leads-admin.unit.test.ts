@@ -27,3 +27,18 @@ test("CSV export escapes quotes/newlines and neutralizes spreadsheet formulas af
   const csv = leadsCsv([{ fullName: "=formula", email: "test@example.test", internalNotes: 'Private "note"' }]);
   assert(csv.startsWith('"id","fullName","email"')); assert(csv.includes('"\'=formula"')); assert(csv.includes('"Private ""note"""')); assert(csv.endsWith("\r\n"));
 });
+
+test("private mutation POST verifies origin/session, validates updates and gives safe deterministic feedback", async () => {
+  const { createLeadMutationHandler } = await import("../src/lib/leads/admin-handler");
+  let authorized = false, saved = 0, deleted = 0;
+  const handler = createLeadMutationHandler({ authorized: async () => authorized, save: async () => { saved++; }, remove: async () => { deleted++; }, retry: async () => {} });
+  const send = (fields: Record<string, string>, origin = "https://example.com") => handler(new Request("https://example.com/admin/leads/mutate", { method: "POST", headers: { Origin: origin, "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(fields) }));
+  const fields = { id: "bb9da9ea-3e86-4dc2-9e78-b9e837af3568", operation: "save", status: "qualified", internalNotes: "Private note", followUpDate: "2027-01-05" };
+  assert.equal((await send(fields, "https://evil.test")).status, 403);
+  assert.match((await send(fields)).headers.get("location")!, /\/admin\/login/);
+  assert.equal(saved, 0); authorized = true;
+  assert.match((await send({ ...fields, status: "invalid" })).headers.get("location")!, /notice=invalid/);
+  assert.match((await send(fields)).headers.get("location")!, /notice=saved/); assert.equal(saved, 1);
+  await send({ ...fields, operation: "delete" }); assert.equal(deleted, 0);
+  assert.match((await send({ ...fields, operation: "delete", confirm: "delete" })).headers.get("location")!, /notice=deleted/); assert.equal(deleted, 1);
+});

@@ -1,6 +1,6 @@
 # Portfolio Services & Client Acquisition Platform
 
-Status: planned implementation; no production deployment or merge authorized by this document.
+Status: implementation prepared in stacked PRs; see VALIDATION.md for actual checks and release limits. No production deployment or merge authorized by this document.
 
 ## Inspection baseline
 

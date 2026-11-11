@@ -62,7 +62,7 @@
     const amount = typeof value === "bigint" ? value : money(value, currency);
     const positive = amount < 0n ? -amount : amount;
     const scale = 10n ** BigInt(places);
-    const formatted = new Intl.NumberFormat("en-PK", { style: "currency", currency, minimumFractionDigits: places, maximumFractionDigits: places })
+    const formatted = new Intl.NumberFormat("en-PK", { style: "currency", currency, currencyDisplay: "code", minimumFractionDigits: places, maximumFractionDigits: places })
       .formatToParts(positive / scale).map((part) => part.type === "fraction" ? String(positive % scale).padStart(places, "0") : part.value).join("");
     return `${amount < 0n ? "−" : ""}${formatted}`;
   }
