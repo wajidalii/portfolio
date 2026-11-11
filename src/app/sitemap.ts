@@ -6,7 +6,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${SITE_URL}/about`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/work`, changeFrequency: "monthly", priority: 0.9 },
-    ...atelierWork.map(item => ({ url: `${SITE_URL}/work/${item.slug}`, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...atelierWork.map((item) => ({
+      url: `${SITE_URL}/work/${item.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     { url: `${SITE_URL}/services`, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
     {

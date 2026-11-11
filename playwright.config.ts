@@ -8,6 +8,9 @@ export default defineConfig({
   use: {
     baseURL: process.env.E2E_BASE_URL ?? "http://127.0.0.1:3000",
     browserName: "chromium",
+    locale: "en-US",
+    timezoneId: "UTC",
+    deviceScaleFactor: 1,
     launchOptions: { executablePath: process.env.CHROMIUM_PATH || undefined, args: ["--no-sandbox"] },
     trace: "retain-on-failure",
   },

@@ -61,7 +61,9 @@ export default async function OpengraphImage() {
           }}
         >
           <span>Thoughtful software.</span>
-          <span style={{ color: "#7C9BFF" }}>Built for real business needs.</span>
+          <span style={{ color: "#7C9BFF" }}>
+            Built for real business needs.
+          </span>
         </div>
       </div>
     ),

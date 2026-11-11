@@ -1,4 +1,7 @@
-import { serviceCaseStudies, type ServiceCaseStudy } from "./service-case-studies";
+import {
+  serviceCaseStudies,
+  type ServiceCaseStudy,
+} from "./service-case-studies";
 
 /** Selected work reuses the reviewed evidence ledger instead of a second set of claims. */
 export type AtelierWork = ServiceCaseStudy & { slug: string; summary: string };

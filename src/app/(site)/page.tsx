@@ -5,46 +5,466 @@ import { ConsultationLink } from "@/components/services/consultation-link";
 import { atelierWork } from "@/content/atelier-work";
 import { services } from "@/content/services";
 import { quotes } from "@/content/testimonials";
-import { PERSON, SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site-config";
+import {
+  PERSON,
+  SITE_URL,
+  SITE_NAME,
+  SITE_DESCRIPTION,
+} from "@/lib/site-config";
 
 const process = [
-  ["01", "Discover", "Understand your business, goals, constraints, and the problem worth solving."],
-  ["02", "Design", "Agree the scope, user experience, architecture, deliverables, and milestones."],
-  ["03", "Build", "Deliver in focused iterations, with testing and clear, useful progress reviews."],
-  ["04", "Launch", "Verify the details, prepare deployment, and hand over a documented solution."],
+  [
+    "01",
+    "Discover",
+    "Understand your business, goals, constraints, and the problem worth solving.",
+  ],
+  [
+    "02",
+    "Design",
+    "Agree the scope, user experience, architecture, deliverables, and milestones.",
+  ],
+  [
+    "03",
+    "Build",
+    "Deliver in focused iterations, with testing and clear, useful progress reviews.",
+  ],
+  [
+    "04",
+    "Launch",
+    "Verify the details, prepare deployment, and hand over a documented solution.",
+  ],
 ];
 const capabilities = {
-  website: ["Business websites & UI/UX redesign", "Performance, accessibility & SEO", "Responsive design & conversion paths"],
-  saas: ["Multi-tenant SaaS & HRMS", "Dashboards, portals & business tools", "API development & systems integration"],
-  automation: ["Workflow automation & AI agents", "CRM, reporting & API integration", "Human review & clear failure handling"],
+  website: [
+    "Business websites & UI/UX redesign",
+    "Performance, accessibility & SEO",
+    "Responsive design & conversion paths",
+  ],
+  saas: [
+    "Multi-tenant SaaS & HRMS",
+    "Dashboards, portals & business tools",
+    "API development & systems integration",
+  ],
+  automation: [
+    "Workflow automation & AI agents",
+    "CRM, reporting & API integration",
+    "Human review & clear failure handling",
+  ],
 };
-function ProductWindow({ project, main = false }: { project: typeof atelierWork[number]; main?: boolean }) {
-  return <div className={`atelier-product-window ${main ? "atelier-composition-main" : "atelier-composition-small"}`}><div className="atelier-window-bar"><span className="atelier-window-dots" aria-hidden><i /><i /><i /></span><span>{main ? "Multi-Tenant HRMS" : "Mortgage Calculator"}</span><span aria-hidden>↗</span></div><Image src={project.image!} alt={project.imageAlt!} width={960} height={600} priority={main} loading={main ? undefined : "lazy"} sizes={main ? "(min-width: 960px) 560px, (min-width: 600px) 650px, 90vw" : "(min-width: 960px) 360px, 60vw"} /></div>;
+function ProductWindow({
+  project,
+  main = false,
+}: {
+  project: (typeof atelierWork)[number];
+  main?: boolean;
+}) {
+  return (
+    <div
+      className={`atelier-product-window ${main ? "atelier-composition-main" : "atelier-composition-small"}`}
+    >
+      <div className="atelier-window-bar">
+        <span className="atelier-window-dots" aria-hidden>
+          <i />
+          <i />
+          <i />
+        </span>
+        <span>{main ? "Multi-Tenant HRMS" : "Mortgage Calculator"}</span>
+        <span aria-hidden>↗</span>
+      </div>
+      <Image
+        src={project.image!}
+        alt={project.imageAlt!}
+        width={960}
+        height={600}
+        priority={main}
+        fetchPriority={main ? "high" : "auto"}
+        loading={main ? undefined : "lazy"}
+        sizes={
+          main
+            ? "(min-width: 960px) 560px, (min-width: 600px) 650px, 90vw"
+            : "(min-width: 960px) 360px, 60vw"
+        }
+      />
+    </div>
+  );
 }
 export default function Home() {
-  const schema = { "@context": "https://schema.org", "@type": "ProfilePage", "@id": `${SITE_URL}/#profile`, url: SITE_URL, name: SITE_NAME, description: SITE_DESCRIPTION, mainEntity: { "@id": `${SITE_URL}/#person` } };
-  return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-    <section aria-labelledby="hero-heading" className="atelier-hero"><div className="atelier-container"><div className="atelier-hero-grid"><div>
-      <p className="atelier-eyebrow">Software Engineer &amp; Product Builder</p>
-      <h1 id="hero-heading">I turn complex ideas into <span>exceptional digital products.</span></h1>
-      <p className="atelier-hero-copy">Custom SaaS platforms, high-performance websites, and intelligent automation — designed and engineered for real business needs.</p>
-      <div className="atelier-actions"><Link prefetch={false} href="/services#inquiry" className="atelier-button" data-conversion="hero_primary_cta_clicked" data-source="hero">Start a Project <span aria-hidden>↗</span></Link><a href="#work" className="atelier-button-secondary">Explore My Work <span aria-hidden>↓</span></a></div>
-      <p className="atelier-hero-note"><span>Have a project in mind? Let’s discuss the fit.</span><Link href="/about#experience" prefetch={false} className="underline underline-offset-4">Hiring an engineer?</Link></p>
-    </div><figure className="atelier-composition" aria-label="Real project previews"><ProductWindow project={atelierWork[0]} main /><ProductWindow project={atelierWork[2]} /><figcaption className="atelier-composition-caption">Built by Wajid Ali · Public product previews</figcaption></figure></div>
-    <div className="atelier-proof-strip"><span>Thoughtful from first idea to handover.</span><span>Full-stack engineering</span><span>Product &amp; interface design</span><span>Performance &amp; reliability</span></div></div></section>
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${SITE_URL}/#profile`,
+    url: SITE_URL,
+    name: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    mainEntity: { "@id": `${SITE_URL}/#person` },
+  };
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <section aria-labelledby="hero-heading" className="atelier-hero">
+        <div className="atelier-container">
+          <div className="atelier-hero-grid">
+            <div>
+              <p className="atelier-eyebrow">
+                Software Engineer &amp; Product Builder
+              </p>
+              <h1 id="hero-heading">
+                I turn complex ideas into{" "}
+                <span>exceptional digital products.</span>
+              </h1>
+              <p className="atelier-hero-copy">
+                Custom SaaS platforms, high-performance websites, and
+                intelligent automation — designed and engineered for real
+                business needs.
+              </p>
+              <div className="atelier-actions">
+                <Link
+                  prefetch={false}
+                  href="/services#inquiry"
+                  className="atelier-button"
+                  data-conversion="hero_primary_cta_clicked"
+                  data-source="hero"
+                >
+                  Start a Project <span aria-hidden>↗</span>
+                </Link>
+                <a href="#work" className="atelier-button-secondary">
+                  Explore My Work <span aria-hidden>↓</span>
+                </a>
+              </div>
+              <p className="atelier-hero-note">
+                <span>Have a project in mind? Let’s discuss the fit.</span>
+                <Link
+                  href="/about#experience"
+                  prefetch={false}
+                  className="underline underline-offset-4"
+                >
+                  Hiring an engineer?
+                </Link>
+              </p>
+            </div>
+            <figure
+              className="atelier-composition"
+              aria-label="Real project previews"
+            >
+              <ProductWindow project={atelierWork[0]} main />
+              <ProductWindow project={atelierWork[2]} />
+              <figcaption className="atelier-composition-caption">
+                Built by Wajid Ali · Public product previews
+              </figcaption>
+            </figure>
+          </div>
+          <div className="atelier-proof-strip">
+            <span>Thoughtful from first idea to handover.</span>
+            <span>Full-stack engineering</span>
+            <span>Product &amp; interface design</span>
+            <span>Performance &amp; reliability</span>
+          </div>
+        </div>
+      </section>
 
-    <Section id="work" eyebrow="Selected work / 01" title="Real products. Considered engineering." className="atelier-deferred"><span id="projects" className="sr-only">Selected projects</span><p className="atelier-lede mb-10">A closer look at the problems, interfaces, and technical decisions behind my work.</p><div className="atelier-grid">{atelierWork.map((project) => <article className="atelier-card atelier-reveal" key={project.id}>
-      <Link href={`/work/${project.slug}`} prefetch={false} className="atelier-project-visual" aria-label={`Read ${project.name} case study`} data-conversion="project_case_study_clicked" data-source="home"><Image src={project.image!} alt={project.imageAlt!} width={960} height={600} sizes="(min-width: 960px) 600px, (min-width: 600px) 50vw, 100vw" loading="lazy" /></Link>
-      <div className="atelier-card-body"><p className="atelier-card-category">{project.category}</p><h3>{project.name}</h3><p>{project.problem}</p><p>{project.solution}</p><ul className="atelier-tags" aria-label="Technologies">{project.stack.slice(0,4).map(tag => <li key={tag}>{tag}</li>)}</ul>{["knowledgecity","cloudcard"].includes(project.id) && <p className="atelier-disclaimer">Independent, unofficial demonstration. Not commissioned or endorsed by the brand.</p>}<div className="atelier-card-links"><ProjectLink href={`/work/${project.slug}`}>View case study</ProjectLink><a href={project.href} target="_blank" rel="noopener noreferrer" className="atelier-text-link">Live project <span aria-hidden>↗</span><span className="sr-only"> (opens in a new tab)</span></a></div></div>
-    </article>)}</div><div className="atelier-actions"><Link href="/work" prefetch={false} className="atelier-button-secondary">Explore all selected work <span aria-hidden>→</span></Link><a href={`${PERSON.github}?tab=repositories`} target="_blank" rel="noopener noreferrer" className="atelier-text-link">Explore the code on GitHub <span aria-hidden>↗</span></a></div></Section>
+      <Section
+        id="work"
+        eyebrow="Selected work / 01"
+        title="Real products. Considered engineering."
+        className="atelier-deferred"
+      >
+        <span id="projects" className="sr-only">
+          Selected projects
+        </span>
+        <p className="atelier-lede mb-10">
+          A closer look at the problems, interfaces, and technical decisions
+          behind my work.
+        </p>
+        <div className="atelier-grid">
+          {atelierWork.map((project) => (
+            <article className="atelier-card atelier-reveal" key={project.id}>
+              <Link
+                href={`/work/${project.slug}`}
+                prefetch={false}
+                className="atelier-project-visual"
+                aria-label={`Read ${project.name} case study`}
+                data-conversion="project_case_study_clicked"
+                data-source="home"
+              >
+                <Image
+                  src={project.image!}
+                  alt={project.imageAlt!}
+                  width={960}
+                  height={600}
+                  sizes="(min-width: 960px) 600px, (min-width: 600px) 50vw, 100vw"
+                  loading="lazy"
+                />
+              </Link>
+              <div className="atelier-card-body">
+                <p className="atelier-card-category">{project.category}</p>
+                <h3>{project.name}</h3>
+                <p>{project.problem}</p>
+                <p>{project.solution}</p>
+                <ul className="atelier-tags" aria-label="Technologies">
+                  {project.stack.slice(0, 4).map((tag) => (
+                    <li key={tag}>{tag}</li>
+                  ))}
+                </ul>
+                {["knowledgecity", "cloudcard"].includes(project.id) && (
+                  <p className="atelier-disclaimer">
+                    Independent, unofficial demonstration. Not commissioned or
+                    endorsed by the brand.
+                  </p>
+                )}
+                <div className="atelier-card-links">
+                  <ProjectLink href={`/work/${project.slug}`}>
+                    View case study
+                  </ProjectLink>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="atelier-text-link"
+                  >
+                    Live project <span aria-hidden>↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="atelier-actions">
+          <Link
+            href="/work"
+            prefetch={false}
+            className="atelier-button-secondary"
+          >
+            Explore all selected work <span aria-hidden>→</span>
+          </Link>
+          <a
+            href={`${PERSON.github}?tab=repositories`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="atelier-text-link"
+          >
+            Explore the code on GitHub <span aria-hidden>↗</span>
+          </a>
+        </div>
+      </Section>
 
-    <Section id="services" eyebrow="How I can help / 02" title="The right solution for your next chapter." className="atelier-deferred"><p className="atelier-lede mb-10">From a stronger web presence to the software that runs your business. Start with the problem; we’ll define the right scope together.</p><div className="atelier-services-grid">{services.map(service => <article key={service.id} className="atelier-card atelier-service atelier-reveal"><span className="atelier-service-number" aria-hidden>{service.number}</span><h3>{service.id === "website" ? "Website Design & Performance" : service.id === "saas" ? "Custom SaaS & Business Software" : "AI Automation & Integrations"}</h3><p>{service.summary}</p><ul>{capabilities[service.id].map(item => <li key={item}>{item}</li>)}</ul><p><strong className="text-text">Best for:</strong> {service.audience}</p><p className="!text-accent-fg font-semibold">{service.price}{service.id === "website" ? " · subject to scope" : ""}</p><Link href={`/services#${service.id}`} prefetch={false} data-conversion="service_cta_clicked" data-source={service.id} className="atelier-text-link">Explore this service <span aria-hidden>↗</span></Link><Link href={service.id === "automation" ? "/services#case-mcpof" : `/work/${service.id === "website" ? "knowledgecity" : "hrms"}`} prefetch={false} className="atelier-text-link">{service.id === "automation" ? "Explore automation evidence" : "See relevant work"} <span aria-hidden>→</span></Link>{service.id === "automation" && <p className="!text-xs">MCPOF is a local engineering framework; walkthrough evidence is pending. <Link href="/services#case-mcpof" prefetch={false} className="underline underline-offset-4">View demonstration context</Link>.</p>}</article>)}</div><div className="atelier-actions"><Link href="/services" prefetch={false} className="atelier-button-secondary" data-conversion="service_cta_clicked" data-source="home">Explore services <span aria-hidden>→</span></Link></div></Section>
+      <Section
+        id="services"
+        eyebrow="How I can help / 02"
+        title="The right solution for your next chapter."
+        className="atelier-deferred"
+      >
+        <p className="atelier-lede mb-10">
+          From a stronger web presence to the software that runs your business.
+          Start with the problem; we’ll define the right scope together.
+        </p>
+        <div className="atelier-services-grid">
+          {services.map((service) => (
+            <article
+              key={service.id}
+              className="atelier-card atelier-service atelier-reveal"
+            >
+              <span className="atelier-service-number" aria-hidden>
+                {service.number}
+              </span>
+              <h3>
+                {service.id === "website"
+                  ? "Website Design & Performance"
+                  : service.id === "saas"
+                    ? "Custom SaaS & Business Software"
+                    : "AI Automation & Integrations"}
+              </h3>
+              <p>{service.summary}</p>
+              <ul>
+                {capabilities[service.id].map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p>
+                <strong className="text-text">Best for:</strong>{" "}
+                {service.audience}
+              </p>
+              <p className="!text-accent-fg font-semibold">
+                {service.price}
+                {service.id === "website" ? " · subject to scope" : ""}
+              </p>
+              <Link
+                href={`/services#${service.id}`}
+                prefetch={false}
+                data-conversion="service_cta_clicked"
+                data-source={service.id}
+                className="atelier-text-link"
+              >
+                Explore this service <span aria-hidden>↗</span>
+              </Link>
+              <Link
+                href={
+                  service.id === "automation"
+                    ? "/services#case-mcpof"
+                    : `/work/${service.id === "website" ? "knowledgecity" : "hrms"}`
+                }
+                prefetch={false}
+                className="atelier-text-link"
+              >
+                {service.id === "automation"
+                  ? "Explore automation evidence"
+                  : "See relevant work"}{" "}
+                <span aria-hidden>→</span>
+              </Link>
+              {service.id === "automation" && (
+                <p className="!text-xs">
+                  MCPOF is a local engineering framework; walkthrough evidence
+                  is pending.{" "}
+                  <Link
+                    href="/services#case-mcpof"
+                    prefetch={false}
+                    className="underline underline-offset-4"
+                  >
+                    View demonstration context
+                  </Link>
+                  .
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+        <div className="atelier-actions">
+          <Link
+            href="/services"
+            prefetch={false}
+            className="atelier-button-secondary"
+            data-conversion="service_cta_clicked"
+            data-source="home"
+          >
+            Explore services <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </Section>
 
-    <Section id="process" eyebrow="How I work / 03" title="Clarity at every step." className="atelier-deferred"><ol className="atelier-process">{process.map(([number,title,body]) => <li key={number} className="atelier-reveal"><span>{number}</span><h3>{title}</h3><p>{body}</p></li>)}</ol></Section>
+      <Section
+        id="process"
+        eyebrow="How I work / 03"
+        title="Clarity at every step."
+        className="atelier-deferred"
+      >
+        <ol className="atelier-process">
+          {process.map(([number, title, body]) => (
+            <li key={number} className="atelier-reveal">
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </li>
+          ))}
+        </ol>
+      </Section>
 
-    <section id="about" aria-labelledby="about-heading" className="atelier-section atelier-deferred"><div className="atelier-container atelier-about-grid"><div><span id="experience" /><span id="skills" /><span id="upcoming-projects" /><p className="atelier-eyebrow">The engineer behind the work / 04</p><h2 id="about-heading" className="atelier-title">Product thinking.<br />Engineering depth.</h2><p className="atelier-lede">I’m Wajid Ali, a software engineer who connects the details of an interface with the systems behind it.</p><p className="atelier-lede">My work spans business applications, multi-tenant software, websites, and integration workflows. I focus on clear architecture, useful experiences, and maintainable delivery.</p><Link href="/about" prefetch={false} className="atelier-text-link">More about me &amp; my experience <span aria-hidden>→</span></Link></div><figure className="atelier-quote"><p className="atelier-eyebrow">Professional appreciation</p><blockquote>“{quotes[0].text}”</blockquote><figcaption><strong className="text-text">Bin Delamah Contracting Co. (BDCC)</strong><br />Official appreciation letter · 28 September 2025</figcaption><a href={quotes[0].href} target="_blank" rel="noopener noreferrer" className="atelier-text-link">Read the original letter <span aria-hidden>↗</span></a></figure></div></section>
+      <section
+        id="about"
+        aria-labelledby="about-heading"
+        className="atelier-section atelier-deferred"
+      >
+        <div className="atelier-container atelier-about-grid">
+          <div>
+            <span id="experience" />
+            <span id="skills" />
+            <span id="upcoming-projects" />
+            <p className="atelier-eyebrow">The engineer behind the work / 04</p>
+            <h2 id="about-heading" className="atelier-title">
+              Product thinking.
+              <br />
+              Engineering depth.
+            </h2>
+            <p className="atelier-lede">
+              I’m Wajid Ali, a software engineer who connects the details of an
+              interface with the systems behind it.
+            </p>
+            <p className="atelier-lede">
+              My work spans business applications, multi-tenant software,
+              websites, and integration workflows. I focus on clear
+              architecture, useful experiences, and maintainable delivery.
+            </p>
+            <Link href="/about" prefetch={false} className="atelier-text-link">
+              More about me &amp; my experience <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <figure className="atelier-quote">
+            <p className="atelier-eyebrow">Professional appreciation</p>
+            <blockquote>“{quotes[0].text}”</blockquote>
+            <figcaption>
+              <strong className="text-text">
+                Bin Delamah Contracting Co. (BDCC)
+              </strong>
+              <br />
+              Official appreciation letter · 28 September 2025
+            </figcaption>
+            <a
+              href={quotes[0].href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="atelier-text-link"
+            >
+              Read the original letter <span aria-hidden>↗</span>
+            </a>
+          </figure>
+        </div>
+      </section>
 
-    <section id="contact" aria-labelledby="contact-heading" className="atelier-section atelier-deferred"><div className="atelier-container"><div className="atelier-contact-panel"><p className="atelier-eyebrow">Let’s build what’s next / 05</p><h2 id="contact-heading" className="atelier-title">Have a project in mind? Let’s build something exceptional.</h2><p className="atelier-lede">Tell me what you want to improve. We’ll start with a useful conversation about your goals, scope, and next step.</p><div className="atelier-actions"><Link href="/services#inquiry" prefetch={false} className="atelier-button" data-conversion="proposal_requested" data-source="contact">Start a Project <span aria-hidden>↗</span></Link><ConsultationLink source="contact" className="atelier-button-secondary">Schedule a Consultation</ConsultationLink></div><p className="atelier-recruiter">Interested in discussing a full-time or contract engineering role? <a href={`mailto:${PERSON.email}?subject=Engineering%20opportunity`} className="text-accent-fg underline underline-offset-4">Let’s talk about the role</a>, or <Link href="/about#experience" prefetch={false} className="text-accent-fg underline underline-offset-4">view my experience</Link>.</p></div></div></section>
-  </>;
+      <section
+        id="contact"
+        aria-labelledby="contact-heading"
+        className="atelier-section atelier-deferred"
+      >
+        <div className="atelier-container">
+          <div className="atelier-contact-panel">
+            <p className="atelier-eyebrow">Let’s build what’s next / 05</p>
+            <h2 id="contact-heading" className="atelier-title">
+              Have a project in mind? Let’s build something exceptional.
+            </h2>
+            <p className="atelier-lede">
+              Tell me what you want to improve. We’ll start with a useful
+              conversation about your goals, scope, and next step.
+            </p>
+            <div className="atelier-actions">
+              <Link
+                href="/services#inquiry"
+                prefetch={false}
+                className="atelier-button"
+                data-conversion="proposal_requested"
+                data-source="contact"
+              >
+                Start a Project <span aria-hidden>↗</span>
+              </Link>
+              <ConsultationLink
+                source="contact"
+                className="atelier-button-secondary"
+              >
+                Schedule a Consultation
+              </ConsultationLink>
+            </div>
+            <p className="atelier-recruiter">
+              Interested in discussing a full-time or contract engineering role?{" "}
+              <a
+                href={`mailto:${PERSON.email}?subject=Engineering%20opportunity`}
+                className="text-accent-fg underline underline-offset-4"
+              >
+                Let’s talk about the role
+              </a>
+              , or{" "}
+              <Link
+                href="/about#experience"
+                prefetch={false}
+                className="text-accent-fg underline underline-offset-4"
+              >
+                view my experience
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
