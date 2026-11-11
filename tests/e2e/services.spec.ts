@@ -97,7 +97,7 @@ test("services is useful without JavaScript and existing home is intact", async 
   await expect(nojs.getByRole("link", { name: "Email your project brief instead" })).toBeVisible();
   await context.close();
   await page.goto("/");
-  await expect(page.locator("h1")).toContainText("WAJID");
+  await expect(page.locator("h1")).toContainText("I turn complex ideas");
   await expect(page.getByRole("link", { name: "Explore services" })).toHaveAttribute("href", "/services");
 });
 
