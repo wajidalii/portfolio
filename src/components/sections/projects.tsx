@@ -120,7 +120,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           >
             {project.hrefLabel} <span aria-hidden>↗</span>
           </a>
-          <a href="#contact" className="group/cs inline-flex items-center gap-1.5 text-muted hover:text-text transition-colors">
+          <a href="/services#work" className="group/cs inline-flex items-center gap-1.5 text-muted hover:text-text transition-colors">
             case study
             <span aria-hidden className="transition-transform duration-300 group-hover/cs:translate-x-1">
               →

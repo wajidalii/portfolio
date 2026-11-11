@@ -64,10 +64,10 @@ export function Hero() {
               </BookCallLink>
             </Magnetic>
             <a
-              href="#about"
+              href="/services" data-conversion="service_cta_clicked" data-source="services"
               className="group inline-flex items-center gap-2.5 px-5 py-4 rounded-md border border-border bg-surface/80 text-text font-semibold text-[15.5px] shadow-[0_3px_0_var(--border)] transition-[transform,box-shadow,border-color] duration-150 hover:-translate-y-0.5 hover:border-accent active:translate-y-[3px] active:shadow-none"
             >
-              Enter the system
+              Explore services
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">
                 ↓
               </span>

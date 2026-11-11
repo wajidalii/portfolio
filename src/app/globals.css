@@ -823,3 +823,15 @@ html[data-motion="on"] [data-reveal="wipe"]:not([data-revealed]) {
     contain-intrinsic-block-size: none !important;
   }
 }
+
+/* Services use the same material/typographic tokens without the homepage stage. */
+.services-section { scroll-margin-top: 6rem; }
+.services-case { min-width: 0; overflow-wrap: anywhere; }
+.services-case summary, .services-section summary { min-height: 44px; }
+.services-section:focus-within, .services-case:focus-within { content-visibility: visible; }
+@supports (content-visibility: auto) {
+  .services-case { content-visibility: auto; contain-intrinsic-block-size: auto 800px; }
+}
+@media print {
+  .services-case, .services-section { content-visibility: visible !important; }
+}

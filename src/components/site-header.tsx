@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { DecodeText } from "@/components/motion/decode-text";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -7,11 +9,12 @@ import { PalettePicker, PaletteRow } from "@/components/theme/palette-picker";
 import { originOf, setThemeAttr } from "@/components/theme/theme";
 
 const NAV_LINKS = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#upcoming-projects", label: "Upcoming" },
+  { href: "/services", label: "Services" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#upcoming-projects", label: "Upcoming" },
 ];
 
 /**
@@ -20,6 +23,7 @@ const NAV_LINKS = [
  * sections), decode-on-hover nav, and a hardware Night/Day switch.
  */
 export function SiteHeader() {
+  const isHome = usePathname() === "/";
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [hidden, setHidden] = useState(false);
@@ -33,6 +37,7 @@ export function SiteHeader() {
 
   // Tape counter, progress bar, channel display, hide-on-scroll-down.
   useEffect(() => {
+    if (!isHome) return;
     let lastY = window.scrollY;
     let raf = 0;
     const sections = document.querySelectorAll<HTMLElement>("[data-channel]");
@@ -72,7 +77,7 @@ export function SiteHeader() {
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -96,18 +101,18 @@ export function SiteHeader() {
         aria-label="Primary"
         className="max-w-[1240px] mx-auto px-5 sm:px-8 py-3 flex items-center gap-4 lg:gap-6"
       >
-        <a href="#main" className="group flex items-center gap-3 text-text">
+        <Link prefetch={false} href="/#main" className="group flex items-center gap-3 text-text">
           <span className="grid place-items-center w-[34px] h-[34px] rounded-[5px] bg-accent text-on-accent text-[12.5px] font-black font-wide shadow-[0_3px_0_var(--accent-deep)] transition-transform duration-200 group-hover:-rotate-6 group-active:translate-y-[3px] group-active:shadow-none">
             WA
           </span>
           <span className="font-wide font-extrabold text-[15.5px] tracking-[-0.01em] whitespace-nowrap">
             WAJID ALI
           </span>
-        </a>
+        </Link>
 
         <div
           aria-hidden
-          className="hidden sm:flex lcd items-center gap-3 px-3 py-1.5"
+          className={`${isHome ? "hidden min-[1280px]:flex" : "hidden"} lcd items-center gap-3 px-3 py-1.5`}
           title="Scroll position · current section"
         >
           <span ref={counterRef} className="lcd-text text-[13px]">
@@ -122,7 +127,7 @@ export function SiteHeader() {
         </div>
 
         <div className="hidden min-[960px]:flex items-center gap-0.5 ml-auto text-[14px]">
-          {NAV_LINKS.map((l) => (
+          {NAV_LINKS.filter((l) => ["Services", "About", "Projects"].includes(l.label)).map((l) => (
             <a
               key={l.href}
               href={l.href}
@@ -166,10 +171,10 @@ export function SiteHeader() {
           <span className="hidden min-[960px]:inline-flex">
           <Magnetic strength={6}>
             <a
-              href="#contact"
+              href="/services?source=header#inquiry" data-conversion="proposal_requested" data-source="header"
               className="inline-flex items-center px-4 py-2.5 rounded-md bg-accent text-on-accent font-semibold text-[14px] whitespace-nowrap shadow-[0_3px_0_var(--accent-deep)] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 active:translate-y-[3px] active:shadow-none font-semiwide"
             >
-              Get in touch
+              Get a quote
             </a>
           </Magnetic>
           </span>
@@ -196,6 +201,8 @@ export function SiteHeader() {
           </button>
         </div>
       </nav>
+
+      <noscript><nav aria-label="Quick links" className="px-5 py-3"><a href="/services">Services</a> · <a href="/services#inquiry">Get a quote</a> · <a href="mailto:wajidalii.me@gmail.com">Email</a></nav></noscript>
 
       {/* Scroll progress — the tape running. */}
       <div aria-hidden className="absolute left-0 right-0 bottom-[-1px] h-[2px]">
@@ -232,11 +239,11 @@ export function SiteHeader() {
           <PaletteRow />
         </div>
         <a
-          href="#contact"
+          href="/services?source=header#inquiry" data-conversion="proposal_requested" data-source="header"
           onClick={() => setMenuOpen(false)}
           className="mt-5 flex justify-center py-3.5 rounded-md bg-accent text-on-accent font-semibold shadow-[0_3px_0_var(--accent-deep)]"
         >
-          Get in touch
+          Get a quote
         </a>
       </div>
     </header>
