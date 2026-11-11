@@ -4,13 +4,14 @@ import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON } from "@/lib/site-config";
 import { heroStack } from "@/content/home";
 
-const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
+const manrope = Manrope({ variable: "--font-manrope", weight: "600", subsets: ["latin"], display: "swap" });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
 const martianMono = Martian_Mono({
   variable: "--font-martian-mono",
   subsets: ["latin"],
-  axes: ["wdth"],
+  weight: "400",
+  preload: false,
   display: "swap",
 });
 

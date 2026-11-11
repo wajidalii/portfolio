@@ -19,7 +19,7 @@ const capabilities = {
   automation: ["Workflow automation & AI agents", "CRM, reporting & API integration", "Human review & clear failure handling"],
 };
 function ProductWindow({ project, main = false }: { project: typeof atelierWork[number]; main?: boolean }) {
-  return <div className={`atelier-product-window ${main ? "atelier-composition-main" : "atelier-composition-small"}`}><div className="atelier-window-bar"><span className="atelier-window-dots" aria-hidden><i /><i /><i /></span><span>{main ? "Multi-Tenant HRMS" : "Mortgage Calculator"}</span><span aria-hidden>↗</span></div><Image src={project.image!} alt={project.imageAlt!} width={960} height={600} priority={main} loading={main ? undefined : "lazy"} sizes={main ? "(min-width: 960px) 560px, (min-width: 600px) 650px, 90vw" : "(min-width: 960px) 360px, 60vw"} /></div>;
+  return <div className={`atelier-product-window ${main ? "atelier-composition-main" : "atelier-composition-small"}`}><div className="atelier-window-bar"><span className="atelier-window-dots" aria-hidden><i /><i /><i /></span><span>{main ? "Multi-Tenant HRMS" : "Mortgage Calculator"}</span><span aria-hidden>↗</span></div><Image src={project.image!} alt={project.imageAlt!} width={960} height={600} priority={main} fetchPriority={main ? "high" : "auto"} loading={main ? undefined : "lazy"} sizes={main ? "(min-width: 960px) 560px, (min-width: 600px) 650px, 90vw" : "(min-width: 960px) 360px, 60vw"} /></div>;
 }
 export default function Home() {
   const schema = { "@context": "https://schema.org", "@type": "ProfilePage", "@id": `${SITE_URL}/#profile`, url: SITE_URL, name: SITE_NAME, description: SITE_DESCRIPTION, mainEntity: { "@id": `${SITE_URL}/#person` } };
