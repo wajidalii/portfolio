@@ -10,8 +10,9 @@ closed by this design work.
    `docs/midnight-atelier-audit`, base main.
 2. [PR109 — public experience](https://github.com/wajidalii/portfolio/pull/109),
    `feat/midnight-atelier-experience`, base audit branch.
-3. Quality/performance/documentation PR, `test/midnight-atelier-quality`,
-   base experience branch. Link and final check state are recorded after creation.
+3. [PR110 — quality/performance/documentation](https://github.com/wajidalii/portfolio/pull/110),
+   `test/midnight-atelier-quality`, base experience branch.
+   Current hosted check results are available on the PR.
 
 These are stacked review branches; retarget each child to main after its parent
 merges, retaining ancestry or resolving the documented stack normally. Do not

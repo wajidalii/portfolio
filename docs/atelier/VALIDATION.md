@@ -28,11 +28,11 @@ results below include that fix and the expanded rules. No failed check was bypas
 - Existing services/browser flows: 16 passed, 0 failed, 0 skipped.
 - Production dependency audit: 0 vulnerabilities (`npm audit --omit=dev`).
 - Entire final Playwright suite: **55 passed, 0 failed, 0 skipped**, 1.4 minutes.
-  Includes39new UI checks and16existing services checks, expanded WCAG2/2.1/2.2
-  A/AA tags, four actual screenshot comparisons, and90route/theme/width combinations
+  Includes 39 new UI checks and 16 existing services checks, expanded WCAG2/2.1/2.2
+  A/AA tags, four actual screenshot comparisons, and 90 route/theme/width combinations
   including a representative detailed case study.
-- Eight redesigned route/theme axe audits plus existing services audit:0violations.
-- All8public routes: no console.error/pageerror; unknown case404, sitemap, schema,
+- Eight redesigned route/theme axe audits plus existing services audit: 0 violations.
+- All 8 public routes: no console.error/pageerror; unknown case 404, sitemap, schema,
   navigation, reduced-motion and no-JS checks passed.
 - Hero/project event checks contain only allowlisted event/source categories.
 
@@ -46,7 +46,7 @@ not hidden by quoting the small page component alone.
 ## Release limitations
 
 Local synthetic Lighthouse cannot establish deployed scores, search ranking,
-real-user75th-percentile LCP/CLS, or field INP. Browser screenshots are Linux
+real-user 75th-percentile LCP/CLS, or field INP. Browser screenshots are Linux
 Chromium; Safari/Firefox and assistive technology need release smoke review.
 Hosted CI must complete independently. Real email delivery, owner-configured
 calendar duration/availability and prior production database migration/secrets
@@ -79,7 +79,7 @@ user agent and fetch times are preserved in [lighthouse.json](lighthouse.json).
 | Services desktop |100|100|100|100|0.250s|0.0015|0ms|
 | Services mobile |98|100|100|100|2.153s|0.0046|68ms|
 
-All four also scored100 for the Lighthouse agentic-browsing category. Desktop
+All four also scored 100 for the Lighthouse agentic-browsing category. Desktop
 performance exceeds 99 in these local runs; this is not a production PSI guarantee.
 Home mobile LCP 2.684 s is above the 2.5 s objective even though score 97 meets the
 performance target. Field INP/p75 cannot be inferred. Earlier home mobile score 88
@@ -95,6 +95,6 @@ font refinement; all four passed. Full-page desktop/mobile/light/dark/tablet and
 work/case/about/services captures are in [screenshots/after](screenshots/after/CAPTURE.md).
 Capture-only overrides are documented there and were excluded from Lighthouse,
 axe and performance checks. The final Lighthouse release collection followed the
-last accessible-logo fix and full55test pass. Prior optimized mobile scores varied
-96–97(home) and98–99(services), illustrating ordinary synthetic-run variability;
+last accessible-logo fix and full 55-test pass. Prior optimized mobile scores varied
+96–97 (home) and 98–99 (services), illustrating ordinary synthetic-run variability;
 the table reports the last complete collection, not the highest observed scores.
