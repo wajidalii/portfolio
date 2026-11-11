@@ -8,6 +8,11 @@ export const metadata: Metadata = {
 
 const sections = [
   {
+    href: "/admin/leads",
+    title: "Services Leads",
+    description: "Manage qualified inquiries, pipeline status and follow-ups.",
+  },
+  {
     href: "/admin/messages",
     title: "Contact Messages",
     description: "Read submissions from the Contact form.",
