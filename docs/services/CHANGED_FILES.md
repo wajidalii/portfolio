@@ -1,6 +1,6 @@
 # Changed files
 
-Full implementation scope relative to main, across the stacked PRs.
+Full implementation scope relative to main, across the stacked PRs (90 files).
 
 - `.env.example`
 - `.github/workflows/ci.yml`
@@ -17,6 +17,7 @@ Full implementation scope relative to main, across the stacked PRs.
 - `docs/services/SECURITY_REVIEW.md`
 - `docs/services/TEMPLATES.md`
 - `docs/services/VALIDATION.md`
+- `docs/services/lighthouse.json`
 - `docs/services/screenshots/inquiry-desktop.png`
 - `docs/services/screenshots/inquiry-mobile.png`
 - `docs/services/screenshots/invoice-template.png`
