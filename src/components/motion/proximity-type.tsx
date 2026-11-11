@@ -9,7 +9,7 @@ import { usePointerFx } from "./use-motion";
  *
  * Screen readers and crawlers get the plain string from an sr-only copy;
  * the letter spans are aria-hidden. With no pointer effects, the letters sit at
- * the resting axes and a gentle CSS "breathing" wave plays instead.
+ * the resting axes. Rendering only updates in response to pointer/geometry changes.
  */
 export function ProximityType({
   text,
@@ -47,6 +47,7 @@ export function ProximityType({
     };
 
     const tick = () => {
+      raf = 0;
       if (dirty) {
         measure();
         dirty = false;
@@ -58,22 +59,26 @@ export function ProximityType({
         const e = k * k * (3 - 2 * k); // smoothstep
         const w = rest.wdth + (peak.wdth - rest.wdth) * e;
         const g = rest.wght + (peak.wght - rest.wght) * e;
-        l.style.fontVariationSettings = `"wdth" ${w.toFixed(1)}, "wght" ${g.toFixed(0)}`;
+        const axes = `"wdth" ${w.toFixed(1)}, "wght" ${g.toFixed(0)}`;
+        if (l.style.fontVariationSettings !== axes) l.style.fontVariationSettings = axes;
       });
-      raf = requestAnimationFrame(tick);
+    };
+
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
     };
 
     const onMove = (e: PointerEvent) => {
       px = e.clientX;
       py = e.clientY;
+      schedule();
     };
-    const onDirty = () => (dirty = true);
+    const onDirty = () => { dirty = true; schedule(); };
 
     root.dataset.live = "true";
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("scroll", onDirty, { passive: true });
     window.addEventListener("resize", onDirty);
-    raf = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
