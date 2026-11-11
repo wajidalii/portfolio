@@ -51,9 +51,9 @@ export function SiteHeader() {
   return (
     <header className="atelier-header">
       <nav aria-label="Primary" className="atelier-nav">
-        <Link href="/" prefetch={false} className="atelier-brand" aria-label="Wajid Ali Software Engineer — Home">
+        <Link href="/" prefetch={false} className="atelier-brand">
           <span aria-hidden="true" className="atelier-brand-symbol">w<span>.</span></span>
-          <span>Wajid Ali<span className="atelier-brand-role">Software Engineer</span></span>
+          <span>Wajid Ali{" "}<span className="atelier-brand-role">Software Engineer</span></span>
         </Link>
         <div className="atelier-nav-links">
           {NAV_LINKS.map((link) => <Link key={link.href} prefetch={false} href={link.href} aria-current={active(link.href) ? "page" : undefined} className="atelier-nav-link">{link.label}</Link>)}
