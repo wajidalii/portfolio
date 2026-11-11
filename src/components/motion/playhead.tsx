@@ -17,9 +17,11 @@ export function Playhead({ children, className = "" }: { children: ReactNode; cl
     const items = Array.from(root.querySelectorAll<HTMLElement>("ol > li"));
     root.dataset.live = "true";
     let raf = 0;
+    let visible = false;
 
     const update = () => {
       raf = 0;
+      if (!visible) return;
       const r = root.getBoundingClientRect();
       const line = window.innerHeight * 0.5;
       const p = Math.min(1, Math.max(0, (line - r.top) / r.height));
@@ -29,14 +31,21 @@ export function Playhead({ children, className = "" }: { children: ReactNode; cl
       items.forEach((li) => li.toggleAttribute("data-active", li === active));
     };
     const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
+      if (visible && !raf) raf = requestAnimationFrame(update);
     };
-    update();
+    // Observe the section box, not a descendant of skipped content. Reading
+    // descendant geometry would force content-visibility to lay it out early.
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) onScroll();
+    });
+    observer.observe(root.closest("[data-station]") ?? root);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      observer.disconnect();
       cancelAnimationFrame(raf);
       delete root.dataset.live;
     };

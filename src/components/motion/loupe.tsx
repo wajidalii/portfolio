@@ -57,6 +57,7 @@ export function Loupe({
         alt={alt}
         width={width}
         height={height}
+        loading="lazy"
         sizes="(min-width: 960px) 480px, 100vw"
         className="block w-full h-auto transition-[filter] duration-500 group-hover:brightness-[0.8]"
       />
@@ -64,7 +65,7 @@ export function Loupe({
         ref={lensRef}
         aria-hidden
         className={`pointer-events-none absolute left-0 top-0 rounded-full border-2 border-accent bg-no-repeat shadow-[0_24px_50px_-12px_rgba(0,0,0,.7),inset_0_0_0_5px_rgba(10,13,16,.35)] transition-opacity duration-200 ${active ? "opacity-100" : "opacity-0"}`}
-        style={{ width: LENS, height: LENS, backgroundImage: `url(${src})` }}
+        style={{ width: LENS, height: LENS, backgroundImage: active ? `url(${src})` : undefined }}
       />
       <span className="absolute left-3 bottom-3 inline-flex items-center gap-2 px-2.5 py-1.5 rounded bg-lcd/90 font-mono text-[10px] tracking-[0.1em] text-lcd-fg">
         {enabled ? `×${ZOOM} LOUPE · CLICK TO OPEN` : "TAP TO OPEN THE LETTER"}

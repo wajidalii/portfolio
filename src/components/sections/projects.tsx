@@ -187,7 +187,7 @@ export function Projects() {
         {visible.map((p, i) => (
           <div
             key={`${filter}-${p.name}`}
-            className="animate-[card-in_.6s_var(--ease-out-expo)_both]"
+            className="project-entry animate-[card-in_.6s_var(--ease-out-expo)_both]"
             style={{ animationDelay: `${i * 60}ms` }}
           >
             <ProjectCard project={p} index={projects.indexOf(p)} />

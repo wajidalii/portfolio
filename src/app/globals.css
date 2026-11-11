@@ -786,3 +786,50 @@ html[data-motion="on"] [data-reveal="wipe"]:not([data-revealed]) {
     scroll-behavior: auto !important;
   }
 }
+
+/* Native viewport rendering: keep semantic, searchable HTML in the document,
+ * but let the browser skip offscreen layout/paint. `auto` remembers measured
+ * heights on return visits; estimates reserve space before first rendering.
+ * Browsers may prepare content just ahead of the viewport for smooth scrolling.
+ */
+@supports (content-visibility: auto) {
+  .station:not([data-station="0"]) {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto var(--station-height, 1200px);
+  }
+  #about { --station-height: 1740px; }
+  #skills { --station-height: 4400px; }
+  #experience { --station-height: 3660px; }
+  #projects { --station-height: 8230px; }
+  #recommendations { --station-height: 2220px; }
+  #upcoming-projects { --station-height: 620px; }
+  #faq { --station-height: 1060px; }
+  #contact { --station-height: 1970px; }
+
+  .project-entry {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto 800px;
+  }
+  .station:focus-within,
+  .project-entry:focus-within {
+    content-visibility: visible;
+  }
+
+  @media (min-width: 960px) {
+    #about { --station-height: 1220px; }
+    #skills { --station-height: 2640px; }
+    #experience { --station-height: 2560px; }
+    #projects { --station-height: 3800px; }
+    #recommendations { --station-height: 1440px; }
+    #upcoming-projects { --station-height: 900px; }
+    #faq { --station-height: 1070px; }
+    #contact { --station-height: 1470px; }
+  }
+}
+
+@media print {
+  .station, .project-entry {
+    content-visibility: visible !important;
+    contain-intrinsic-block-size: none !important;
+  }
+}

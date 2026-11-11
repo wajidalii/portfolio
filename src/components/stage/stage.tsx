@@ -30,12 +30,23 @@ export function Stage() {
         })
         .catch(() => {});
 
+    // The background is decorative: fetch its runtime only after intent,
+    // then yield to the browser before doing WebGL setup.
+    let handle: number | undefined;
     const idle = "requestIdleCallback" in window;
-    const handle = idle ? window.requestIdleCallback(start, { timeout: 1500 }) : window.setTimeout(start, 400);
+    const events = ["pointerdown", "keydown", "scroll"] as const;
+    const activate = () => {
+      events.forEach((event) => window.removeEventListener(event, activate));
+      handle = idle ? window.requestIdleCallback(start, { timeout: 1500 }) : window.setTimeout(start, 200);
+    };
+    events.forEach((event) => window.addEventListener(event, activate, { passive: true }));
     return () => {
       cancelled = true;
-      if (idle) window.cancelIdleCallback(handle);
-      else window.clearTimeout(handle);
+      events.forEach((event) => window.removeEventListener(event, activate));
+      if (handle !== undefined) {
+        if (idle) window.cancelIdleCallback(handle);
+        else window.clearTimeout(handle);
+      }
       dispose?.();
     };
   }, []);
