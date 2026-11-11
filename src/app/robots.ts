@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-config";
 
-// AI/answer-engine crawlers explicitly allowed (GEO requirement) — left
-// off the default allowlist by most sites, called out here on purpose so
-// this profile is findable by AI-based recommendation tools, not just
-// classic search.
+// Named groups do not inherit wildcard rules: keep exclusions identical.
+// Access is permission to crawl, not a guarantee of indexing or citation.
 const AI_CRAWLERS = [
   "GPTBot",
+  "OAI-SearchBot",
+  "Claude-SearchBot",
   "ChatGPT-User",
   "ClaudeBot",
   "Claude-Web",
@@ -26,6 +26,7 @@ export default function robots(): MetadataRoute.Robots {
       ...AI_CRAWLERS.map((userAgent) => ({
         userAgent,
         allow: "/",
+        disallow: ["/admin", "/api"],
       })),
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

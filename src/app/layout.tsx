@@ -84,6 +84,7 @@ const themeInitScript = `
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
   name: PERSON.name,
   jobTitle: PERSON.jobTitle,
   url: SITE_URL,

@@ -1,0 +1,22 @@
+name: Lighthouse production audit
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Audit canonical production URL (mobile)
+        run: >-
+          npx --yes lighthouse@13.6.0 https://wajidali.dev
+          --chrome-flags="--headless --no-sandbox"
+          --output=json --output=html --output-path=./lighthouse
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-production
+          path: lighthouse.report.*

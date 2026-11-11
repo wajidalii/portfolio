@@ -13,11 +13,13 @@ import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON } from "@/lib/site-config
 const profilePageJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
+  "@id": `${SITE_URL}/#profile`,
   url: SITE_URL,
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
   mainEntity: {
     "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
     name: PERSON.name,
     jobTitle: PERSON.jobTitle,
     sameAs: [PERSON.linkedin, PERSON.github],

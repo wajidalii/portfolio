@@ -14,7 +14,11 @@ export function Stage() {
 
   useEffect(() => {
     const canvas = ref.current;
-    if (!canvas) return;
+    // Decorative WebGL should not consume mobile bandwidth or compete with
+    // content rendering. Respect motion and data-saving preferences too.
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (!canvas || !prefersMotion() || connection?.saveData ||
+        !window.matchMedia("(min-width: 960px) and (pointer: fine)").matches) return;
     let dispose: (() => void) | undefined;
     let cancelled = false;
 
