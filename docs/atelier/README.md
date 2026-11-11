@@ -120,15 +120,20 @@ npm run test:unit
 TEST_DATABASE_URL=postgres://... npm run test:integration
 DATABASE_URL=postgres://... NEXT_PUBLIC_CONVERSION_EVENTS_ENABLED=true npm run build
 # Start with the existing test-only admin/rate secrets in the environment.
-CHROMIUM_PATH=/usr/bin/chromium NEXT_PUBLIC_CONVERSION_EVENTS_ENABLED=true npm run test:e2e
+npx playwright install --with-deps chromium
+NEXT_PUBLIC_CONVERSION_EVENTS_ENABLED=true npm run test:e2e
 ```
 
 Four committed viewport snapshots cover desktop/mobile and dark/light hero.
 Full-page after captures complement the old production captures. Review the
 intentional redesign against before/after; never blindly update golden images.
 To regenerate after an approved visual change, run the snapshot tests with
-`--update-snapshots`, then rerun without it. Exact viewport, fonts and reduced
-motion stabilize captures; a small tolerance accounts for rasterization. Hosted
+`--update-snapshots`, then rerun without it. Use the lockfile-pinned Playwright browser for canonical snapshots, with
+`CHROMIUM_PATH` unset. The system browser remains useful for exploratory tests
+and Lighthouse, but is not the golden-image reference. CI pins Ubuntu 24.04,
+locale en-US, UTC and deviceScaleFactor 1. Exact viewport, fonts/all hero images
+and reduced motion stabilize captures; the unchanged small tolerance accounts
+for rasterization. Hosted
 CI browser rendering must still be checked before merge. Screenshot artifacts
 contain only public portfolio content and synthetic inquiry data.
 

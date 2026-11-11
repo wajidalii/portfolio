@@ -98,3 +98,14 @@ axe and performance checks. The final Lighthouse release collection followed the
 last accessible-logo fix and full 55-test pass. Prior optimized mobile scores varied
 96–97 (home) and 98–99 (services), illustrating ordinary synthetic-run variability;
 the table reports the last complete collection, not the highest observed scores.
+
+
+Hosted CI initially passed 53/55, with only two mobile golden-image mismatches.
+Artifact review showed font/glyph rasterization differences between local system
+Chromium 156 and lockfile-pinned Playwright Chromium 158. Both current mobile
+screenshots were compared directly against the downloaded CI artifacts and passed
+at the existing 2% tolerance when using the pinned browser. Canonical mobile
+baselines now use that pinned browser; the threshold was not increased and no
+check was skipped. CI is pinned to Ubuntu 24.04 with explicit locale/UTC/scale;
+visual tests wait for both hero images. Functional/a11y checks were already green.
+The full pinned-browser rerun and hosted final result are reported on PR #110.

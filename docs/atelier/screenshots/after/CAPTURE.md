@@ -18,3 +18,6 @@ Documentation capture only: reduced motion, fonts ready, lazy images eagerly dec
 `.services-case` content-visibility forced visible to include lower sections.
 These capture overrides are not application changes and were never used for
 Lighthouse or automated accessibility/performance measurements.
+
+Documentation captures use system Chromium 156. Canonical viewport regression
+baselines use the lockfile-pinned Playwright Chromium 158 browser instead.

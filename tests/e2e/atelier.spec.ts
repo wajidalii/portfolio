@@ -176,7 +176,7 @@ for (const theme of ["dark", "light"] as const) {
       await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
       const heroImage = page.locator("main img").first();
       await expect(heroImage).toBeVisible();
-      await expect.poll(() => heroImage.evaluate(node => (node as HTMLImageElement).complete && (node as HTMLImageElement).naturalWidth > 0)).toBe(true);
+      await expect.poll(() => page.locator(".atelier-composition img").evaluateAll(nodes => nodes.every(node => (node as HTMLImageElement).complete && (node as HTMLImageElement).naturalWidth > 0))).toBe(true);
       await expect(page).toHaveScreenshot(`home-${device}-${theme}.png`, {
         animations: "disabled",
         fullPage: false,

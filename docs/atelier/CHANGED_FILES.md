@@ -1,6 +1,6 @@
 # Changed files
 
-Inventory relative to main8062378, including design/QA/documentation branches.
+Inventory relative to main 8062378, including design/QA/documentation branches.
 No backend handlers, database schema/migrations, email provider or dependencies changed.
 
 ## src/
@@ -60,7 +60,12 @@ No backend handlers, database schema/migrations, email provider or dependencies 
 - `docs/atelier/screenshots/before/tablet.png`
 - `docs/atelier/workstreams.json`
 
-## Root documentation
+## .github/
+
+- `.github/workflows/ci.yml`
+
+## Root configuration/documentation
 
 - `ARCHITECTURE.md`
 - `README.md`
+- `playwright.config.ts`
