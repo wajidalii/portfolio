@@ -43,8 +43,9 @@ retry. Resend gets stable idempotency keys; its provider deduplication window st
 applies. This is a lightweight synchronous notification + manual retry system,
 not a background queue. Review failed/pending notifications regularly. Prospect
 acknowledgments require separate explicit opt-in and configured verified sender;
-no marketing opt-in is inferred. Email is plain text. No form data appears in logs
-or public responses. Existing homepage contact messages retain their original flow.
+no marketing opt-in is inferred. Email is plain text. Application handlers do not log inquiry contents or return them in public
+responses. Configure hosting access-log retention/redaction for private admin
+search queries and do not share those URLs. Existing homepage contact messages retain their original flow.
 
 The public `/privacy` notice must be reviewed by the owner before launch. Establish
 an appropriate retention/review process for your jurisdiction and contracts. Admin

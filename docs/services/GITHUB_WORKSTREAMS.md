@@ -28,7 +28,7 @@ PRs are stacked and remain unmerged pending CI and owner review.
 | [#88](https://github.com/wajidalii/portfolio/pull/88) | feat/73-services-landing-page → feat/76-lead-inquiry-workflow | Public services MVP and conversion/SEO integration |
 | [#89](https://github.com/wajidalii/portfolio/pull/89) | feat/79-proposal-invoice-templates → feat/73-services-landing-page | Independent business documents |
 | [#90](https://github.com/wajidalii/portfolio/pull/90) | feat/78-lead-management → feat/79-proposal-invoice-templates | Private operations and login hardening |
-| Final validation PR | test/84-services-conversion-flows → feat/78-lead-management | E2E/axe/CI, regression fixes, audit evidence and release guide |
+| [#91](https://github.com/wajidalii/portfolio/pull/91) | test/84-services-conversion-flows → feat/78-lead-management | E2E/axe/CI, regression fixes, audit evidence and release guide |
 
 These are stacked PRs: the final branch contains the integrated reviewable platform.
 Retarget dependent PRs deliberately as bases merge, re-run checks on changed merge
