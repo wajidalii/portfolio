@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Archivo, Martian_Mono } from "next/font/google";
+import { Manrope, Inter, Martian_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PERSON } from "@/lib/site-config";
 import { heroStack } from "@/content/home";
-import { DEFAULT_PALETTE, PALETTES } from "@/components/theme/palettes";
 
-// Archivo's width axis (62–125) powers the expanded display type and the
-// proximity-type hero; Martian Mono is the instrument-label face.
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-  axes: ["wdth"],
-  display: "swap",
-});
+const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 
 const martianMono = Martian_Mono({
   variable: "--font-martian-mono",
@@ -24,7 +17,7 @@ const martianMono = Martian_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | Scalable Systems & AI-First SaaS`,
+    default: `${SITE_NAME} | Software Engineering, SaaS & Websites`,
     template: `%s | ${PERSON.name}`,
   },
   description: SITE_DESCRIPTION,
@@ -32,8 +25,8 @@ export const metadata: Metadata = {
     "senior software engineer for hire",
     "AI-first SaaS engineer",
     "scalable systems engineer",
-    "remote software engineer Gulf",
-    "senior backend engineer Pakistan",
+    "custom SaaS development",
+    "website performance and automation",
   ],
   authors: [{ name: PERSON.name, url: SITE_URL }],
   creator: PERSON.name,
@@ -50,13 +43,13 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} | Scalable Systems & AI-First SaaS`,
+    title: `${SITE_NAME} | Software Engineering, SaaS & Websites`,
     description: SITE_DESCRIPTION,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} | Scalable Systems & AI-First SaaS`,
+    title: `${SITE_NAME} | Software Engineering, SaaS & Websites`,
     description: SITE_DESCRIPTION,
   },
 };
@@ -69,14 +62,8 @@ const themeInitScript = `
   try {
     var stored = localStorage.getItem("theme");
     root.setAttribute("data-theme", stored === "light" || stored === "dark" ? stored : "dark");
-    var palette = localStorage.getItem("palette");
-    root.setAttribute(
-      "data-palette",
-      ${JSON.stringify(PALETTES.map((p) => p.id))}.indexOf(palette) > -1 ? palette : "${DEFAULT_PALETTE}"
-    );
   } catch (e) {
     root.setAttribute("data-theme", "dark");
-    root.setAttribute("data-palette", "${DEFAULT_PALETTE}");
   }
 })();
 `;
@@ -110,7 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${archivo.variable} ${martianMono.variable} font-sans antialiased`}
+        className={`${manrope.variable} ${inter.variable} ${martianMono.variable} font-sans antialiased`}
       >
         {children}
       </body>

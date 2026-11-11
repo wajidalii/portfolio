@@ -3,249 +3,123 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { DecodeText } from "@/components/motion/decode-text";
-import { Magnetic } from "@/components/motion/magnetic";
-import { PalettePicker, PaletteRow } from "@/components/theme/palette-picker";
-import { originOf, setThemeAttr } from "@/components/theme/theme";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_LINKS = [
+  { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/#about", label: "About" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#upcoming-projects", label: "Upcoming" },
+  { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ];
+const PROJECT_LINK = "/services?source=header#inquiry";
 
-/**
- * Header = the instrument's top panel: a 4-digit tape counter (scroll
- * position), the current channel (scroll-spied from `[data-channel]`
- * sections), decode-on-hover nav, and a hardware Night/Day switch.
- */
+/** Native modal semantics provide focus containment and an inert background. */
 export function SiteHeader() {
-  const isHome = usePathname() === "/";
+  const pathname = usePathname();
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
-  const [hidden, setHidden] = useState(false);
-  const counterRef = useRef<HTMLSpanElement>(null);
-  const channelRef = useRef<HTMLSpanElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setIsDark(document.documentElement.getAttribute("data-theme") !== "light");
-  }, []);
-
-  // Tape counter, progress bar, channel display, hide-on-scroll-down.
-  useEffect(() => {
-    if (!isHome) return;
-    let lastY = window.scrollY;
-    let raf = 0;
-    const sections = document.querySelectorAll<HTMLElement>("[data-channel]");
-    const update = () => {
-      raf = 0;
-      // All layout reads first, then writes, so a frame never forces a
-      // second synchronous layout.
-      const y = window.scrollY;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const p = max > 0 ? Math.min(1, y / max) : 0;
-      let current = "00 · ingress";
-      const line = window.innerHeight * 0.4;
-      for (const s of sections) {
-        if (s.getBoundingClientRect().top < line) current = s.dataset.channel!;
-        else break;
-      }
-
-      if (counterRef.current)
-        counterRef.current.textContent = String(Math.round(p * 1000)).padStart(4, "0");
-      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
-      if (channelRef.current && channelRef.current.textContent !== current)
-        channelRef.current.textContent = current;
-
-      if (Math.abs(y - lastY) > 6) {
-        setHidden(y > lastY && y > 400);
-        lastY = y;
-      }
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, [isHome]);
+  function closeMenu() {
+    dialogRef.current?.close();
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const desktop = window.matchMedia("(min-width: 960px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) {
+        dialogRef.current?.close();
+        setMenuOpen(false);
+      }
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      desktop.removeEventListener("change", closeOnDesktop);
+    };
   }, [menuOpen]);
 
-  function toggleTheme(e: React.MouseEvent<HTMLButtonElement>) {
-    setThemeAttr("data-theme", isDark ? "light" : "dark", originOf(e.currentTarget));
-    setIsDark(!isDark);
+  function active(href: string) {
+    return !href.includes("#") && (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
   }
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur-md transition-transform duration-500 ease-[var(--ease-out-expo)] ${
-        hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"
-      }`}
-    >
-      <nav
-        aria-label="Primary"
-        className="max-w-[1240px] mx-auto px-5 sm:px-8 py-3 flex items-center gap-4 lg:gap-6"
-      >
-        <Link prefetch={false} href="/#main" className="group flex items-center gap-3 text-text">
-          <span className="grid place-items-center w-[34px] h-[34px] rounded-[5px] bg-accent text-on-accent text-[12.5px] font-black font-wide shadow-[0_3px_0_var(--accent-deep)] transition-transform duration-200 group-hover:-rotate-6 group-active:translate-y-[3px] group-active:shadow-none">
-            WA
-          </span>
-          <span className="font-wide font-extrabold text-[15.5px] tracking-[-0.01em] whitespace-nowrap">
-            WAJID ALI
-          </span>
+    <header className="atelier-header">
+      <nav aria-label="Primary" className="atelier-nav">
+        <Link href="/" prefetch={false} className="atelier-brand" aria-label="Wajid Ali — Home">
+          <span aria-hidden="true" className="atelier-brand-symbol">w<span>.</span></span>
+          <span>Wajid Ali<span className="atelier-brand-role">Software Engineer</span></span>
         </Link>
-
-        <div
-          aria-hidden
-          className={`${isHome ? "hidden min-[1280px]:flex" : "hidden"} lcd items-center gap-3 px-3 py-1.5`}
-          title="Scroll position · current section"
-        >
-          <span ref={counterRef} className="lcd-text text-[13px]">
-            0000
-          </span>
-          <span
-            ref={channelRef}
-            className="font-mono text-[9.5px] tracking-[0.14em] text-lcd-muted uppercase w-[150px] truncate"
-          >
-            00 · ingress
-          </span>
+        <div className="atelier-nav-links">
+          {NAV_LINKS.map((link) => <Link key={link.href} prefetch={false} href={link.href} aria-current={active(link.href) ? "page" : undefined} className="atelier-nav-link">{link.label}</Link>)}
         </div>
-
-        <div className="hidden min-[960px]:flex items-center gap-0.5 ml-auto text-[14px]">
-          {NAV_LINKS.filter((l) => ["Services", "About", "Projects"].includes(l.label)).map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="px-3 py-2 rounded text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            >
-              <DecodeText text={l.label} />
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3 ml-auto min-[960px]:ml-0">
-          <span className="hidden sm:block">
-            <PalettePicker />
-          </span>
-          <div className="flex items-center gap-2">
-            <span aria-hidden className={`label-mono !text-[9px] hidden sm:inline ${isDark ? "!text-text" : ""}`}>
-              Night
-            </span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={!isDark}
-              onClick={toggleTheme}
-              aria-label="Day theme"
-              className="relative w-[58px] h-[28px] rounded-[5px] lcd !border-border"
-            >
-              <span
-                aria-hidden
-                className={`absolute top-[3px] left-[3px] w-[24px] h-[20px] rounded-[3px] border border-border bg-surface-2 shadow-[0_2px_0_rgba(0,0,0,.35)] transition-transform duration-300 ease-[var(--ease-spring)] grid place-items-center ${
-                  isDark ? "translate-x-0" : "translate-x-[26px]"
-                }`}
-              >
-                <span className={`block w-[2px] h-[10px] rounded-full ${isDark ? "bg-muted" : "bg-accent"}`} />
-              </span>
-            </button>
-            <span aria-hidden className={`label-mono !text-[9px] hidden sm:inline ${!isDark ? "!text-text" : ""}`}>
-              Day
-            </span>
-          </div>
-
-          <span className="hidden min-[960px]:inline-flex">
-          <Magnetic strength={6}>
-            <a
-              href="/services?source=header#inquiry" data-conversion="proposal_requested" data-source="header"
-              className="inline-flex items-center px-4 py-2.5 rounded-md bg-accent text-on-accent font-semibold text-[14px] whitespace-nowrap shadow-[0_3px_0_var(--accent-deep)] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 active:translate-y-[3px] active:shadow-none font-semiwide"
-            >
-              Get a quote
-            </a>
-          </Magnetic>
-          </span>
-
+        <div className="atelier-header-actions">
+          <ThemeToggle />
+          <a className="atelier-header-cta atelier-button atelier-button-primary" href={PROJECT_LINK} data-conversion="proposal_requested" data-source="header">Start a Project <span aria-hidden="true">↗</span></a>
           <button
+            ref={triggerRef}
             type="button"
-            className="min-[960px]:hidden w-10 h-10 grid place-items-center rounded-md border border-border bg-surface text-text"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className="atelier-icon-button atelier-menu-trigger"
+            aria-label="Open menu"
+            aria-controls="mobile-navigation"
             aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMenuOpen((v) => !v)}
+            aria-haspopup="dialog"
+            onClick={() => {
+              dialogRef.current?.showModal();
+              setMenuOpen(true);
+            }}
           >
-            <span className="relative block w-4 h-3">
-              <span
-                className={`absolute left-0 h-[1.5px] w-4 bg-current transition-all duration-300 ${menuOpen ? "top-[5px] rotate-45" : "top-0"}`}
-              />
-              <span
-                className={`absolute left-0 top-[5px] h-[1.5px] w-4 bg-current transition-opacity duration-200 ${menuOpen ? "opacity-0" : ""}`}
-              />
-              <span
-                className={`absolute left-0 h-[1.5px] w-4 bg-current transition-all duration-300 ${menuOpen ? "top-[5px] -rotate-45" : "top-[10px]"}`}
-              />
-            </span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
           </button>
         </div>
       </nav>
-
-      <noscript><nav aria-label="Quick links" className="px-5 py-3"><a href="/services">Services</a> · <a href="/services#inquiry">Get a quote</a> · <a href="mailto:wajidalii.me@gmail.com">Email</a></nav></noscript>
-
-      {/* Scroll progress — the tape running. */}
-      <div aria-hidden className="absolute left-0 right-0 bottom-[-1px] h-[2px]">
-        <div ref={barRef} className="h-full bg-accent origin-left scale-x-0" />
-      </div>
-
-      <div
-        id="mobile-menu"
-        hidden={!menuOpen}
-        className="min-[960px]:hidden border-t border-border bg-surface px-5 pt-3 pb-6"
+      <noscript><nav className="atelier-nojs-nav" aria-label="Quick links">{NAV_LINKS.map((link) => <a href={link.href} key={link.href}>{link.label}</a>)}<a href={PROJECT_LINK}>Start a Project</a></nav></noscript>
+      <dialog
+        ref={dialogRef}
+        id="mobile-navigation"
+        aria-labelledby="mobile-navigation-title"
+        className="atelier-mobile-dialog"
+        onKeyDown={(event) => {
+          if (event.key !== "Tab") return;
+          const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
+            'a[href],button:not([disabled]),[tabindex="0"]',
+          )).filter(node => node.getClientRects().length > 0);
+          const first = controls[0];
+          const last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault(); last?.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault(); first?.focus();
+          }
+        }}
+        onCancel={(event) => { event.preventDefault(); closeMenu(); }}
+        onClose={() => {
+          setMenuOpen(false);
+          if (triggerRef.current?.getClientRects().length) triggerRef.current.focus();
+        }}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeMenu();
+        }}
       >
-        <ul className="list-none m-0 p-0">
-          {NAV_LINKS.map((l, i) => (
-            <li
-              key={l.href}
-              className="border-b border-border animate-[menu-in_.5s_var(--ease-out-expo)_both]"
-              style={{ animationDelay: `${i * 50}ms` }}
-            >
-              <a
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                className="flex items-baseline justify-between py-3.5 text-text"
-              >
-                <span className="font-wide font-extrabold text-[26px] tracking-[-0.02em]">
-                  {l.label}
-                </span>
-                <span className="font-mono text-[11px] text-muted">CH·0{i + 1}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-5 flex items-center justify-between gap-4">
-          <span className="label-mono">Palette</span>
-          <PaletteRow />
+        <div className="atelier-mobile-panel">
+          <div className="atelier-mobile-heading">
+            <span id="mobile-navigation-title">Navigation</span>
+            <button type="button" autoFocus className="atelier-icon-button" aria-label="Close menu" onClick={closeMenu}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" /></svg>
+            </button>
+          </div>
+          <nav aria-label="Mobile" className="atelier-mobile-links">
+            {NAV_LINKS.map((link) => <Link key={link.href} prefetch={false} href={link.href} onClick={closeMenu} aria-current={active(link.href) ? "page" : undefined}>{link.label}<span aria-hidden="true">↗</span></Link>)}
+          </nav>
+          <a href={PROJECT_LINK} onClick={closeMenu} className="atelier-button atelier-button-primary" data-conversion="proposal_requested" data-source="header">Start a Project <span aria-hidden="true">↗</span></a>
+          <p className="atelier-mobile-note">Websites, software, and thoughtful engineering.</p>
         </div>
-        <a
-          href="/services?source=header#inquiry" data-conversion="proposal_requested" data-source="header"
-          onClick={() => setMenuOpen(false)}
-          className="mt-5 flex justify-center py-3.5 rounded-md bg-accent text-on-accent font-semibold shadow-[0_3px_0_var(--accent-deep)]"
-        >
-          Get a quote
-        </a>
-      </div>
+      </dialog>
     </header>
   );
 }

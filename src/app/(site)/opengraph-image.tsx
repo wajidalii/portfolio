@@ -15,8 +15,8 @@ export default async function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "#0E1114",
-          color: "#E6EBF0",
+          background: "#0B1020",
+          color: "#F4F7FB",
           padding: "80px",
           fontFamily: "sans-serif",
         }}
@@ -37,15 +37,15 @@ export default async function OpengraphImage() {
               width: 64,
               height: 64,
               borderRadius: 8,
-              background: "#A9C7E8",
-              color: "#0E1114",
+              background: "#7C9BFF",
+              color: "#0B1020",
               fontSize: 26,
               fontWeight: 700,
             }}
           >
             WA
           </div>
-          <div style={{ display: "flex", fontSize: 30, color: "#8B96A2" }}>
+          <div style={{ display: "flex", fontSize: 30, color: "#A7B4CC" }}>
             wajidali.dev
           </div>
         </div>
@@ -60,15 +60,8 @@ export default async function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          <span>Senior&nbsp;</span>
-          <span>software&nbsp;</span>
-          <span>engineer&nbsp;</span>
-          <span>building&nbsp;</span>
-          <span style={{ color: "#A9C7E8" }}>scalable&nbsp;</span>
-          <span style={{ color: "#A9C7E8" }}>systems&nbsp;</span>
-          <span>and&nbsp;</span>
-          <span style={{ color: "#CFD8E2" }}>AI-first&nbsp;</span>
-          <span style={{ color: "#CFD8E2" }}>products.</span>
+          <span>Thoughtful software.</span>
+          <span style={{ color: "#7C9BFF" }}>Built for real business needs.</span>
         </div>
       </div>
     ),
