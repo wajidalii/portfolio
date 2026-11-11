@@ -1,0 +1,102 @@
+{
+  "milestone": "https://github.com/wajidalii/portfolio/milestone/3",
+  "milestone_number": 3,
+  "issues": [
+    {
+      "scope": 1,
+      "number": 92,
+      "title": "Design system and theme architecture",
+      "url": "https://github.com/wajidalii/portfolio/issues/92"
+    },
+    {
+      "scope": 2,
+      "number": 93,
+      "title": "Navigation redesign",
+      "url": "https://github.com/wajidalii/portfolio/issues/93"
+    },
+    {
+      "scope": 3,
+      "number": 94,
+      "title": "Homepage hero",
+      "url": "https://github.com/wajidalii/portfolio/issues/94"
+    },
+    {
+      "scope": 4,
+      "number": 95,
+      "title": "Featured work presentation",
+      "url": "https://github.com/wajidalii/portfolio/issues/95"
+    },
+    {
+      "scope": 5,
+      "number": 96,
+      "title": "Services integration",
+      "url": "https://github.com/wajidalii/portfolio/issues/96"
+    },
+    {
+      "scope": 6,
+      "number": 97,
+      "title": "Case study templates",
+      "url": "https://github.com/wajidalii/portfolio/issues/97"
+    },
+    {
+      "scope": 7,
+      "number": 98,
+      "title": "About and experience sections",
+      "url": "https://github.com/wajidalii/portfolio/issues/98"
+    },
+    {
+      "scope": 8,
+      "number": 99,
+      "title": "Testimonials and credibility",
+      "url": "https://github.com/wajidalii/portfolio/issues/99"
+    },
+    {
+      "scope": 9,
+      "number": 100,
+      "title": "Contact and conversion flows",
+      "url": "https://github.com/wajidalii/portfolio/issues/100"
+    },
+    {
+      "scope": 10,
+      "number": 101,
+      "title": "Motion and microinteractions",
+      "url": "https://github.com/wajidalii/portfolio/issues/101"
+    },
+    {
+      "scope": 11,
+      "number": 102,
+      "title": "Responsive design",
+      "url": "https://github.com/wajidalii/portfolio/issues/102"
+    },
+    {
+      "scope": 12,
+      "number": 103,
+      "title": "Light and dark themes",
+      "url": "https://github.com/wajidalii/portfolio/issues/103"
+    },
+    {
+      "scope": 13,
+      "number": 104,
+      "title": "SEO and structured data",
+      "url": "https://github.com/wajidalii/portfolio/issues/104"
+    },
+    {
+      "scope": 14,
+      "number": 105,
+      "title": "Performance and accessibility",
+      "url": "https://github.com/wajidalii/portfolio/issues/105"
+    },
+    {
+      "scope": 15,
+      "number": 106,
+      "title": "Automated QA and visual regression",
+      "url": "https://github.com/wajidalii/portfolio/issues/106"
+    },
+    {
+      "scope": 16,
+      "number": 107,
+      "title": "Documentation and release readiness",
+      "url": "https://github.com/wajidalii/portfolio/issues/107"
+    }
+  ]
+}

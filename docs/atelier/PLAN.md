@@ -71,3 +71,9 @@ Performance targets are objectives, not guarantees; no field p75/INP claim.
 Record failed/blocked checks honestly. Preserve required existing migration,
 INQUIRY_RATE_LIMIT_SECRET, verified email and optional real booking configuration;
 no production data mutation or real inquiry/email during tests.
+
+Baseline production browser inspection completed at 1440, 768 and 390 pixels.
+All three had no horizontal overflow or uncaught page errors. Full-page captures
+are in `screenshots/before/`. This is a visual/functional baseline, not a new
+production Lighthouse measurement. Existing local reports are historical only.
+Milestone: https://github.com/wajidalii/portfolio/milestone/3 ; issues #92–107.
