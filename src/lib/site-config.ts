@@ -5,7 +5,7 @@
 export const SITE_URL = "https://wajidali.dev";
 export const SITE_NAME = "Wajid Ali — Senior Software Engineer";
 export const SITE_DESCRIPTION =
-  "Wajid Ali is a senior software engineer with 5+ years building scalable systems, multi-tenant SaaS platforms, and AI-first products. Open to senior/staff roles across the Gulf, Pakistan, USA, UK, and Malaysia — remote or with relocation.";
+  "Wajid Ali builds custom SaaS, business software, high-performance websites and intelligent automation. Explore real engineering work and discuss your next project.";
 
 export const PERSON = {
   name: "Wajid Ali",

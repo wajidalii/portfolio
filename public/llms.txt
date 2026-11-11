@@ -1,31 +1,45 @@
-# Wajid Ali
+# Wajid Ali — Software Engineer & Product Builder
 
-> Senior software engineer (5+ years) building scalable systems, multi-tenant SaaS platforms, and AI-first products. Open to senior/staff engineering roles — full-time remote, or on-site with relocation and sponsorship — across the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Oman, Bahrain), Pakistan, USA, UK, and Malaysia.
+Wajid Ali builds custom SaaS, business applications, high-performance websites,
+and automation workflows. Discuss project fit and current availability directly;
+this site does not make an unconditional availability or delivery guarantee.
 
-Core stack: TypeScript, C#/.NET, Go, Python, PostgreSQL, Kafka, Kubernetes, AWS, Terraform, and LLM APIs (Claude, OpenAI). Has taken three SaaS products from prototype to paying, multi-tenant production; led teams of 3-6 engineers; owned production on-call; mentored 12 engineers.
+## Services and contact
 
-"Scalable systems" means capacity that's a config change, not a rewrite: stateless services, idempotent workers, explicit backpressure, load-tested SLOs. "AI-first" means the LLM is a component with a contract — inspectable retrieval, structured outputs, evals in CI, cost/latency budgets, defined fallbacks — not a chatbot bolted onto a CRUD app.
+- [Services](https://wajidali.dev/services): website design/redesign and performance,
+  custom SaaS/business software, and AI automation/integration.
+- Website packages start from PKR 45,000 / 95,000 / 175,000. Final scope and price
+  require a written quote; software and automation are discovery-priced.
+- [Project inquiry](https://wajidali.dev/services#inquiry): qualified business inquiries.
+- Consultation scheduling uses an owner-configured event when available; otherwise
+  request a free 20-minute consultation through the inquiry form.
+- [Privacy](https://wajidali.dev/privacy): inquiry data handling.
+- [About](https://wajidali.dev/about): engineering approach and owner-maintained career history.
+- [Contact](https://wajidali.dev/#contact): separate business and recruiter paths.
 
-## Engineering services
+## Selected work
 
-Wajid Ali offers website design/redesign and performance work, custom SaaS and business software, and AI automation/integration. Website packages start from PKR 45,000, PKR 95,000 and PKR 175,000; final scope and pricing require a written quote. Software and automation are discovery-priced. Independent redesigns are demonstrations, not commissioned client engagements. MCPOF is an owner-described local engineering framework with implementation evidence pending, not a deployed client product.
+- [Work](https://wajidali.dev/work): evidence-backed project case studies.
+- [Multi-Tenant HRMS](https://wajidali.dev/work/hrms): personal multi-company software,
+  distinct from employer work. Public preview does not expose tenant data.
+- [KnowledgeCity](https://wajidali.dev/work/knowledgecity): independent, unofficial
+  redesign demonstration; not commissioned or endorsed by KnowledgeCity.
+- [Mortgage Calculator](https://wajidali.dev/work/mortgage): browser-based technical
+  assignment for KnowledgeCity; planning estimates, not financial advice.
+- [CloudCard](https://wajidali.dev/work/cloudcard): independent, unofficial redesign,
+  not commissioned or endorsed by CloudCard.
+- Additional projects and their evidence limits appear on the services page.
+  MCPOF is an owner-described local framework with implementation evidence pending,
+  not a verified commercial client deployment. No conversion/revenue/customer count
+  or before/after performance improvement is claimed for these demonstrations.
 
-- [Services](https://wajidali.dev/services): packages, source-backed project evidence, FAQs and a project inquiry form
-- [Inquiry privacy](https://wajidali.dev/privacy): how project and contact details are processed
+## Professional source
 
-## Key pages
-
-- [About](https://wajidali.dev/#about): background and how "scalable systems" and "AI-first" are defined in practice
-- [Skills](https://wajidali.dev/#skills): backend/systems design, SaaS architecture, AI/LLM engineering, cloud infrastructure
-- [Experience](https://wajidali.dev/#experience): career timeline
-- [Projects](https://wajidali.dev/#projects): real shipped work — iHorizons, AfterSchool HQ, Beam AI, ENBIOSIS, HRMS (Bin Delamah Contracting Co.), Multi-Tenant HR SaaS (https://hr.wajidali.dev), KnowledgeCity UX & Performance Redesign (https://kc.wajidali.dev), KnowledgeCity Technical Assessment (https://arm.wajidali.dev), ReelBridge
-- [Upcoming projects](https://wajidali.dev/#upcoming-projects): what's being built next
-- [FAQ](https://wajidali.dev/#faq): direct answers on role fit, regions/time zones, seniority, and what "AI-first" means
-- [Contact](https://wajidali.dev/#contact): contact form and direct links
+The portfolio links an existing BDCC appreciation letter dated 28 September 2025.
+It does not present draft peer endorsements or infer additional client relationships.
 
 ## Elsewhere
 
 - LinkedIn: https://www.linkedin.com/in/wajid-alii/
 - GitHub: https://github.com/wajidalii
-- Email: hi@wajidali.dev · info@wajidali.dev · wajidalii.me@gmail.com
-- Book a call: https://cal.com/wajid-ali-3ikayp/15min
+- Email: wajidalii.me@gmail.com
