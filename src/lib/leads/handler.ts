@@ -36,7 +36,14 @@ export function createInquiryHandler(dependencies: InquiryDependencies) {
   return async function handle(request: Request): Promise<Response> {
     const failure = (message: string, status: number) => reply({ ok: false, message }, status);
     let origin: string;
-    try { origin = new URL(request.url).origin; } catch { return failure("Invalid request.", 400); }
+    try {
+      const url = new URL(request.url);
+      // Next may normalize request.url to localhost even when the browser used
+      // 127.0.0.1. Host is the actual addressed host; never trust forwarded-host.
+      const host = request.headers.get("host");
+      if (host && !/^[a-z0-9.:[\]-]+$/i.test(host)) return failure("Invalid request host.", 400);
+      origin = host ? new URL(`${url.protocol}//${host}`).origin : url.origin;
+    } catch { return failure("Invalid request.", 400); }
     if (request.headers.get("origin") !== origin || request.headers.get("sec-fetch-site") === "cross-site") return failure("Please submit from this website.", 403);
     if (request.headers.get("content-type")?.split(";")[0].trim().toLowerCase() !== "application/json") return failure("Use the project inquiry form.", 415);
     const length = request.headers.get("content-length");

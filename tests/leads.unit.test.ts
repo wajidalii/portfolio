@@ -71,3 +71,9 @@ test("email is text-only; acknowledgment requires separate consent and explicit 
   const ack = acknowledgmentEmail({ ...lead, acknowledgmentConsent: true }, env);
   assert.equal(ack.to, lead.email); assert(!ack.text.includes(lead.description));
 });
+
+test("same-origin requests use actual Host when Next normalizes the internal URL", async () => {
+  const handler = createInquiryHandler({ secret: "test-secret-that-is-at-least-32-characters", receive: async () => ({ kind: "duplicate" }), notify: async () => {} });
+  const response = await handler(new Request("http://localhost:3000/api/inquiries", { method: "POST", headers: { host: "127.0.0.1:3000", origin: "http://127.0.0.1:3000", "content-type": "application/json" }, body: "{}" }));
+  assert.equal(response.status, 422);
+});

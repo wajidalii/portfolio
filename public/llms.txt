@@ -6,6 +6,13 @@ Core stack: TypeScript, C#/.NET, Go, Python, PostgreSQL, Kafka, Kubernetes, AWS,
 
 "Scalable systems" means capacity that's a config change, not a rewrite: stateless services, idempotent workers, explicit backpressure, load-tested SLOs. "AI-first" means the LLM is a component with a contract — inspectable retrieval, structured outputs, evals in CI, cost/latency budgets, defined fallbacks — not a chatbot bolted onto a CRUD app.
 
+## Engineering services
+
+Wajid Ali offers website design/redesign and performance work, custom SaaS and business software, and AI automation/integration. Website packages start from PKR 45,000, PKR 95,000 and PKR 175,000; final scope and pricing require a written quote. Software and automation are discovery-priced. Independent redesigns are demonstrations, not commissioned client engagements. MCPOF is an owner-described local engineering framework with implementation evidence pending, not a deployed client product.
+
+- [Services](https://wajidali.dev/services): packages, source-backed project evidence, FAQs and a project inquiry form
+- [Inquiry privacy](https://wajidali.dev/privacy): how project and contact details are processed
+
 ## Key pages
 
 - [About](https://wajidali.dev/#about): background and how "scalable systems" and "AI-first" are defined in practice

@@ -1,9 +1,13 @@
+import Link from "next/link";
 const SITE_LINKS = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: "/services", label: "Services" },
+  { href: "/services?source=footer#inquiry", label: "Get a project quote" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const ELSEWHERE_LINKS = [
@@ -54,6 +58,7 @@ export function SiteFooter() {
                 <li key={l.href}>
                   <a
                     href={l.href}
+                    data-conversion={l.label === "Get a project quote" ? "proposal_requested" : undefined} data-source="footer"
                     className="group inline-flex items-center gap-2 text-text hover:text-accent-fg transition-colors"
                   >
                     <span className="inline-block w-0 h-px bg-accent transition-[width] duration-300 group-hover:w-4" />
@@ -89,12 +94,12 @@ export function SiteFooter() {
           <div>
             <div className="label-mono mb-4">Open to</div>
             <p className="text-muted text-[14.5px] leading-relaxed m-0 max-w-[34ch]">{REGIONS}</p>
-            <a
-              href="#main"
+            <Link prefetch={false}
+              href="/#main"
               className="mt-6 inline-flex items-center gap-2 px-3.5 py-2 rounded-md border border-border bg-bg font-mono text-[11.5px] text-text shadow-[0_2px_0_var(--border)] hover:border-accent hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all"
             >
               <span aria-hidden>⏮</span> Rewind to top
-            </a>
+            </Link>
           </div>
         </div>
       </div>
