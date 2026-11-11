@@ -10,7 +10,12 @@
     "db:generate": "node --env-file=.env.local node_modules/.bin/drizzle-kit generate",
     "db:push": "node --env-file=.env.local node_modules/.bin/drizzle-kit push",
     "db:studio": "node --env-file=.env.local node_modules/.bin/drizzle-kit studio",
-    "db:seed": "node --env-file=.env.local node_modules/.bin/tsx src/db/seed.ts"
+    "db:seed": "node --env-file=.env.local node_modules/.bin/tsx src/db/seed.ts",
+    "test:unit": "tsx --test tests/*.unit.test.ts",
+    "test:integration": "tsx --test tests/*.integration.test.ts",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "tsx src/db/migrate.ts"
   },
   "dependencies": {
     "@calcom/embed-react": "1.5.3",
@@ -23,8 +28,10 @@
     "three": "0.186.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/eslintrc": "^3",
     "@netlify/plugin-nextjs": "^5.15.13",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
