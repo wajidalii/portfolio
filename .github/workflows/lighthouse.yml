@@ -11,6 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         device: [mobile, desktop]
+        page: [portfolio, services]
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -18,10 +19,13 @@ jobs:
       - name: Audit canonical production URL
         env:
           AUDIT_DEVICE: ${{ matrix.device }}
+          AUDIT_PAGE: ${{ matrix.page }}
         run: |
           args=()
           if [ "$AUDIT_DEVICE" = desktop ]; then args+=(--preset=desktop); fi
-          npx --yes lighthouse@13.6.0 https://wajidali.dev "${args[@]}" \
+          audit_url="https://wajidali.dev"
+          if [ "$AUDIT_PAGE" = services ]; then audit_url="$audit_url/services"; fi
+          npx --yes lighthouse@13.6.0 "$audit_url" "${args[@]}" \
             --chrome-flags="--headless --no-sandbox" \
             --output=json --output=html --output-path=./lighthouse
       - name: Require desktop performance above 99
@@ -33,8 +37,15 @@ jobs:
           console.log(`Desktop performance: ${score}; target: >99`);
           if (report.runtimeError || score <= 99) process.exit(1);
           JS
+      - name: Require mobile performance at least 95
+        if: matrix.device == 'mobile'
+        run: |
+          node - <<'JS'
+          const report = require('./lighthouse.report.json');
+          if (report.runtimeError || report.categories.performance.score < 0.95) process.exit(1);
+          JS
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lighthouse-production-${{ matrix.device }}
+          name: lighthouse-production-${{ matrix.page }}-${{ matrix.device }}
           path: lighthouse.report.*

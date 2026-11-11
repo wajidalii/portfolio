@@ -9,6 +9,7 @@ const budgets = [["under-45000", "Below PKR 45,000"], ["45000-95000", "PKR 45,00
 const timelines = [["asap", "As soon as practical"], ["1-3-months", "Within 1–3 months"], ["3-plus-months", "3+ months"], ["flexible", "Flexible / exploring"]];
 
 export function InquiryForm({ acknowledgmentAvailable = false }: { acknowledgmentAvailable?: boolean }) {
+  const [ready, setReady] = useState(false);
   const [errors, setErrors] = useState<InquiryErrors>({});
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(false);
@@ -21,6 +22,7 @@ export function InquiryForm({ acknowledgmentAvailable = false }: { acknowledgmen
   const started = useRef(false);
 
   useEffect(() => {
+    setReady(true);
     const params = new URLSearchParams(window.location.search);
     const service = params.get("service") ?? "";
     const selectedSource = params.get("source") ?? service;
@@ -71,7 +73,7 @@ export function InquiryForm({ acknowledgmentAvailable = false }: { acknowledgmen
       {message && <p className="m-0 font-medium">{message}</p>}
       {!!Object.keys(errors).length && <ul className="mt-3 list-disc pl-5">{Object.entries(errors).map(([key, text]) => <li key={key}><a href={`#inquiry-${key}`} className="underline">{text}</a></li>)}</ul>}
     </div>
-    {success ? <div><h3 className="text-2xl font-bold">Thank you. Let’s find the right next step.</h3><p className="text-muted mt-3">Your inquiry is saved. I’ll review it and reply by email. If you requested a consultation, we’ll agree a suitable 20-minute time together.</p><a className="inline-flex min-h-11 items-center underline mt-4" href="/services">Back to services</a></div> : <form ref={form} onSubmit={submit} noValidate aria-busy={pending} onFocusCapture={() => { if (!started.current) { started.current = true; trackConversion("inquiry_started", source.current); } }}>
+    {success ? <div><h3 className="text-2xl font-bold">Thank you. Let’s find the right next step.</h3><p className="text-muted mt-3">Your inquiry is saved. I’ll review it and reply by email. If you requested a consultation, we’ll agree a suitable 20-minute time together.</p><a className="inline-flex min-h-11 items-center underline mt-4" href="/services">Back to services</a></div> : <form ref={form} action="/api/inquiries" method="POST" onSubmit={submit} noValidate aria-busy={pending} onFocusCapture={() => { if (!started.current) { started.current = true; trackConversion("inquiry_started", source.current); } }}>
       <p className="text-muted text-sm mb-6">A short brief is enough to start. Fields marked * are required. Please don’t include passwords, customer records or confidential documents.</p>
       <div className="grid gap-5 sm:grid-cols-2">
         {textField("fullName", "Full name", 100, "name")}
@@ -88,7 +90,7 @@ export function InquiryForm({ acknowledgmentAvailable = false }: { acknowledgmen
       <div className="absolute -left-[10000px] w-px h-px overflow-hidden" aria-hidden="true"><label htmlFor="inquiry-websiteConfirmation">Leave this field empty</label><input id="inquiry-websiteConfirmation" name="websiteConfirmation" tabIndex={-1} autoComplete="off" defaultValue="" /></div>
       <label className="flex gap-3 items-start text-sm leading-relaxed py-3"><input {...attributes("consent")} type="checkbox" required className="mt-1 w-5 h-5 shrink-0 accent-[var(--accent)]" /><span>I agree that Wajid Ali may process these details to respond to my inquiry. Read the <a href="/privacy" className="underline">privacy notice</a>. This is not marketing consent. *</span></label>{error("consent")}
       {acknowledgmentAvailable && <label className="flex gap-3 items-start text-sm py-3"><input name="acknowledgmentConsent" type="checkbox" className="mt-1 w-5 h-5 shrink-0" /><span>Also email me a receipt confirming my inquiry was received (optional).</span></label>}
-      <button type="submit" disabled={pending} className="mt-5 min-h-12 w-full sm:w-auto px-7 py-3 rounded-md bg-accent text-on-accent font-bold disabled:opacity-60 disabled:cursor-wait">{pending ? "Saving your inquiry…" : "Send my project inquiry"}</button>
+      <button type="submit" disabled={!ready || pending} className="mt-5 min-h-12 w-full sm:w-auto px-7 py-3 rounded-md bg-accent text-on-accent font-bold disabled:opacity-60 disabled:cursor-wait">{pending ? "Saving your inquiry…" : "Send my project inquiry"}</button>
       <p className="text-muted text-xs mt-4">No payment required. Submitting an inquiry does not commit you to a project.</p>
       <noscript><p className="border border-border p-4">This secure inquiry form needs JavaScript. <a className="underline" href="mailto:wajidalii.me@gmail.com?subject=Project%20inquiry">Email your project brief instead</a>.</p></noscript>
     </form>}

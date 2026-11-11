@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
   if (!authed) {
     const loginUrl = new URL("/admin/login", request.url);
     loginUrl.searchParams.set("from", pathname);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(loginUrl, request.method === "GET" || request.method === "HEAD" ? 307 : 303);
   }
 
   return NextResponse.next();

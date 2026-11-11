@@ -54,3 +54,29 @@ src/
 middleware.ts          # /admin/** auth guard
 ```
 
+
+## Services and client acquisition (2026-11)
+
+The consultancy journey adds a separate `(business)` route group for `/services`
+and `/privacy`. Shared navigation/footer/theme retain the portfolio identity,
+without loading homepage WebGL/station code on services routes. Offers and
+source-backed case evidence are local typed content; the page and schema are SSR.
+Six local WebP public-page captures use next/image; no visitor screenshot proxy.
+
+`POST /api/inquiries` composes browser-safe validation, bounded same-origin JSON,
+HMAC-keyed durable rate counters and transactional idempotent lead storage. Lead
+and counter tables are additive in the existing Neon database. Resend remains
+the sole email provider. Persistence precedes delivery, with durable notification
+state and private retry; prospect receipts require configuration and separate
+consent. New admin reads/actions/export verify the signed session at each handler,
+use uncached bounded queries and formula-safe CSV. No private lead is returned
+by the public endpoint. Explicit migrations replace db:push for release changes;
+legacy baseline adoption is a reviewed one-time operation, not build behavior.
+
+Standalone editable financial documents use local classic JS/CSS and exact BigInt
+minor-unit arithmetic, with no database, autosave, financial secrets or external
+PDF service. The optional analytics bridge is allowlisted, provider-neutral and
+disabled by default. Booking uses a validated owner-configured20-minute public
+provider URL, with a working inquiry fallback rather than an invented scheduler.
+Tests use Node/tsx, actual disposable PostgreSQL, Playwright/axe and Lighthouse.
+Operational setup and evidence limits: [docs/services/README.md](docs/services/README.md).

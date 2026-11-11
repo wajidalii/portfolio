@@ -71,3 +71,9 @@ database errors. The sign-in rate table requires the new migration and
 - Real Resend delivery, calendar conflict/confirmation setup, production migration,
   credential strength/rotation and data-retention policy require owner-controlled
   configuration and verification. No production credentials were used here.
+
+Final integration replaced new lead mutation server actions with native guarded
+POST handling (`admin-handler.ts` and `/admin/leads/mutate`). Review found no
+blocking defect; stream errors now return generic400, and unauthorized non-GET
+redirects use303. Public no-JS inquiry submission is disabled with email fallback;
+its explicit POST action prevents sensitive fields appearing in GET URLs.
